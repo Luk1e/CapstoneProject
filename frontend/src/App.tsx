@@ -1,13 +1,13 @@
-import { Suspense} from "react";
+import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./routes/routes";
+import GlobalStyle from "./styles/GlobalStyles";
 
 function App() {
-
   return (
     <Suspense fallback={null}>
       <BrowserRouter>
-        {/* <GlobalStyle /> */}
+        <GlobalStyle />
         {/* <Header user={user}*/}
         <Router user={{}} loading={true} />
         {/* <Footer /> */}

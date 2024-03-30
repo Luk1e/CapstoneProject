@@ -1,7 +1,4 @@
-// Import lazy Layout
 import { lazyLayouts } from "../layouts";
-
-// Import lazy Pages
 import { lazyPages } from "../pages/index";
 
 // Export Public router

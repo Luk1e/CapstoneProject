@@ -15,7 +15,6 @@ export const DefaultStyles = `
   align-items: center;
   flex-direction: column;
 
-  width:100vw;
   overflow-x:hidden;
   min-height:100vh;
   -webkit-font-smoothing: antialiased;

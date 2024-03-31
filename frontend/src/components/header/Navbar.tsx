@@ -1,0 +1,82 @@
+import styled from "styled-components";
+import { respondTo } from "../../utils/helpers/_respondTo";
+import { Menu } from "./Menu";
+import { useNavigate } from "react-router-dom";
+
+/* styles */
+const Container = styled.div`
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  z-index: 1000;
+
+  height: 84px;
+  width: 100vw;
+  position: fixed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.3s ease;
+  background: var(--gradient-primaryWithOpacity);
+  box-shadow: var(--shd, 0 0 5px rgba(0, 0, 0, 0.5));
+
+  ${respondTo.mobile`
+        height:69px;
+        position:static;
+    `}
+  ${respondTo.smallTablet`
+        height:69px;
+        position:static;
+    `}
+`;
+
+const InnerContainer = styled.div`
+  width: 80%;
+
+  ${respondTo.desktop`
+    width: 70%;
+  `}
+
+  ${respondTo.tv`
+    width: 60%;
+  `}
+  display: flex;
+  align-items: center;
+
+  svg {
+    height: 12rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+`;
+
+const HeaderText = styled.h2`
+  cursor: pointer;
+
+  color: var(--white);
+  transition: var(--trans, color 0.4s ease 0s);
+
+  &:hover {
+    color: var(--whiteWithOpacity);
+  }
+`;
+
+function Navbar() {
+  const navigate = useNavigate();
+
+  return (
+    <Container>
+      <InnerContainer>
+        {/* Navigate user to home page */}
+        <HeaderText onClick={() => navigate("")}>Capstone Project</HeaderText>
+        {/* Right nav bar menu */}
+        <Menu />
+      </InnerContainer>
+    </Container>
+  );
+}
+
+export default Navbar;

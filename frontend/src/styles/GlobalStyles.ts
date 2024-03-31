@@ -46,7 +46,9 @@ ${respondTo.laptop`
   --color-error: #d31027;
 
   --gradient-primary: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%);
+  --gradient-primaryWithOpacity: linear-gradient(326deg, rgba(164, 80, 139, 0.8) 0%, rgba(95, 10, 135, 0.8) 74%);
   --gradient-secondary:linear-gradient(336deg, #a4508b 0%, darkmagenta 74%);
+  --gradient-secondaryWithOpacity: linear-gradient(336deg, rgba(164, 80, 139, 0.9) 0%, rgba(139, 0, 139, 0.9) 74%);
   --gradient-red: linear-gradient(to right, #ea384d, #d31027);
 
   --red: rgb(211,16,39);

@@ -1,22 +1,58 @@
-// Styles
-import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { respondTo } from "../../../utils/helpers/_respondTo";
+import useWindowDimensions from "../../../utils/hooks/useWindowDimensions";
+import styled from "styled-components";
+import Book from "./components/Book";
+import Classroom from "./components/Classroom";
+
 const Container = styled.div`
   width: 80%;
-  max-width: 1400px;
+  padding: 100px 0;
 
-  padding: 5rem 0;
+  ${respondTo.mobile`
+    padding: 50px 0;
+  `}
+  ${respondTo.desktop`
+    width: 70%;
+  `}
 
-  gap: 5rem;
+  ${respondTo.tv`
+    width: 60%;
+  `}
   display: flex;
   flex-direction: column;
 `;
 
-// Home page
+const InnerContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+
+  ${respondTo.tablet`
+    flex-direction: column;
+    gap:20px;
+  `}
+
+  ${respondTo.smallTablet`
+    flex-direction: column;
+    gap:20px;
+  `}
+
+  ${respondTo.mobile`
+    flex-direction: column;
+    gap:20px;
+  `}
+`;
+
 function HomeScreen() {
+  const navigate = useNavigate();
+  const { width } = useWindowDimensions();
 
   return (
     <Container>
-    home
+      <InnerContainer>
+        <Book width={width} navigate={navigate} />
+        <Classroom width={width} navigate={navigate} />
+      </InnerContainer>
     </Container>
   );
 }

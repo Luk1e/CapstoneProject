@@ -20,20 +20,20 @@ public class AuthController {
 
     @PostMapping(path = "/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public String registerUser(
+    public void registerUser(
             @Valid @RequestBody RegisterUserDto registerUserDto,
             @RequestParam(required = true) Integer status,
             HttpServletResponse response
     ) {
-        return authService.registerUser(registerUserDto, status, response);
+         authService.registerUser(registerUserDto, status, response);
     }
 
     @PostMapping(path = "/login")
-    public String loginUser(
+    public void loginUser(
             @Valid @RequestBody LoginUserDto loginUserDto,
             HttpServletResponse response
     ) {
-        return authService.loginUser(loginUserDto, response);
+         authService.loginUser(loginUserDto, response);
     }
 
     @PostMapping("/refresh")

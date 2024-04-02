@@ -42,7 +42,7 @@ const Label = styled.label`
   border-radius: 20px;
   outline: 1px solid var(--magenta);
   background-color: whitesmoke;
-  transition: background 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 
   &:last-of-type {
     margin-left: 1rem;
@@ -70,59 +70,60 @@ const Label = styled.label`
   `}
 `;
 
-// const ErrorContainer = styled.div``;
+const ErrorContainer = styled.div``;
 
-// const ErrorText = styled.p`
-//   margin-left: 1rem;
+const ErrorText = styled.p`
+  margin-left: 1rem;
 
-//   color: var(--red);
-//   font-size: var(--small-m);
-//   text-transform: capitalize;
-// `;
+  color: var(--red);
+  font-size: var(--small-m);
+  text-transform: capitalize;
+`;
 
 const Text = styled.p`
   text-align: center;
 `;
 
 // Export radio container
-function RadioInputs() {
+function RadioInputs({ formik }: any) {
   const radioOptions = [
     {
-      key: "True",
-      value: "True",
+      key: "teacher",
+      value: "teacher",
       label: (
         <>
-          <Label htmlFor="True">
+          <Label htmlFor="teacher">
             <Text>teacher</Text>
           </Label>
         </>
       ),
     },
     {
-      key: "False",
-      value: "False",
+      key: "student",
+      value: "student",
       label: (
         <>
-          <Label htmlFor="False">
-            <Text> student</Text>
+          <Label htmlFor="student">
+            <Text>student</Text>
           </Label>
         </>
       ),
     },
   ];
+
   return (
     <Container>
       <InnerContainer>
-        <FormikControl
-          control="radio"
-          name="wants_delivery"
-          options={radioOptions}
-        />
+        <FormikControl control="radio" name="status" options={radioOptions} />
       </InnerContainer>
 
-      {/* <ErrorContainer>
-        <ErrorText>{formik.errors["wants_delivery"]}</ErrorText>
-      </ErrorContainer> */}
+      {/* display errors for radio inputs,
+        There should not be errors
+        css is not optimized for radio inputs
+      */}
+      <ErrorContainer>
+        <ErrorText>{formik.errors["status"]}</ErrorText>
+      </ErrorContainer>
     </Container>
   );
 }

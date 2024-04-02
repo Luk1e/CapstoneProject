@@ -1,11 +1,12 @@
 import { z } from "zod";
-// import { UseDispatch } from "react-redux";
+import { DispatchType } from "../../../store/store";
+import { register } from "../../../toolkit/auth/registerSlice";
 
 export const initialValues = {
   firstName: "",
   lastName: "",
   email: "",
-  status: false,
+  status: "student",
   password: "",
   confirmPassword: "",
 };
@@ -30,7 +31,7 @@ export const validationSchema = z
       .string()
       .email("Invalid email format.")
       .min(1, "Email is required."),
-    status: z.boolean(),
+    status: z.string().min(1, "Status is required."),
     password: z
       .string()
       .regex(
@@ -52,12 +53,17 @@ interface FormProps {
     firstName: string;
     lastName: string;
     email: string;
-    status: boolean;
+    status: string;
     password: string;
     confirmPassword: string;
   };
+
+  dispatch: DispatchType;
 }
 
-export const onSubmit = ({ values }: FormProps) => {
-  console.log(values);
+export const onSubmit = ({ values, dispatch }: FormProps) => {
+  const data = { ...values, status: null };
+  const status = values.status == "student" ? 1 : 0;
+
+  dispatch(register({ data, status }));
 };

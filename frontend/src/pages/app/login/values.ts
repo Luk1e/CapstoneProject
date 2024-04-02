@@ -21,5 +21,4 @@ interface FormProps {
 
 export const onSubmit = ({ values, dispatch }: FormProps) => {
   dispatch(login(values));
-  console.log(values);
 };

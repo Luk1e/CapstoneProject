@@ -56,10 +56,10 @@ const Container = styled.div`
 `;
 
 // Export login inputs
-function InputsTwo() {
+function InputsTwo({ formik}:any) {
   return (
     <Container>
-      <RadioInputs />
+      <RadioInputs formik={formik} />
       <FormikControl
         control="input"
         type="password"

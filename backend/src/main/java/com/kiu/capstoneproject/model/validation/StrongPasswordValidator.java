@@ -8,8 +8,8 @@ public class StrongPasswordValidator implements ConstraintValidator<StrongPasswo
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value != null) {
-            // check if string contains at least one digit, one lowercase letter, one uppercase letter, one special character and 8 characters long
-            return value.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*()]).{8,}$");
+            // check if string contains at least one digit, one lowercase letter, one uppercase letter and min 8 characters long
+            return value.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
         }
 
         return false;

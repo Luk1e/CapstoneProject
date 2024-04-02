@@ -8,6 +8,43 @@ const ButtonContainer = styled.div`
   flex-direction: column;
 `;
 
+const StyledDivButton = styled.div`
+  cursor: pointer;
+  text-transform: capitalize;
+  text-align: center;
+  min-width: 100%;
+  padding: 10px 30px;
+  margin-bottom: 10px;
+
+  border: none;
+  border-radius: 20px;
+  background-color: var(--magenta);
+
+  color: white;
+  font-size: var(--small-l);
+  transition: all 0.4s ease 0s;
+
+  ${respondTo.desktop`
+    &:hover{
+      background-color: var(--magentaWithOpacity);
+      color:var(--whiteWithOpacity);
+    }
+  `};
+
+  ${respondTo.tv`
+    &:hover{
+      background-color: var(--magentaWithOpacity);
+
+      color:var(--whiteWithOpacity);
+    }
+  `};
+
+  &:disabled {
+    color: var(--whiteWithOpacity);
+    background-color: var(--magentaWithOpacity);
+  }
+`;
+
 const StyledButton = styled.button`
   cursor: pointer;
   min-width: 100%;
@@ -27,7 +64,7 @@ const StyledButton = styled.button`
       background-color: var(--magentaWithOpacity);
       color:var(--whiteWithOpacity);
     }
-  `}
+  `};
 
   ${respondTo.tv`
     &:hover{
@@ -35,7 +72,12 @@ const StyledButton = styled.button`
 
       color:var(--whiteWithOpacity);
     }
-  `}
+  `};
+
+  &:disabled {
+    color: var(--whiteWithOpacity);
+    background-color: var(--magentaWithOpacity);
+  }
 `;
 
 const StyledText = styled.p`
@@ -82,15 +124,23 @@ interface ButtonsProps {
   navigate: NavigateFunction;
   isFirstPage: boolean;
   setIsFirstPage: () => void;
+  isLoading: boolean;
 }
 
-function Buttons({ navigate, isFirstPage, setIsFirstPage }: ButtonsProps) {
+function Buttons({
+  navigate,
+  isFirstPage,
+  setIsFirstPage,
+  isLoading,
+}: ButtonsProps) {
   return (
     <ButtonContainer>
       {isFirstPage ? (
-        <StyledButton onClick={() => setIsFirstPage()}>next</StyledButton>
+        <StyledDivButton onClick={() => setIsFirstPage()}>next</StyledDivButton>
       ) : (
-        <StyledButton type="submit">register</StyledButton>
+        <StyledButton type="submit" disabled={isLoading}>
+          register
+        </StyledButton>
       )}
       <StyledText>
         Already have an account?{" "}

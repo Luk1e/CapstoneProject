@@ -22,11 +22,14 @@ export const login = createAsyncThunk<
   { rejectValue: RejectWithValueProps }
 >("auth/login", async (values, { rejectWithValue }) => {
   try {
-    await useAxios.post(`http://localhost:8080/api/v1/auth/login`, values);
+    await useAxios.post(`/api/v1/auth/login`, values);
     // dispatch(getUser());
   } catch (err: any) {
-    console.log(err.response);
-    return rejectWithValue({ error: "st" });
+    if (err.response.status === 403) {
+      console.log(true);
+      return rejectWithValue("Invalid credentials" as any);
+    }
+    return rejectWithValue(err.response.data.errors[0]);
   }
 });
 
@@ -63,11 +66,7 @@ export const loginSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
-      if (action.payload) {
-        state.error = action.payload.error;
-      } else {
-        state.error = action.error;
-      }
+      state.error = action.payload;
     });
   },
 });

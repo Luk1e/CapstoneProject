@@ -15,6 +15,11 @@ import { useState } from "react";
 import RightArrowSVG from "../../../../static/svg/RightArrowSVG";
 import LeftArrowSVG from "../../../../static/svg/LeftArrowSVG";
 import { ZodError } from "zod";
+import { useDispatch, useSelector } from "react-redux";
+import { DispatchType, StateType } from "../../../../store/store";
+import { useEffect } from "react";
+import { reset } from "../../../../toolkit/auth/registerSlice";
+import ErrorSVG from "../../../../static/svg/ErrorSVG";
 
 const Container = styled.div`
   display: flex;
@@ -102,22 +107,54 @@ const ArrowContainer = styled.div<ArrowContainerType>`
   `}
 `;
 
+const ErrorContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  color: var(--white);
+  font-size: var(--small-l);
+
+  width: 400px;
+
+  ${respondTo.mobile`
+    width:300px;
+    color: var(--error);
+    & svg{
+      stroke: var(--error);
+    }
+  `};
+
+  ${respondTo.smallTablet`
+    width:300px;
+    color: var(--error);
+    & svg{
+      stroke: var(--error);
+    }
+  `};
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  margin-bottom: 0.1rem;
+`;
+
 function RegisterForm() {
   const navigate = useNavigate();
-  // Initialize hooks
+  const dispatch: DispatchType = useDispatch();
 
-  // Get user from user slice
-  // const { isLoading, error } = useSelector((state) => state.user);
+  const { isLoading, error } = useSelector(
+    (state: StateType) => state.register
+  );
 
-  // Initialize hooks
-
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(reset());
-  //   };
-  // }, []);
+  useEffect(() => {
+    return () => {
+      dispatch(reset());
+    };
+  }, []);
 
   const [isFirstPage, setIsFirstPage] = useState(true);
 
@@ -136,9 +173,9 @@ function RegisterForm() {
       <Formik
         initialValues={initialValues}
         validate={validateForm}
-        onSubmit={(values) => onSubmit({ values })}
+        onSubmit={(values) => onSubmit({ values, dispatch })}
       >
-        {() => {
+        {(formik) => {
           return (
             <Form className="w3-animate-left">
               <ArrowContainer
@@ -149,10 +186,22 @@ function RegisterForm() {
               </ArrowContainer>
 
               <HeaderText>register</HeaderText>
-              {isFirstPage ? <InputsOne /> : <InputsTwo />}
+
+              {/* Display login error */}
+              {error && !isLoading && (
+                <ErrorContainer>
+                  <IconContainer>
+                    <ErrorSVG />
+                  </IconContainer>
+                  {error}
+                </ErrorContainer>
+              )}
+
+              {isFirstPage ? <InputsOne /> : <InputsTwo formik={formik} />}
               <Buttons
                 navigate={navigate}
                 isFirstPage={isFirstPage}
+                isLoading={isLoading}
                 setIsFirstPage={() => setIsFirstPage(!isFirstPage)}
               />
             </Form>

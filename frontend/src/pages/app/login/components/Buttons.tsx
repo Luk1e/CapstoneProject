@@ -23,18 +23,22 @@ const StyledButton = styled.button`
 
   ${respondTo.desktop`
     &:hover{
-      background-color: var(--magentaWithOpacity);
       color:var(--whiteWithOpacity);
+      background-color: var(--magentaWithOpacity);
     }
   `}
 
   ${respondTo.tv`
     &:hover{
-      background-color: var(--magentaWithOpacity);
-
       color:var(--whiteWithOpacity);
+      background-color: var(--magentaWithOpacity);
     }
   `}
+
+  &:disabled {
+    color: var(--whiteWithOpacity);
+    background-color: var(--magentaWithOpacity);
+  }
 `;
 
 const StyledText = styled.p`
@@ -55,7 +59,6 @@ const StyledLink = styled.a`
   color: var(--whiteWithOpacity);
   text-transform: capitalize;
   transition: all 0.4s ease 0s;
-
 
   ${respondTo.mobile`
     color: var(--magentaWithOpacity);
@@ -80,12 +83,15 @@ const StyledLink = styled.a`
 
 interface ButtonsProps {
   navigate: NavigateFunction;
+  isLoading: boolean;
 }
 
-function Buttons({ navigate }: ButtonsProps) {
+function Buttons({ navigate, isLoading }: ButtonsProps) {
   return (
     <ButtonContainer>
-      <StyledButton type="submit">log in</StyledButton>
+      <StyledButton type="submit" disabled={isLoading}>
+        log in
+      </StyledButton>
       <StyledText>
         Don't have an account?{" "}
         <StyledLink onClick={() => navigate("/register")}>

@@ -1,47 +1,54 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useAxios } from "../../utils/hooks/useAxios";
 
-// Interface for User Registration Data
-interface ValuesProps {
-  username: string;
-  email: string;
-  password: string;
-}
-
+// Interface for returned data
 interface ActionProps {}
+
+// Interface for login data
+interface ValuesProps {
+  data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
+  status: number;
+}
 
 // Interface for Rejected State (optional, for more granular error handling)
 interface RejectWithValueProps {
   error: string;
 }
 
+/* reducer */
+export const register = createAsyncThunk<
+  ActionProps,
+  ValuesProps,
+  { rejectValue: RejectWithValueProps }
+>("auth/register", async ({ data, status }, { rejectWithValue }) => {
+  try {
+    await useAxios.post(`/api/v1/auth/register?status=${status}`, data);
+    // dispatch(getUser());
+  } catch (err: any) {
+    return rejectWithValue(err.response.data.errors[0]);
+  }
+});
+
+// Interface for state
 interface StateProps {
   success: boolean;
   isLoading: boolean;
   error: any;
 }
 
-// Initial state
 const initialState = {
   success: false,
   isLoading: false,
   error: null,
 } satisfies StateProps as StateProps;
 
-// API request for register
-export const register = createAsyncThunk<
-  ActionProps,
-  ValuesProps,
-  { rejectValue: RejectWithValueProps }
->("auth/register", async (values, { rejectWithValue }) => {
-  try {
-    const { data } = await useAxios.post(`/api/users/register/`, values);
-    return data;
-  } catch (err: any) {
-    return rejectWithValue({ error: "st" });
-  }
-});
-
+/* slice */
 export const registerSlice = createSlice({
   name: "register",
   initialState,
@@ -62,11 +69,7 @@ export const registerSlice = createSlice({
     });
     builder.addCase(register.rejected, (state, action) => {
       state.isLoading = false;
-      if (action.payload) {
-        state.error = action.payload.error;
-      } else {
-        state.error = action.error;
-      }
+      state.error = action.payload;
     });
   },
 });

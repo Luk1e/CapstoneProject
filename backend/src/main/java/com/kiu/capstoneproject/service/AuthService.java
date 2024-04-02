@@ -43,7 +43,7 @@ public class AuthService {
     @Value("${jwt.refresh-expiration}")
     private long refreshExpiration;
 
-    public String registerUser(
+    public void registerUser(
             RegisterUserDto registerUserDto,
             Integer status,
             HttpServletResponse response
@@ -53,7 +53,7 @@ public class AuthService {
 
         // throw error if the email is taken
         if (userOptional.isPresent()) {
-            throw new AlreadyExistsException("The email has already been taken.");
+            throw new AlreadyExistsException("The email has already been taken");
         }
 
         // Create common User base class for shared fields
@@ -68,7 +68,7 @@ public class AuthService {
                 ((Student) user).setRole(Role.USER); // Set role for Student
                 break;
             default:
-                throw new IllegalStateException("Status code is incorrect.");
+                throw new IllegalStateException("Status code is incorrect");
         }
 
         // Populate common fields for all Users
@@ -92,10 +92,9 @@ public class AuthService {
         CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration, true);
         CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration, false);
 
-        return "User registered successfully.";
     }
 
-    public String loginUser(
+    public void loginUser(
             LoginUserDto loginUserDto,
             HttpServletResponse response
     ) {
@@ -110,7 +109,7 @@ public class AuthService {
 
         User user = userRepository.
                 findByEmail(loginUserDto.getEmail())
-                .orElseThrow(() -> new NotFoundException("User not found."));
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
         if (authentication.isAuthenticated()) {
             String accessToken = jwtService.generateToken(user);
@@ -126,9 +125,8 @@ public class AuthService {
             CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration, true);
             CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration, false);
 
-            return "Logged in successfully.";
         } else {
-            throw new IncorrectCredentialsException("The email address or password is incorrect.");
+            throw new IncorrectCredentialsException("The email address or password is incorrect");
         }
     }
 
@@ -150,7 +148,7 @@ public class AuthService {
 
 
         if (refreshToken == null) {
-            throw new NotFoundException("Token is not attached.");
+            throw new NotFoundException("Token is not attached");
         }
 
         // Obtain email from token
@@ -159,7 +157,7 @@ public class AuthService {
         // If token contains username
         if (userEmail != null) {
             User user = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new NotFoundException("Invalid refresh token."));
+                    .orElseThrow(() -> new NotFoundException("Invalid refresh token"));
 
             // Validate refresh token
             if (jwtService.isTokenValid(refreshToken, user)) {
@@ -169,11 +167,11 @@ public class AuthService {
 
                 // Create required cookies with appropriate settings
                 CookieUtils.addCookie(response,"accessToken", accessToken,jwtExpiration,true);
-                return "Token refreshed successfully.";
+                return "Token refreshed successfully";
             }
         }
 
-        throw new NotFoundException("Invalid refresh token.");
+        throw new NotFoundException("Invalid refresh token");
     }
 
 

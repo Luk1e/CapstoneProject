@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import useWindowDimensions from "../../utils/hooks/useWindowDimensions";
 import { MenuSVG } from "../../static/svg/MenuSVG";
+import { useNavigate } from "react-router-dom";
 
 // styles
 const Container = styled.div`
@@ -23,6 +24,7 @@ const InnerContainer = styled.div`
 `;
 
 const Link = styled.a`
+  cursor: pointer;
   text-decoration: none;
   text-transform: capitalize;
 
@@ -39,7 +41,7 @@ const Link = styled.a`
 export const Menu = () => {
   // get window dimensions
   const { width } = useWindowDimensions();
-
+  const navigate = useNavigate();
   // hook for opening & closing sidebar
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -49,8 +51,8 @@ export const Menu = () => {
       {/* If width is more than 800px show  */}
       {width > 800 ? (
         <InnerContainer>
-          <Link href="/login">log in</Link>|
-          <Link href="/register">register</Link>
+          <Link onClick={() => navigate("/login")}>log in</Link>|
+          <Link onClick={() => navigate("/register")}>register</Link>
         </InnerContainer>
       ) : (
         <>

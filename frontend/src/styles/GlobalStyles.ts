@@ -40,10 +40,11 @@ ${respondTo.laptop`
 /* Variables */
 :root {
   /* Colors */
-  --color-primary: #9c36b5;
-  --color-magenta: darkmagenta;
-  --color-secondary: #a4508b;
-  --color-error: #d31027;
+  --primary: #9c36b5;
+  --magenta: rgb(139, 0,139);
+  --magentaWithOpacity: rgba(139, 0, 139,0.7);
+  --secondary: #a4508b;
+  --error: #d31027;
 
   --gradient-primary: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%);
   --gradient-primaryWithOpacity: linear-gradient(326deg, rgba(164, 80, 139, 0.8) 0%, rgba(95, 10, 135, 0.8) 74%);

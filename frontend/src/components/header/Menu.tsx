@@ -28,7 +28,7 @@ const Link = styled.a`
 
   color: var(--white);
   padding: 0 5px 0 5px;
-  transition: var(--trans, color 0.4s ease 0s);
+  transition: color 0.4s ease 0s;
 
   &:hover {
     color: var(--whiteWithOpacity);

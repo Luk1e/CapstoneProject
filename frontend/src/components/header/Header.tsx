@@ -39,7 +39,6 @@ const InnerContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  transition: all 0.3s ease;
   background: var(--gradient-primaryWithOpacity);
   box-shadow: var(--shd, 0 0 5px rgba(0, 0, 0, 0.5));
 

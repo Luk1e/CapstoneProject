@@ -4,9 +4,9 @@ export const FontSize = `
 /* Media Query for Mobile Devices */
 @media (max-width: 480px) {
 
-    --large:2.25rem;
-    --medium-l:2rem;
-    --medium-m:1.75rem;
+    --large:3rem;
+    --medium-l:2.75rem;
+    --medium-m:2.5rem;
     --medium-s:1.5rem;
     --small-l:1rem;
     --small-m:0.875rem;
@@ -16,9 +16,9 @@ export const FontSize = `
 /* Media Query for low resolution  Tablets, Ipads */
 @media (min-width: 481px) and (max-width: 767px) {
 
-    --large:2.8rem;
-    --medium-l:2.25rem;
-    --medium-m:2rem;
+    --large:3rem;
+    --medium-l:2.75rem;
+    --medium-m:2.5rem;
     --medium-s:1.5rem;
     --small-l:1rem;
     --small-m:0.875rem;
@@ -28,9 +28,9 @@ export const FontSize = `
 /* Media Query for Tablets Ipads portrait mode */
 @media (min-width: 768px) and (max-width: 1024px){
 
-    --large:2.8rem;
-    --medium-l:2.25rem;
-    --medium-m:2rem;
+    --large:3rem;
+    --medium-l:2.75rem;
+    --medium-m:2.5rem;
     --medium-s:1.5rem;
     --small-l:1rem;
     --small-m:0.875rem;

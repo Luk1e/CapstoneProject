@@ -14,14 +14,14 @@ const ItemInnerContainer = styled.div`
   cursor: pointer;
 
   border-radius: 10%;
-  border: 5px solid var(--color-primary);
-  background-color: var(--color-primary);
+  border: 5px solid var(--primary);
+  background-color: var(--primary);
 
-  transition: all 0.3s ease-in-out;
+  transition: all 0.4s ease 0s;
 
   &:hover {
-    background-color: var(--color-magenta);
-    border-color: var(--color-magenta);
+    background-color: var(--magenta);
+    border-color: var(--magenta);
   }
 `;
 
@@ -64,7 +64,7 @@ const Text = styled.h1<TextProps>`
   margin: 10px 0;
   cursor: pointer;
   text-transform: capitalize;
-  color: var(--color-primary);
+  color: var(--primary);
   opacity: 0;
 
   ${respondTo.tablet`

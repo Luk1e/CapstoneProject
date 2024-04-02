@@ -1,0 +1,13 @@
+.error {
+  font-size: var(--small-m);
+  position: relative;
+  top: 0.5rem;
+  color: var(--error);
+  left: 0.5rem;
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+.Input {
+  width: 100%;
+}

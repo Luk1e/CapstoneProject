@@ -9,3 +9,5 @@ const store = configureStore({
   reducer: rootReducer,
 });
 export default store;
+
+export type DispatchType = typeof store.dispatch;

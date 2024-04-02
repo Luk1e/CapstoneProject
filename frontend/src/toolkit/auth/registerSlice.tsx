@@ -8,7 +8,6 @@ interface ValuesProps {
   password: string;
 }
 
-// Interface for API Response (optional, if you have a specific structure)
 interface ActionProps {}
 
 // Interface for Rejected State (optional, for more granular error handling)
@@ -43,19 +42,16 @@ export const register = createAsyncThunk<
   }
 });
 
-// Export register slice
 export const registerSlice = createSlice({
   name: "register",
   initialState,
   reducers: {
-    // Reset state
     reset: (state) => {
       state.error = null;
       state.success = false;
     },
   },
   extraReducers: (builder) => {
-    // Register
     builder.addCase(register.pending, (state) => {
       state.isLoading = true;
     });
@@ -75,6 +71,5 @@ export const registerSlice = createSlice({
   },
 });
 
-// Export additional action for resetting state
 export const { reset } = registerSlice.actions;
 export default registerSlice.reducer;

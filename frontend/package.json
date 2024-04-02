@@ -13,13 +13,16 @@
     "@reduxjs/toolkit": "^2.2.2",
     "@types/react-redux": "^7.1.33",
     "axios": "^1.6.8",
+    "formik": "^2.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-outlet": "^1.0.9",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.3",
+    "sass": "^1.72.0",
     "styled-components": "^6.1.8",
-    "uninstall": "^0.0.0"
+    "uninstall": "^0.0.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

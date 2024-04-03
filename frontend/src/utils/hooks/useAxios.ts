@@ -1,14 +1,12 @@
 import axios from "axios";
 
-
-
 // Export axios without cookies for public pages
 export const useAxios = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-// Export custom axios with cookies for auth pages
-export const useCustomAxios = axios.create({
+// Export authorized axios with cookies for auth pages
+export const useAuthAxios = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

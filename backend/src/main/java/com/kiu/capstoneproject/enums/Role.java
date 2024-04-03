@@ -1,6 +1,7 @@
 package com.kiu.capstoneproject.enums;
 
 public enum Role {
-    USER,
+    STUDENT,
+    TEACHER,
     ADMIN
 }

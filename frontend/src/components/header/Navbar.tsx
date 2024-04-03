@@ -18,7 +18,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  transition: all 0.3s ease;
   background: var(--gradient-primaryWithOpacity);
   box-shadow: var(--shd, 0 0 5px rgba(0, 0, 0, 0.5));
 
@@ -57,7 +56,7 @@ const HeaderText = styled.h2`
   cursor: pointer;
 
   color: var(--white);
-  transition: var(--trans, color 0.4s ease 0s);
+  transition: color 0.4s ease 0s;
 
   &:hover {
     color: var(--whiteWithOpacity);

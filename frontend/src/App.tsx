@@ -1,15 +1,27 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./routes/routes";
 import GlobalStyle from "./styles/GlobalStyles";
 import Header from "./components/header/Header";
+import { useSelector, useDispatch } from "react-redux";
+import { StateType, DispatchType } from "./store/store";
+import { authenticate } from "./toolkit/auth/authSlice";
+
 function App() {
+  const dispatch: DispatchType = useDispatch();
+  const authSlice = useSelector((state: StateType) => state.authentication);
+  const { user, isLoading } = authSlice;
+
+  useEffect(() => {
+    dispatch(authenticate());
+  }, [dispatch]);
+
   return (
     <Suspense fallback={null}>
       <BrowserRouter>
         <GlobalStyle />
         <Header />
-        <Router user={{}} loading={true} />
+        <Router user={user} loading={isLoading} />
         {/* <Footer /> */}
       </BrowserRouter>
     </Suspense>

@@ -40,6 +40,7 @@ const Container = styled.div`
 
 const HeaderText = styled.h2`
   display: flex;
+  text-align: center;
   align-items: center;
   margin-bottom: 20px;
   justify-content: center;
@@ -65,16 +66,18 @@ const ErrorContainer = styled.div`
   font-size: var(--small-l);
 
   ${respondTo.mobile`
-    width:300px;
+    width:350px;
     color: var(--error);
+
     & svg{
       stroke: var(--error);
     }
   `};
 
   ${respondTo.smallTablet`
-    width:300px;
+    width:350px;
     color: var(--error);
+
     & svg{
       stroke: var(--error);
     }

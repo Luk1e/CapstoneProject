@@ -5,14 +5,6 @@ import FormikControl from "../../../../components/formik/FormikControl";
 const Container = styled.div`
   width: 400px;
 
-  ${respondTo.mobile`
-    width:300px;
-  `};
-
-  ${respondTo.smallTablet`
-    width:300px;
-  `};
-
   & > div {
     margin: 20px 0;
 
@@ -40,13 +32,15 @@ const Container = styled.div`
   }
 
   ${respondTo.mobile`
+    width: 350px;
     input {
-      width:350px;
+      width: 350px;
       color: var(--magenta);
     }
   `};
 
   ${respondTo.smallTablet`
+   width: 350px;
     input {
       width:350px;
       color: var(--magenta);

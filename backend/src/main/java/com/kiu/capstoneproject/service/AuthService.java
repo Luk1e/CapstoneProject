@@ -1,5 +1,6 @@
 package com.kiu.capstoneproject.service;
 
+import com.kiu.capstoneproject.dto.auth.AuthUserDto;
 import com.kiu.capstoneproject.dto.auth.LoginUserDto;
 import com.kiu.capstoneproject.dto.auth.RegisterUserDto;
 import com.kiu.capstoneproject.enums.Role;
@@ -22,6 +23,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +46,33 @@ public class AuthService {
     @Value("${jwt.refresh-expiration}")
     private long refreshExpiration;
 
+
+    public AuthUserDto authenticateUser(
+            HttpServletResponse response
+    ) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object userObject = authentication.getPrincipal();
+
+            if (userObject instanceof UserDetails) {
+                User user = userRepository.findByEmail(((UserDetails) userObject).getUsername())
+                        .orElseThrow(() -> new IncorrectCredentialsException("Token not valid"));
+
+
+                return AuthUserDto.builder()
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .email(user.getEmail())
+                        .status(user.getRole())
+                        .build();
+            }
+        }
+        // throw error if token is not valid
+        throw new IncorrectCredentialsException("Token not valid");
+    }
+
+
     public void registerUser(
             RegisterUserDto registerUserDto,
             Integer status,
@@ -61,11 +91,11 @@ public class AuthService {
         switch (status) {
             case 0:
                 user = new Teacher();
-                ((Teacher) user).setRole(Role.USER); // Set role for Teacher
+                ((Teacher) user).setRole(Role.TEACHER); // Set role for Teacher
                 break;
             case 1:
                 user = new Student();
-                ((Student) user).setRole(Role.USER); // Set role for Student
+                ((Student) user).setRole(Role.STUDENT); // Set role for Student
                 break;
             default:
                 throw new IllegalStateException("Status code is incorrect");
@@ -88,9 +118,9 @@ public class AuthService {
 
 
         // Create required cookies with appropriate settings
-        CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration, true);
-        CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration, true);
-        CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration, false);
+        CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration / 1000, true);
+        CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration / 1000, true);
+        CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration / 1000, false);
 
     }
 
@@ -121,9 +151,9 @@ public class AuthService {
             saveUserToken(user, accessToken);
 
             // Create required cookies with appropriate settings
-            CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration, true);
-            CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration, true);
-            CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration, false);
+            CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration / 1000, true);
+            CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration / 1000, true);
+            CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration / 1000, false);
 
         } else {
             throw new IncorrectCredentialsException("The email address or password is incorrect");
@@ -166,7 +196,7 @@ public class AuthService {
                 saveUserToken(user, accessToken);
 
                 // Create required cookies with appropriate settings
-                CookieUtils.addCookie(response,"accessToken", accessToken,jwtExpiration,true);
+                CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration, true);
                 return "Token refreshed successfully";
             }
         }

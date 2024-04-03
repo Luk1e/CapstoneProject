@@ -1,4 +1,4 @@
-package com.kiu.capstoneproject.model.validation;
+package com.kiu.capstoneproject.dto.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

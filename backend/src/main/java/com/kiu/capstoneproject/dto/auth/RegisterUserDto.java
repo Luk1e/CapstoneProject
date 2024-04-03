@@ -1,7 +1,7 @@
 package com.kiu.capstoneproject.dto.auth;
 
-import com.kiu.capstoneproject.model.validation.PasswordMatching;
-import com.kiu.capstoneproject.model.validation.StrongPassword;
+import com.kiu.capstoneproject.dto.validation.PasswordMatching;
+import com.kiu.capstoneproject.dto.validation.StrongPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

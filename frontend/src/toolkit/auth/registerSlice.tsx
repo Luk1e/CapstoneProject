@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useAxios } from "../../utils/hooks/useAxios";
+import { authenticate } from "./authSlice";
 
 // Interface for returned data
 interface ActionProps {}
@@ -26,10 +27,10 @@ export const register = createAsyncThunk<
   ActionProps,
   ValuesProps,
   { rejectValue: RejectWithValueProps }
->("auth/register", async ({ data, status }, { rejectWithValue }) => {
+>("auth/register", async ({ data, status }, { dispatch, rejectWithValue }) => {
   try {
     await useAxios.post(`/api/v1/auth/register?status=${status}`, data);
-    // dispatch(getUser());
+    dispatch(authenticate());
   } catch (err: any) {
     return rejectWithValue(err.response.data.errors[0]);
   }

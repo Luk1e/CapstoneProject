@@ -1,10 +1,21 @@
+import styled from "styled-components";
 interface MenuSVGProps {
   toggle: () => void;
 }
 
+const SVG = styled.svg`
+  height: fit-content !important;
+  height: var(--medium-m);
+  width: var(--medium-m);
+
+  path {
+    stroke: var(--white);
+  }
+`;
+
 export const MenuSVG: React.FC<MenuSVGProps> = ({ toggle }) => {
   return (
-    <svg
+    <SVG
       viewBox="0 0 24 24"
       fill="rgb(244, 244, 244)"
       xmlns="http://www.w3.org/2000/svg"
@@ -20,6 +31,6 @@ export const MenuSVG: React.FC<MenuSVGProps> = ({ toggle }) => {
           strokeLinejoin="round"
         />
       </g>
-    </svg>
+    </SVG>
   );
 };

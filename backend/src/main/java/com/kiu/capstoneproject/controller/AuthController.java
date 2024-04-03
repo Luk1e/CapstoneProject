@@ -1,5 +1,6 @@
 package com.kiu.capstoneproject.controller;
 
+import com.kiu.capstoneproject.dto.auth.AuthUserDto;
 import com.kiu.capstoneproject.dto.auth.LoginUserDto;
 import com.kiu.capstoneproject.dto.auth.RegisterUserDto;
 import com.kiu.capstoneproject.service.AuthService;
@@ -18,6 +19,16 @@ import java.io.IOException;
 public class AuthController {
     private final AuthService authService;
 
+
+
+    @GetMapping(path = "/authenticate")
+    @ResponseStatus(HttpStatus.OK)
+    public AuthUserDto authenticateUser(
+            HttpServletResponse response
+    ) {
+        return authService.authenticateUser(response);
+    }
+
     @PostMapping(path = "/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(
@@ -29,6 +40,7 @@ public class AuthController {
     }
 
     @PostMapping(path = "/login")
+    @ResponseStatus(HttpStatus.OK)
     public void loginUser(
             @Valid @RequestBody LoginUserDto loginUserDto,
             HttpServletResponse response
@@ -37,6 +49,7 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
+    @ResponseStatus(HttpStatus.OK)
     public String refreshToken(
             HttpServletRequest request,
             HttpServletResponse response

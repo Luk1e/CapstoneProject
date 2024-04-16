@@ -17,16 +17,30 @@ interface RejectWithValueProps {
   error: string;
 }
 
-/* reducer */
+/* reducers */
 export const authenticate = createAsyncThunk<
   ActionProps,
   ValuesProps,
   { rejectValue: RejectWithValueProps }
->("auth/authentication", async (_, { rejectWithValue }) => {
+>("auth/authentication", async (_, { rejectWithValue }) => {  
   try {
-    const { data } = await useAuthAxios.get(`/api/v1/auth/authenticate`);
-    return data;
+    const { data } = await useAuthAxios.get(`/api/v1/auth/authenticate`);   
+    return data; 
   } catch (err: any) {
+    return rejectWithValue(err.response.data.errors[0]);
+  }
+});
+
+export const refresh = createAsyncThunk<
+  any,
+  ValuesProps,
+  { rejectValue: RejectWithValueProps }
+>("auth/refresh", async (_, { dispatch, rejectWithValue }) => {
+  try {
+    await useAuthAxios.post(`/api/v1/auth/refresh`);
+    dispatch(authenticate());
+  } catch (err: any) {
+    dispatch(logout());
     return rejectWithValue(err.response.data.errors[0]);
   }
 });

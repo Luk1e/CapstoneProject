@@ -31,20 +31,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
+        if (request.getServletPath().contains("/api/v1/auth") && !request.getServletPath().contains("/api/v1/auth/authenticate")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
 
         // Get access token from cookie
         String jwtToken = null;
         String userEmail;
 
-        if(request.getCookies() != null){
-            for(Cookie cookie: request.getCookies()){
-                if(cookie.getName().equals("accessToken")){
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if (cookie.getName().equals("accessToken")) {
                     jwtToken = cookie.getValue();
                 }
             }
         }
 
-        if(jwtToken == null){
+        if (jwtToken == null) {
             filterChain.doFilter(request, response);
             return;
         }

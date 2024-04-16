@@ -8,6 +8,7 @@ import com.kiu.capstoneproject.enums.TokenType;
 import com.kiu.capstoneproject.exception.AlreadyExistsException;
 import com.kiu.capstoneproject.exception.IncorrectCredentialsException;
 import com.kiu.capstoneproject.exception.NotFoundException;
+import com.kiu.capstoneproject.exception.TokenExpiredException;
 import com.kiu.capstoneproject.model.entity.Student;
 import com.kiu.capstoneproject.model.entity.Teacher;
 import com.kiu.capstoneproject.model.entity.User;
@@ -160,7 +161,7 @@ public class AuthService {
         }
     }
 
-    public String refreshToken(
+    public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
@@ -176,7 +177,6 @@ public class AuthService {
             }
         }
 
-
         if (refreshToken == null) {
             throw new NotFoundException("Token is not attached");
         }
@@ -187,7 +187,7 @@ public class AuthService {
         // If token contains username
         if (userEmail != null) {
             User user = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new NotFoundException("Invalid refresh token"));
+                    .orElseThrow(() -> new TokenExpiredException("Invalid refresh token"));
 
             // Validate refresh token
             if (jwtService.isTokenValid(refreshToken, user)) {
@@ -196,8 +196,8 @@ public class AuthService {
                 saveUserToken(user, accessToken);
 
                 // Create required cookies with appropriate settings
-                CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration, true);
-                return "Token refreshed successfully";
+                CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration / 1000, true);
+                return;
             }
         }
 

@@ -1,4 +1,11 @@
 import axios from "axios";
+import { refresh } from "../../toolkit/auth/authSlice";
+// Export store injection function,
+// Store is injected in index.js
+let store: any;
+export const injectStore = (_store: any) => {
+  store = _store;
+};
 
 // Export axios without cookies for public pages
 export const useAxios = axios.create({
@@ -13,33 +20,14 @@ export const useAuthAxios = axios.create({
   },
 });
 
-// // If unauthorized run logout
-// useCustomAxios.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response.status === 401) {
-//       store.dispatch(logout());
-//     } else {
-//       return Promise.reject(error.response);
-//     }
-//   }
-// );
-
-// // Export custom file axios for images
-// // cookies included
-// export const useCustomFileAxios = axios.create({
-//   withCredentials: true,
-//   headers: {
-//     "Content-Type": "multipart/form-data",
-//   },
-// });
-
-// // If unauthorized run logout
-// useCustomFileAxios.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response.status === 401) {
-//       store.dispatch(logout());
-//     }
-//   }
-// );
+// If unauthorized run logout
+useAuthAxios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401) {
+      store.dispatch(refresh());
+    } else {
+      return Promise.reject(error.response);
+    }
+  }
+);

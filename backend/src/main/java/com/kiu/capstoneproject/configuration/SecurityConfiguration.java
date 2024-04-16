@@ -1,5 +1,8 @@
 package com.kiu.capstoneproject.configuration;
 
+import com.kiu.capstoneproject.enums.Role;
+import com.kiu.capstoneproject.exception.CustomAccessDeniedHandler;
+import com.kiu.capstoneproject.exception.CustomAuthenticationEntryPoint;
 import com.kiu.capstoneproject.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
+
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -22,7 +26,7 @@ public class SecurityConfiguration{
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
-    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/login", "/api/v1/auth/register"};
+    private static final String[] WHITE_LIST_URL = {"/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/auth/refresh"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -32,7 +36,7 @@ public class SecurityConfiguration{
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-//                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                                .requestMatchers("/api/v1/classroom").hasAnyAuthority(Role.TEACHER.name())
 //                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
 //                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
 //                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
@@ -40,6 +44,8 @@ public class SecurityConfiguration{
                                 .anyRequest()
                                 .authenticated()
                 )
+                .exceptionHandling((exception)-> exception.accessDeniedHandler(new CustomAccessDeniedHandler())
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
@@ -52,3 +58,8 @@ public class SecurityConfiguration{
         return httpSecurity.build();
     }
 }
+
+
+
+
+

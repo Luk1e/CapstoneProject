@@ -50,10 +50,10 @@ public class AuthController {
 
     @PostMapping("/refresh")
     @ResponseStatus(HttpStatus.OK)
-    public String refreshToken(
+    public void refreshToken(
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
-        return authService.refreshToken(request, response);
+         authService.refreshToken(request, response);
     }
 }

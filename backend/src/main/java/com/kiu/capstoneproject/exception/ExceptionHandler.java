@@ -51,7 +51,8 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler({
             NotFoundException.class,
-            EmptyResultSetException.class
+            EmptyResultSetException.class,
+            TokenExpiredException.class
     })
     public ResponseEntity<?> handleNotFoundExceptions(Exception ex) {
         List<String> errors = new ArrayList<>();

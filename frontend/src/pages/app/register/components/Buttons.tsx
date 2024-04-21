@@ -1,4 +1,4 @@
-// Import styles
+// import styles
 import { styled } from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import { NavigateFunction } from "react-router-dom";
@@ -134,7 +134,7 @@ function Buttons({
   isLoading,
 }: ButtonsProps) {
   return (
-    <ButtonContainer>
+    <ButtonContainer >
       {isFirstPage ? (
         <StyledDivButton onClick={() => setIsFirstPage()}>next</StyledDivButton>
       ) : (

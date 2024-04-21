@@ -49,7 +49,7 @@ function HomeScreen() {
 
   return (
     <Container>
-      <InnerContainer>
+      <InnerContainer className="w3-animate-left">
         <Book width={width} navigate={navigate} />
         <Classroom width={width} navigate={navigate} />
       </InnerContainer>

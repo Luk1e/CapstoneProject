@@ -15,7 +15,5 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response,
                        AccessDeniedException exc) throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-
-//        error here overrides text
     }
 }

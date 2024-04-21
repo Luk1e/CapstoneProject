@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useAuthAxios } from "../../utils/hooks/useAxios";
 
+// Interface for request data
+type ValuesProps = void;
+
 // Interface for returned data
 interface ActionProps {
   firstName: string;
@@ -8,9 +11,6 @@ interface ActionProps {
   email: string;
   status: "TEACHER" | "STUDENT";
 }
-
-// Interface for authentication data
-type ValuesProps = void;
 
 // Interface for Rejected State (optional, for more granular error handling)
 interface RejectWithValueProps {
@@ -22,10 +22,10 @@ export const authenticate = createAsyncThunk<
   ActionProps,
   ValuesProps,
   { rejectValue: RejectWithValueProps }
->("auth/authentication", async (_, { rejectWithValue }) => {  
+>("auth/authentication", async (_, { rejectWithValue }) => {
   try {
-    const { data } = await useAuthAxios.get(`/api/v1/auth/authenticate`);   
-    return data; 
+    const { data } = await useAuthAxios.get(`/api/v1/auth/authenticate`);
+    return data;
   } catch (err: any) {
     return rejectWithValue(err.response.data.errors[0]);
   }

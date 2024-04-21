@@ -27,7 +27,7 @@ useAuthAxios.interceptors.response.use(
     if (error.response.status === 401) {
       store.dispatch(refresh());
     } else {
-      return Promise.reject(error.response);
+      return Promise.reject(error);
     }
   }
 );

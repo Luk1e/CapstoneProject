@@ -1,8 +1,8 @@
 package com.kiu.capstoneproject.controller;
 
-import com.kiu.capstoneproject.dto.auth.AuthUserDto;
-import com.kiu.capstoneproject.dto.auth.LoginUserDto;
-import com.kiu.capstoneproject.dto.auth.RegisterUserDto;
+import com.kiu.capstoneproject.dto.auth.AuthUserDTO;
+import com.kiu.capstoneproject.dto.auth.LoginUserDTO;
+import com.kiu.capstoneproject.dto.auth.RegisterUserDTO;
 import com.kiu.capstoneproject.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ public class AuthController {
 
     @GetMapping(path = "/authenticate")
     @ResponseStatus(HttpStatus.OK)
-    public AuthUserDto authenticateUser(
+    public AuthUserDTO authenticateUser(
             HttpServletResponse response
     ) {
         return authService.authenticateUser(response);
@@ -32,7 +32,7 @@ public class AuthController {
     @PostMapping(path = "/register")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(
-            @Valid @RequestBody RegisterUserDto registerUserDto,
+            @Valid @RequestBody RegisterUserDTO registerUserDto,
             @RequestParam(required = true) Integer status,
             HttpServletResponse response
     ) {
@@ -42,7 +42,7 @@ public class AuthController {
     @PostMapping(path = "/login")
     @ResponseStatus(HttpStatus.OK)
     public void loginUser(
-            @Valid @RequestBody LoginUserDto loginUserDto,
+            @Valid @RequestBody LoginUserDTO loginUserDto,
             HttpServletResponse response
     ) {
          authService.loginUser(loginUserDto, response);

@@ -177,7 +177,7 @@ function RegisterForm() {
       >
         {(formik) => {
           return (
-            <Form className="w3-animate-left">
+            <Form>
               <ArrowContainer
                 onClick={() => setIsFirstPage(!isFirstPage)}
                 $right={!isFirstPage}

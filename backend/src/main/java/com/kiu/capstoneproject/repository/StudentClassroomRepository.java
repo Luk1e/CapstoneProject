@@ -17,4 +17,7 @@ import java.util.Optional;
 public interface StudentClassroomRepository extends JpaRepository<StudentClassroom, StudentClassroomId> {
     @Query("SELECT sc FROM StudentClassroom sc WHERE sc.id.classroomId = ?1")
     List<StudentClassroom> findByClassroomId(Long classroomId);
+
+    @Query("SELECT sc FROM StudentClassroom sc WHERE sc.id.userId = ?1")
+    List<StudentClassroom> findByStudentId(Long studentId);
 }

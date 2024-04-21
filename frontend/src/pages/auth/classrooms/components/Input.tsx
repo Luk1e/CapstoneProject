@@ -1,19 +1,8 @@
 import { styled } from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import FormikControl from "../../../../components/formik/FormikControl";
-import RadioInputs from "./RadioInputs";
 
 const Container = styled.div`
-  width: 400px;
-
-  ${respondTo.mobile`
-      width:300px;
-  `};
-
-  ${respondTo.smallTablet`
-      width:300px;
-  `};
-
   & > div:not(:first-child) {
     margin: 20px 0;
 
@@ -32,53 +21,43 @@ const Container = styled.div`
   }
 
   input {
-    width: 400px;
-    padding: 10px 30px;
+    width: 300px;
+    padding: 8px 20px;
 
-    font-size: var(--small-l);
+    font-size: var(--small-m);
     border-radius: 20px;
     outline: 1px solid var(--magenta);
   }
 
   ${respondTo.mobile`
     input {
-      width:300px;
+      width:100%;
       color: var(--magenta);
     }
   `}
 
   ${respondTo.smallTablet`
     input {
-      width:300px;
+      width:200px;
       color: var(--magenta);
     }
   `}
 `;
 
-// Export login inputs
-function InputsTwo({ formik }: any) {
+// Export classroom name input
+function Input() {
   return (
-    <Container className="w3-animate-right">
-      <RadioInputs formik={formik} />
+    <Container>
       <FormikControl
         control="input"
-        type="password"
-        label="password"
-        name="password"
-        placeholder={"password"}
-        required
-      />
-
-      <FormikControl
-        control="input"
-        type="password"
-        label="confirmPassword"
-        name="confirmPassword"
-        placeholder={"Confirm Password"}
+        type="text"
+        label="name"
+        name="name"
+        placeholder={"classroom name"}
         required
       />
     </Container>
   );
 }
 
-export default InputsTwo;
+export default Input;

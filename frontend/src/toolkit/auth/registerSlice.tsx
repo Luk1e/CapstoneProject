@@ -2,10 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useAxios } from "../../utils/hooks/useAxios";
 import { authenticate } from "./authSlice";
 
-// Interface for returned data
-interface ActionProps {}
-
-// Interface for login data
+// Interface for request data
 interface ValuesProps {
   data: {
     firstName: string;
@@ -16,6 +13,9 @@ interface ValuesProps {
   };
   status: number;
 }
+
+// Interface for returned data
+interface ActionProps {}
 
 // Interface for Rejected State (optional, for more granular error handling)
 interface RejectWithValueProps {

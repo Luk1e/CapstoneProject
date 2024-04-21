@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useAxios } from "../../utils/hooks/useAxios";
-import { authenticate } from "./authSlice";
+import { useAuthAxios } from "../../utils/hooks/useAxios";
 
 // Interface for request data
 interface ValuesProps {
-  email: string;
-  password: string;
+  name: string;
 }
 
 // Interface for returned data
@@ -16,19 +14,15 @@ interface RejectWithValueProps {
   error: string;
 }
 
-/* reducer */
-export const login = createAsyncThunk<
+/* reducers */
+export const enrollClassroom = createAsyncThunk<
   ActionProps,
   ValuesProps,
   { rejectValue: RejectWithValueProps }
->("auth/login", async (values, { dispatch, rejectWithValue }) => {
+>("classroom/enroll", async (values, { rejectWithValue }) => {
   try {
-    await useAxios.post(`/api/v1/auth/login`, values);
-    dispatch(authenticate());
+    await useAuthAxios.post(`/api/v1/classroom/enroll`, values);
   } catch (err: any) {
-    if (err.response.status === 401) {
-      return rejectWithValue("Invalid credentials" as any);
-    }
     return rejectWithValue(err.response.data.errors[0]);
   }
 });
@@ -47,29 +41,31 @@ const initialState = {
 } satisfies StateProps as StateProps;
 
 /* slice */
-export const loginSlice = createSlice({
-  name: "login",
+export const enrollClassroomSlice = createSlice({
+  name: "enrollClassroom",
   initialState,
   reducers: {
     reset: (state) => {
+      state.success = false;
       state.error = null;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state) => {
+    builder.addCase(enrollClassroom.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(login.fulfilled, (state) => {
+    builder.addCase(enrollClassroom.fulfilled, (state) => {
       state.success = true;
       state.isLoading = false;
       state.error = null;
     });
-    builder.addCase(login.rejected, (state, action) => {
+    builder.addCase(enrollClassroom.rejected, (state, action) => {
+      state.success = false;
       state.isLoading = false;
       state.error = action.payload;
     });
   },
 });
 
-export const { reset } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { reset } = enrollClassroomSlice.actions;
+export default enrollClassroomSlice.reducer;

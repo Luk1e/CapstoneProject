@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -36,7 +37,9 @@ public class SecurityConfiguration{
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/classroom").hasAnyAuthority(Role.TEACHER.name())
+                                .requestMatchers("/api/v1/classroom/enroll").hasAnyAuthority(Role.STUDENT.name())
+                                .requestMatchers(GET,"/api/v1/classroom").hasAnyAuthority(Role.TEACHER.name(), Role.STUDENT.name())
+                                .requestMatchers("/api/v1/classroom/**").hasAnyAuthority(Role.TEACHER.name())
 //                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
 //                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
 //                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())

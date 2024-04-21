@@ -11,16 +11,16 @@ export default function AuthorizedRoutes({ user, loading }: RouterProps) {
     path: "/",
     element: <AuthorizedLayout user={user} loading={loading} />,
     children: [
+      // Classrooms
+      {
+        path: "/classroom",
+        element: <lazyPages.ClassroomsPage />,
+      },
+
       // Classroom
       {
         path: "/classroom/:id",
         element: <lazyPages.ClassroomPage />,
-      },
-
-      // Classrooms
-      {
-        path: "/classrooms",
-        element: <lazyPages.ClassroomsPage />,
       },
 
       // Homework

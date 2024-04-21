@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useAxios } from "../../utils/hooks/useAxios";
-import { authenticate } from "./authSlice";
+import { useAuthAxios } from "../../utils/hooks/useAxios";
 
-// Interface for request data
+// Interface for  request data
 interface ValuesProps {
-  email: string;
-  password: string;
+  name: string;
 }
 
 // Interface for returned data
@@ -16,60 +14,62 @@ interface RejectWithValueProps {
   error: string;
 }
 
-/* reducer */
-export const login = createAsyncThunk<
+/* reducers */
+export const createClassroom = createAsyncThunk<
   ActionProps,
   ValuesProps,
   { rejectValue: RejectWithValueProps }
->("auth/login", async (values, { dispatch, rejectWithValue }) => {
+>("classroom/create", async (values, { rejectWithValue }) => {
   try {
-    await useAxios.post(`/api/v1/auth/login`, values);
-    dispatch(authenticate());
+    // should return classroom id (long value)
+    const response = await useAuthAxios.post<number>(
+      `/api/v1/classroom`,
+      values
+    );
+    return response.data;
   } catch (err: any) {
-    if (err.response.status === 401) {
-      return rejectWithValue("Invalid credentials" as any);
-    }
     return rejectWithValue(err.response.data.errors[0]);
   }
 });
 
 // Interface for state
 interface StateProps {
-  success: boolean;
+  success: object | null;
   isLoading: boolean;
   error: any;
 }
 
 const initialState = {
-  success: false,
+  success: null,
   isLoading: false,
   error: null,
 } satisfies StateProps as StateProps;
 
 /* slice */
-export const loginSlice = createSlice({
-  name: "login",
+export const createClassroomSlice = createSlice({
+  name: "createClassroom",
   initialState,
   reducers: {
     reset: (state) => {
+      state.success = null;
       state.error = null;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state) => {
+    builder.addCase(createClassroom.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(login.fulfilled, (state) => {
-      state.success = true;
-      state.isLoading = false;
+    builder.addCase(createClassroom.fulfilled, (state, action) => {
+      state.success = action.payload;
       state.error = null;
+      state.isLoading = false;
     });
-    builder.addCase(login.rejected, (state, action) => {
+    builder.addCase(createClassroom.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
   },
 });
 
-export const { reset } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { reset } = createClassroomSlice.actions;
+export default createClassroomSlice.reducer;

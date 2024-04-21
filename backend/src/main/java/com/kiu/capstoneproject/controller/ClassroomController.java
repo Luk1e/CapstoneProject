@@ -1,38 +1,37 @@
 package com.kiu.capstoneproject.controller;
 
-import com.kiu.capstoneproject.dto.CreateClassroomDto;
+import com.kiu.capstoneproject.dto.classroom.ClassroomDTO;
+import com.kiu.capstoneproject.dto.classroom.ClassroomNameDTO;
 import com.kiu.capstoneproject.dto.StudentDto;
-import com.kiu.capstoneproject.model.entity.StudentClassroom;
 import com.kiu.capstoneproject.service.ClassroomService;
 import com.kiu.capstoneproject.service.StudentService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "api/v1/classroom")
 public class ClassroomController {
     private final ClassroomService classroomService;
     private final StudentService studentService;
 
 
-    @Autowired
-    public ClassroomController(
-            ClassroomService classroomService,
-            StudentService studentService
-    ) {
-        this.classroomService = classroomService;
-        this.studentService = studentService;
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<ClassroomDTO> getClassrooms() {
+        return classroomService.getClassrooms();
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String createClassroom(@Valid @RequestBody CreateClassroomDto createClassroomDto) {
-        return classroomService.createClassroom(createClassroomDto);
+    public ResponseEntity<Long> createClassroom(@Valid @RequestBody ClassroomNameDTO classroomNameDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(classroomService.createClassroom(classroomNameDTO));
     }
 
 
@@ -43,13 +42,11 @@ public class ClassroomController {
     }
 
 
-    @PostMapping(path = "/{id}/enroll")
+    @PostMapping(path = "/enroll")
     @ResponseStatus(HttpStatus.CREATED)
-    public String enrollStudent(
-            @PathVariable("id") Long classroomId,
-            @RequestParam(required = true) Long studentId
+    public void enrollStudent(@Valid @RequestBody ClassroomNameDTO classroomNameDTO
     ) {
-        return studentService.enrollStudent(classroomId, studentId);
+        studentService.enrollStudent(classroomNameDTO);
     }
 
 

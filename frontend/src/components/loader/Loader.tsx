@@ -1,8 +1,10 @@
+import "./loader.css";
 interface LoaderProps {
   color: string;
 }
 
 function Loader({ color }: LoaderProps) {
+  console.log(color);
   return (
     <div className="loader-Container">
       <div className="loader-container">

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
         confirmPassword = "confirmPassword",
         message = "Password and Confirm Password must be matched!"
 )
-public class RegisterUserDto {
+public class RegisterUserDTO {
     @NotBlank(message = "First name is mandatory.")
     @Size(min = 3, message = "First name must be at least 3 characters.")
     @Size(max = 30, message = "First name must not exceed 30 characters.")

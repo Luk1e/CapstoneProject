@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LoginUserDto {
+public class LoginUserDTO {
     @NotBlank(message = "Email is mandatory.")
     @Email(message = "Email must be a valid email address.")
     private String email;

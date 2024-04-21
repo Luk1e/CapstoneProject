@@ -57,7 +57,7 @@ const Container = styled.div`
 // Export login inputs
 function InputsOne() {
   return (
-    <Container>
+    <Container className="w3-animate-left">
       <FormikControl
         control="input"
         type="text"

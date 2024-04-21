@@ -52,7 +52,7 @@ ${respondTo.laptop`
   --gradient-secondaryWithOpacity: linear-gradient(336deg, rgba(164, 80, 139, 0.9) 0%, rgba(139, 0, 139, 0.9) 74%);
   --gradient-red: linear-gradient(to right, #ea384d, #d31027);
 
-  --red: rgb(211,16,39);
+  --red: rgba(211,16,39,0.9);
   --redWithOpacity:rgba(211,16,39,0.7);
   
   --black: rgb(11, 11, 11);

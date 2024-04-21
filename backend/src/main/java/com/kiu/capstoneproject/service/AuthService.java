@@ -1,8 +1,8 @@
 package com.kiu.capstoneproject.service;
 
-import com.kiu.capstoneproject.dto.auth.AuthUserDto;
-import com.kiu.capstoneproject.dto.auth.LoginUserDto;
-import com.kiu.capstoneproject.dto.auth.RegisterUserDto;
+import com.kiu.capstoneproject.dto.auth.AuthUserDTO;
+import com.kiu.capstoneproject.dto.auth.LoginUserDTO;
+import com.kiu.capstoneproject.dto.auth.RegisterUserDTO;
 import com.kiu.capstoneproject.enums.Role;
 import com.kiu.capstoneproject.enums.TokenType;
 import com.kiu.capstoneproject.exception.AlreadyExistsException;
@@ -48,7 +48,7 @@ public class AuthService {
     private long refreshExpiration;
 
 
-    public AuthUserDto authenticateUser(
+    public AuthUserDTO authenticateUser(
             HttpServletResponse response
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,7 +61,7 @@ public class AuthService {
                         .orElseThrow(() -> new IncorrectCredentialsException("Token not valid"));
 
 
-                return AuthUserDto.builder()
+                return AuthUserDTO.builder()
                         .firstName(user.getFirstName())
                         .lastName(user.getLastName())
                         .email(user.getEmail())
@@ -75,7 +75,7 @@ public class AuthService {
 
 
     public void registerUser(
-            RegisterUserDto registerUserDto,
+            RegisterUserDTO registerUserDto,
             Integer status,
             HttpServletResponse response
     ) {
@@ -126,10 +126,9 @@ public class AuthService {
     }
 
     public void loginUser(
-            LoginUserDto loginUserDto,
+            LoginUserDTO loginUserDto,
             HttpServletResponse response
     ) {
-
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -141,6 +140,7 @@ public class AuthService {
         User user = userRepository.
                 findByEmail(loginUserDto.getEmail())
                 .orElseThrow(() -> new NotFoundException("User not found"));
+
 
         if (authentication.isAuthenticated()) {
             String accessToken = jwtService.generateToken(user);

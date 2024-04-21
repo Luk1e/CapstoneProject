@@ -6,7 +6,8 @@ import { logout } from "../../toolkit/auth/authSlice";
 
 const Container = styled.div`
   bottom: 0;
-  width: 100%;
+  right: 0;
+  min-width: max-content;
   position: absolute;
   transform: translateY(calc(100% + 35px));
 `;
@@ -24,7 +25,7 @@ interface LinkProps {
 }
 
 const Link = styled.a<LinkProps>`
-  margin: 10px 0 10px 0;
+  margin: 10px 10px;
 
   text-align: center;
   color: var(--white);
@@ -45,7 +46,7 @@ function TopBar() {
 
   return (
     <Container>
-      <InnerContainer>
+      <InnerContainer className="w3-animate-right">
         <Link onClick={() => navigate("/book")}>book</Link>
         <Link onClick={() => navigate("/classroom")}>classroom</Link>
         <Link onClick={() => dispatch(logout())} $logout>

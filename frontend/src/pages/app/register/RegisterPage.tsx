@@ -45,8 +45,7 @@ const InnerContainer = styled.div`
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const authSlice = useSelector((state: StateType) => state.authentication);
-  const { user } = authSlice;
+  const { user } = useSelector((state: StateType) => state.authentication);
 
   // If user is already authenticated navigate to main page
   useEffect(() => {

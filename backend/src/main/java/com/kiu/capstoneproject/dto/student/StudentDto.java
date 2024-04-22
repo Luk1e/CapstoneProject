@@ -1,4 +1,4 @@
-package com.kiu.capstoneproject.dto;
+package com.kiu.capstoneproject.dto.student;
 
 import com.kiu.capstoneproject.enums.EnrollmentStatus;
 import lombok.AllArgsConstructor;

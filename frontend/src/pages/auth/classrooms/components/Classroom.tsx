@@ -7,6 +7,7 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,6 +16,14 @@ const Container = styled.div<ContainerProps>`
   padding: 0px 30px;
   border-radius: 99px;
   background-color: ${(props) => props.$color};
+  transition: all 0.4s ease 0s;
+
+  &:hover {
+    opacity: 0.9;
+    h3 {
+      color: var(--whiteWithOpacity);
+    }
+  }
 
   ${respondTo.smallTablet`
     max-width: 500px;
@@ -30,7 +39,6 @@ const Container = styled.div<ContainerProps>`
 `;
 
 const StyledName = styled.h3`
-  cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -38,11 +46,7 @@ const StyledName = styled.h3`
   font-weight: 500;
   color: var(--white);
   font-size: var(--small-l);
-  transition: color 0.4s ease 0s;
-
-  &:hover {
-    color: var(--whiteWithOpacity);
-  }
+  transition: all 0.4s ease 0s;
 `;
 
 // Array of colors

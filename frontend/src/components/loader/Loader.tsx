@@ -4,7 +4,6 @@ interface LoaderProps {
 }
 
 function Loader({ color }: LoaderProps) {
-  console.log(color);
   return (
     <div className="loader-Container">
       <div className="loader-container">

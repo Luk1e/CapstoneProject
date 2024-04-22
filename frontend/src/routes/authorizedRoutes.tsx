@@ -23,6 +23,12 @@ export default function AuthorizedRoutes({ user, loading }: RouterProps) {
         element: <lazyPages.ClassroomPage />,
       },
 
+      // Classroom students
+      {
+        path: "/classroom/:id/students",
+        element: <lazyPages.StudentsPage />,
+      },
+
       // Homework
       {
         path: "/homework/:id",

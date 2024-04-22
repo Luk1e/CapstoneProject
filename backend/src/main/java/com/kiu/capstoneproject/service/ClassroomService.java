@@ -1,6 +1,5 @@
 package com.kiu.capstoneproject.service;
 
-import com.kiu.capstoneproject.dto.StudentDto;
 import com.kiu.capstoneproject.dto.classroom.ClassroomDTO;
 import com.kiu.capstoneproject.dto.classroom.ClassroomNameDTO;
 import com.kiu.capstoneproject.enums.EnrollmentStatus;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -101,15 +101,22 @@ public class ClassroomService {
 
 
     public void deleteClassroom(Long classroomId) {
-        Optional<Classroom> classroomOptional = classroomRepository.
-                findById(classroomId);
+        // get user from security context
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername()).
+                orElseThrow(() -> new NotFoundException("User not found"));
 
-        if (classroomOptional.isEmpty()) {
-            // throw error if the classroom does not exist
-            throw new NotFoundException("Classroom with ID: " + classroomId + " not found.");
-        } else {
+        Classroom classroom = classroomRepository.findById(classroomId).
+                orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+
+        // if the classroom is associated with this teacher
+        if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
             // delete classroom
             classroomRepository.deleteById(classroomId);
+        } else {
+            // throw error if the classroom is not associated with this teacher
+            throw new NotFoundException("You are not associated with this classroom");
+
         }
     }
 

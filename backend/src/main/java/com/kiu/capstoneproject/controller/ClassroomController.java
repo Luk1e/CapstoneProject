@@ -2,12 +2,11 @@ package com.kiu.capstoneproject.controller;
 
 import com.kiu.capstoneproject.dto.classroom.ClassroomDTO;
 import com.kiu.capstoneproject.dto.classroom.ClassroomNameDTO;
-import com.kiu.capstoneproject.dto.StudentDto;
+import com.kiu.capstoneproject.dto.student.StudentDto;
 import com.kiu.capstoneproject.service.ClassroomService;
 import com.kiu.capstoneproject.service.StudentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +26,7 @@ public class ClassroomController {
     public List<ClassroomDTO> getClassrooms() {
         return classroomService.getClassrooms();
     }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -50,37 +50,37 @@ public class ClassroomController {
     }
 
 
-    @PatchMapping(path = "/{id}/accept")
+    @PatchMapping(path = "/{classroomId}/students/{studentId}/accept")
     @ResponseStatus(HttpStatus.OK)
-    public String acceptStudent(
-            @PathVariable("id") Long classroomId,
-            @RequestParam(required = true) Long studentId
+    public void acceptStudent(
+            @PathVariable("classroomId") Long classroomId,
+            @PathVariable("studentId") Long studentId
     ) {
-        return studentService.acceptStudent(classroomId, studentId);
+        studentService.acceptStudent(classroomId, studentId);
     }
 
 
-    @PatchMapping(path = "/{id}/reject")
-    @ResponseStatus(HttpStatus.OK)
-    public String rejectStudent(
-            @PathVariable("id") Long classroomId,
-            @RequestParam(required = true) Long studentId
-    ) {
-        return studentService.rejectStudent(classroomId, studentId);
-    }
-
-
-    @DeleteMapping(path = "/{id}/remove")
+    @DeleteMapping(path = "/{classroomId}/students/{studentId}/reject")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String removeStudent(
-            @PathVariable("id") Long classroomId,
-            @RequestParam(required = true) Long studentId
+    public void rejectStudent(
+            @PathVariable("classroomId") Long classroomId,
+            @PathVariable("studentId") Long studentId
     ) {
-        return studentService.removeStudent(classroomId, studentId);
+        studentService.rejectStudent(classroomId, studentId);
     }
 
 
-    @GetMapping(path = "/{id}")
+    @DeleteMapping(path = "/{classroomId}/students/{studentId}/remove")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeStudent(
+            @PathVariable("classroomId") Long classroomId,
+            @PathVariable("studentId") Long studentId
+    ) {
+        studentService.removeStudent(classroomId, studentId);
+    }
+
+
+    @GetMapping(path = "/{id}/students")
     public List<StudentDto> getStudents(@PathVariable("id") Long classroomId) {
         return studentService.getStudents(classroomId);
     }

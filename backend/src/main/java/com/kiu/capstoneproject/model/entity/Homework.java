@@ -1,5 +1,7 @@
 package com.kiu.capstoneproject.model.entity;
 
+import com.kiu.capstoneproject.enums.HomeworkStatus;
+import com.kiu.capstoneproject.enums.Role;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -20,6 +22,10 @@ public class Homework {
     private String title;
     private String instruction;
     private Integer grade;
+    private Integer totalGrade;
+
+    @Enumerated(EnumType.STRING)
+    private HomeworkStatus status;
 
     @ManyToOne(
             cascade = CascadeType.ALL

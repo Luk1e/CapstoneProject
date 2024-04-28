@@ -55,7 +55,7 @@ function Inputs() {
       <FormikControl
         control="input"
         type="email"
-        label="Email"
+        label="email"
         name="email"
         placeholder={"email"}
         required

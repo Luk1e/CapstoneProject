@@ -1,3 +1,4 @@
 import NavBar from "./NavBar";
+import Homework from "./Homework";
 
-export { NavBar };
+export { NavBar, Homework };

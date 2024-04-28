@@ -82,9 +82,8 @@ const HeaderText = styled.h3`
 `;
 
 const ErrorContainer = styled.div`
-  width: 400px;
   display: flex;
-  margin: 1rem 0;
+  margin-left: 20px;
   align-items: center;
   justify-content: center;
 
@@ -96,12 +95,20 @@ const ErrorContainer = styled.div`
   }
 
   ${respondTo.mobile`
-    width:300px;
+    margin: 20px 0;
+    justify-content: start;
   `};
 
   ${respondTo.smallTablet`
-    width:300px;
+    margin:20px 0;
+    justify-content:start;
   `};
+
+  ${respondTo.tablet`
+    margin:20px 0;
+    justify-content:start;
+
+  `}
 `;
 
 const SuccessContainer = styled(ErrorContainer)`

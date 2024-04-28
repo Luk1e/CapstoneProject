@@ -29,22 +29,22 @@ export default function AuthorizedRoutes({ user, loading }: RouterProps) {
         element: <lazyPages.StudentsPage />,
       },
 
-      // Homework
-      {
-        path: "/homework/:id",
-        element: <lazyPages.HomeworkPage />,
-      },
-
       // Create homework
       {
-        path: "/homework/create",
+        path: "/classroom/:id/homeworks/create",
         element: <lazyPages.CreateHomeworkPage />,
       },
 
       // Students' homeworks
       {
-        path: "/classroom/:id/:homeworkId",
-        element: <lazyPages.CreateHomeworkPage />,
+        path: "/classroom/:id/homeworks/:homeworkId",
+        element: <lazyPages.StudentHomeworksPage />,
+      },
+
+      // Homework
+      {
+        path: "/classroom/:id/homework/:homeworkId",
+        element: <lazyPages.HomeworkPage />,
       },
     ],
   };

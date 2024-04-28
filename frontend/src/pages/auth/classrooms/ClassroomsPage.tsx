@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { DispatchType, StateType } from "../../../store/store";
 import { useEffect } from "react";
 import { getClassrooms, reset } from "../../../toolkit/classroom/getAllSlice";
-import { ErrorSVG } from "../../../static/svg";
 
 const Container = styled.div`
   width: 80%;
@@ -58,31 +57,17 @@ const ClassroomContainer = styled.div`
   `}
 `;
 
-const ErrorContainer = styled.div`
-  display: flex;
-  max-width: 100%;
-  width: max-content;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 30px 10px 20px;
-
-  text-align: center;
-  color: var(--white);
-  border-radius: 99px;
-  font-size: var(--small-m);
-  background-color: var(--red);
-
-  & svg {
-    stroke: var(--white);
-  }
+const Label = styled.p`
+  font-weight: 500;
+  margin: 40px 0 0 0;
+  font-size: var(--small-l);
 `;
 
-const IconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 0.5rem;
-  margin-bottom: 0.1rem;
+const ErrorText = styled.p`
+  margin: 20px 10px;
+  font-style: italic;
+  color: var(--primary);
+  font-size: var(--small-m);
 `;
 
 function ClassroomsPage() {
@@ -111,17 +96,12 @@ function ClassroomsPage() {
         )}
       </HeaderContainer>
 
+      <Label className="w3-animate-left">Classrooms</Label>
+      {/* Error component */}
+      {error && !isLoading && (
+        <ErrorText className="w3-animate-left">{error}</ErrorText>
+      )}
       <ClassroomContainer className="w3-animate-left">
-        {/* Error component */}
-        {error && !isLoading && (
-          <ErrorContainer className="w3-animate-left">
-            <IconContainer>
-              <ErrorSVG />
-            </IconContainer>
-            {error}
-          </ErrorContainer>
-        )}
-
         {/* Loader | Classroom list component */}
         {isLoading ? (
           <Loader color={"darkmagenta"} />

@@ -1,7 +1,7 @@
 // Export input styles
 export const InputStyles = `
 
-input {    
+input,textarea {    
   border: none;
   outline: none;
   border-radius: 100px;
@@ -28,5 +28,16 @@ input {
     text-transform: capitalize;
   }
 }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 
 `;

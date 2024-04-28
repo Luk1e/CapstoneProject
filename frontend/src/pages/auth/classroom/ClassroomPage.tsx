@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import { respondTo } from "../../../utils/helpers/_respondTo";
 import { useParams } from "react-router-dom";
-import { NavBar } from "./components";
+import { NavBar, Homework } from "./components";
 import { useSelector } from "react-redux";
-import { StateType } from "../../../store/store";
+import { DispatchType, StateType } from "../../../store/store";
+import { Loader } from "../../../components";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getHomeworks, reset } from "../../../toolkit/homework/getAllSlice";
+
 const Container = styled.div`
   width: 80%;
   display: flex;
@@ -21,10 +26,48 @@ const Container = styled.div`
     width: 60%;
   `}
 `;
+
 const NavContainer = styled.div``;
+
+const Label = styled.div`
+  display: flex;
+  margin: 40px 0 0 0;
+`;
+
+const Text = styled.p`
+  color: var(--black);
+  font-weight: 500;
+  font-size: var(--small-l);
+  font-style: italic;
+
+  &:not(:first-of-type) {
+    margin-left: auto;
+  }
+`;
+
+const ErrorText = styled.div`
+  margin: 20px 10px;
+  font-style: italic;
+  color: var(--primary);
+  font-size: var(--small-m);
+`;
+
 function ClassroomPage() {
   const { id } = useParams();
+  const dispatch: DispatchType = useDispatch();
   const { user } = useSelector((state: StateType) => state.authentication);
+
+  const { isLoading, homeworkList, error } = useSelector(
+    (state: StateType) => state.getHomeworks
+  );
+
+  useEffect(() => {
+    dispatch(getHomeworks({ classroomId: id }));
+
+    return () => {
+      dispatch(reset());
+    };
+  }, []);
 
   return (
     <Container>
@@ -33,7 +76,36 @@ function ClassroomPage() {
           <NavBar id={id} />
         </NavContainer>
       )}
-      ClassroomPage
+
+      {isLoading && <Loader color="darkmagenta" />}
+
+      {!isLoading && (
+        <Label className="w3-animate-left">
+          <Text>Homeworks</Text>
+          {user && user.status === "TEACHER" ? (
+            <Text>Submitted</Text>
+          ) : (
+            <Text>Status</Text>
+          )}
+        </Label>
+      )}
+
+      {!isLoading && (error || (homeworkList && homeworkList?.length == 0)) && (
+        <ErrorText className="w3-animate-left">
+          There are no homeworks
+        </ErrorText>
+      )}
+      {!isLoading &&
+        homeworkList &&
+        homeworkList.length > 0 &&
+        homeworkList.map((homework) => (
+          <Homework
+            key={homework.homeworkId}
+            classroomId={id}
+            isTeacher={user ? user.status === "TEACHER" : false}
+            homework={homework}
+          />
+        ))}
     </Container>
   );
 }

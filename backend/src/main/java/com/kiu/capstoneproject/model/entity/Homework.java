@@ -1,11 +1,10 @@
 package com.kiu.capstoneproject.model.entity;
 
-import com.kiu.capstoneproject.enums.HomeworkStatus;
-import com.kiu.capstoneproject.enums.Role;
 import lombok.*;
 import jakarta.persistence.*;
-
-import java.util.Set;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Value;
 
 
 @Entity
@@ -21,42 +20,18 @@ public class Homework {
     private Long homeworkId;
     private String title;
     private String instruction;
-    private Integer grade;
     private Integer totalGrade;
+    private Integer submittedNumber;
 
-    @Enumerated(EnumType.STRING)
-    private HomeworkStatus status;
-
-    @ManyToOne(
-            cascade = CascadeType.ALL
-    )
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(
             name = "classroom_id",
             referencedColumnName = "classroomId"
     )
     private Classroom classroom;
 
-    @ManyToOne(
-            cascade = CascadeType.ALL
-    )
-    private Student student;
-
-    @ManyToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
-    )
-    @JoinTable(
-            name = "file_homework_map",
-            joinColumns = @JoinColumn(
-                    name = "homework_id",
-                    referencedColumnName = "homeworkId"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "file_id",
-                    referencedColumnName = "fileId"
-            )
-    )
-
-    private Set<File> files;
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "file_id")
+    private File homeworkFile;
 }

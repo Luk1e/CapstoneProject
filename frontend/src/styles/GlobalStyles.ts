@@ -41,9 +41,6 @@ ${respondTo.laptop`
 :root {
   /* Colors */
   --primary: #9c36b5;
-  --magenta: rgb(139, 0,139);
-  --magentaWithOpacity: rgba(139, 0, 139,0.7);
-  --secondary: #a4508b;
   --error: #d31027;
 
   --gradient-primary: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%);
@@ -52,6 +49,12 @@ ${respondTo.laptop`
   --gradient-secondaryWithOpacity: linear-gradient(336deg, rgba(164, 80, 139, 0.9) 0%, rgba(139, 0, 139, 0.9) 74%);
   --gradient-red: linear-gradient(to right, #ea384d, #d31027);
 
+  --magenta: rgb(139, 0,139);
+  --magentaWithOpacity: rgba(139, 0, 139,0.7);
+
+  --secondary: #a4508b;
+  --secondaryWithOpacity: rgba(164, 80, 139, 0.7);
+  
   --red: rgba(211,16,39,0.9);
   --redWithOpacity:rgba(211,16,39,0.7);
   

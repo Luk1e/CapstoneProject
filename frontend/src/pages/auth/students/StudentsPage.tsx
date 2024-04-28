@@ -32,6 +32,7 @@ const InnerContainer = styled.div``;
 const Label = styled.p`
   font-weight: 500;
   font-size: var(--small-l);
+  font-style: italic;
 `;
 
 const ErrorText = styled.p`

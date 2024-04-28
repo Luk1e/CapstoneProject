@@ -86,7 +86,7 @@ public class ClassroomService {
                 findClassroomByName(classroomNameDTO.getName());
 
         if (classroomOptional.isEmpty()) {
-            // create new classroom if the name has is not taken
+            // create new classroom if the name is not taken
             Classroom classroom = new Classroom();
             classroom.setTeacher(teacher);
             classroom.setName(classroomNameDTO.getName());

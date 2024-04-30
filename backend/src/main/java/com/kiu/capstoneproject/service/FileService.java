@@ -56,6 +56,12 @@ public class FileService {
         return fileRepository.save(file);
     }
 
+    public String generateDownloadUrl(String hash) {
+        // Implement logic to generate a downloadable URL for the file based on hash
+        // This could involve a separate endpoint for file download
+        return "http://localhost:8080/download/" + hash; // Example URL structure
+    }
+
     private void storeFile(MultipartFile file, String hash) throws IOException {
         Path targetLocation = this.docStorageLocation.resolve(hash);
         Files.copy(file.getInputStream(), targetLocation);

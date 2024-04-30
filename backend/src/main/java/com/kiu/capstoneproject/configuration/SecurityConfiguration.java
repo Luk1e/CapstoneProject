@@ -17,7 +17,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 
+import javax.sound.midi.Patch;
+import java.nio.file.Path;
+
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -38,13 +42,22 @@ public class SecurityConfiguration {
                                 req.requestMatchers(WHITE_LIST_URL)
                                         .permitAll()
                                         .requestMatchers("/api/v1/classroom/enroll").hasAnyAuthority(Role.STUDENT.name())
-                                        .requestMatchers(GET, "/api/v1/classroom", "api/v1/classroom/{classroomId}/homeworks")
+                                        .requestMatchers
+                                                (
+                                                        GET,
+                                                        "/api/v1/classroom",
+                                                        "api/v1/classroom/{classroomId}/homeworks",
+                                                        "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/{studentId}"
+                                                )
                                         .hasAnyAuthority(Role.TEACHER.name(), Role.STUDENT.name())
+                                        .requestMatchers
+                                                (
+                                                        PATCH,
+                                                        "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/submit",
+                                                        "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/remove"
+                                                )
+                                        .hasAnyAuthority(Role.STUDENT.name())
                                         .requestMatchers("/api/v1/classroom/**").hasAnyAuthority(Role.TEACHER.name())
-//                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-//                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-//                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-//                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
                                         .anyRequest()
                                         .authenticated()
                 )

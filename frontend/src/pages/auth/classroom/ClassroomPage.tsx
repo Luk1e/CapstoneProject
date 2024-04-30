@@ -45,6 +45,8 @@ const Text = styled.p`
   }
 `;
 
+const AnimatedContainer = styled.div``;
+
 const ErrorText = styled.div`
   margin: 20px 10px;
   font-style: italic;
@@ -95,17 +97,20 @@ function ClassroomPage() {
           There are no homeworks
         </ErrorText>
       )}
-      {!isLoading &&
-        homeworkList &&
-        homeworkList.length > 0 &&
-        homeworkList.map((homework) => (
-          <Homework
-            key={homework.homeworkId}
-            classroomId={id}
-            isTeacher={user ? user.status === "TEACHER" : false}
-            homework={homework}
-          />
-        ))}
+
+      <AnimatedContainer className="w3-animate-left">
+        {!isLoading &&
+          homeworkList &&
+          homeworkList.length > 0 &&
+          homeworkList.map((homework) => (
+            <Homework
+              key={homework.homeworkId}
+              classroomId={id}
+              isTeacher={user ? user.status === "TEACHER" : false}
+              homework={homework}
+            />
+          ))}
+      </AnimatedContainer>
     </Container>
   );
 }

@@ -60,9 +60,10 @@ function Homework({
   const navigate = useNavigate();
   return (
     <Container
-      className="w3-animate-left"
       onClick={() =>
-        navigate(`/classroom/${classroomId}/homework/${homeworkId}`)
+        navigate(
+          `/classroom/${classroomId}/homework/${homeworkId}?id=${homework.studentId}`
+        )
       }
     >
       <Title>

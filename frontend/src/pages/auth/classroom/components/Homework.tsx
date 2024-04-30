@@ -55,7 +55,6 @@ function Homework({ classroomId, isTeacher, homework }: HomeworkProps) {
   const navigate = useNavigate();
   return (
     <Container
-      className="w3-animate-left"
       onClick={() =>
         isTeacher
           ? navigate(

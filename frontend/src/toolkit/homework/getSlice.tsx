@@ -9,6 +9,7 @@ type ValuesProps = {
 
 // type for student homework
 export interface StudentHomeworkType {
+  studentId: number;
   firstName: string;
   lastName: string;
   grade: number;

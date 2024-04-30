@@ -45,6 +45,8 @@ const Text = styled.p`
   }
 `;
 
+const AnimatedContainer = styled.div``;
+
 const ErrorText = styled.div`
   margin: 20px 10px;
   font-style: italic;
@@ -91,18 +93,20 @@ function StudentHomeworksPage() {
           </ErrorText>
         )}
 
-      {!isLoading &&
-        studentHomeworkList &&
-        studentHomeworkList.studentHomeworkDTOS?.length > 0 &&
-        studentHomeworkList.studentHomeworkDTOS?.map((homework, index) => (
-          <Homework
-            key={index}
-            classroomId={id}
-            homework={homework}
-            homeworkId={homeworkId}
-            totalGrade={studentHomeworkList.totalGrade}
-          />
-        ))}
+      <AnimatedContainer className="w3-animate-left">
+        {!isLoading &&
+          studentHomeworkList &&
+          studentHomeworkList.studentHomeworkDTOS?.length > 0 &&
+          studentHomeworkList.studentHomeworkDTOS?.map((homework, index) => (
+            <Homework
+              key={index}
+              classroomId={id}
+              homework={homework}
+              homeworkId={homeworkId}
+              totalGrade={studentHomeworkList.totalGrade}
+            />
+          ))}
+      </AnimatedContainer>
     </Container>
   );
 }

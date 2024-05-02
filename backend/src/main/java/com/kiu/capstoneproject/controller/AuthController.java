@@ -20,7 +20,6 @@ public class AuthController {
     private final AuthService authService;
 
 
-
     @GetMapping(path = "/authenticate")
     @ResponseStatus(HttpStatus.OK)
     public AuthUserDTO authenticateUser(
@@ -36,7 +35,7 @@ public class AuthController {
             @RequestParam(required = true) Integer status,
             HttpServletResponse response
     ) {
-         authService.registerUser(registerUserDto, status, response);
+        authService.registerUser(registerUserDto, status, response);
     }
 
     @PostMapping(path = "/login")
@@ -45,7 +44,7 @@ public class AuthController {
             @Valid @RequestBody LoginUserDTO loginUserDto,
             HttpServletResponse response
     ) {
-         authService.loginUser(loginUserDto, response);
+        authService.loginUser(loginUserDto, response);
     }
 
     @PostMapping("/refresh")
@@ -54,6 +53,6 @@ public class AuthController {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws IOException {
-         authService.refreshToken(request, response);
+        authService.refreshToken(request, response);
     }
 }

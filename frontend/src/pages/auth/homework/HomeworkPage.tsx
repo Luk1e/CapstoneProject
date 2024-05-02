@@ -6,8 +6,12 @@ import { DispatchType, StateType } from "../../../store/store";
 import { Loader } from "../../../components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getHomework, reset } from "../../../toolkit/homework/homeworkSlice";
+import {
+  getStudentHomework,
+  reset,
+} from "../../../toolkit/homework/homeworkSlice";
 import { TeacherButton, StudentButton } from "./components";
+import downloadFile from "../../../utils/helpers/downloadFile";
 
 const Container = styled.div`
   width: 80%;
@@ -125,7 +129,7 @@ function HomeworkPage() {
 
   useEffect(() => {
     dispatch(
-      getHomework({
+      getStudentHomework({
         classroomId: id,
         homeworkId: homeworkId,
         studentId: user?.status === "TEACHER" ? searchParams.get("id") : "0",
@@ -135,7 +139,6 @@ function HomeworkPage() {
     return () => {
       dispatch(reset());
     };
-
   }, [success]);
 
   return (
@@ -156,7 +159,15 @@ function HomeworkPage() {
 
           <Label> Task file</Label>
           {homework.homeworkFile ? (
-            <FileDetails className="w3-animate-left">
+            <FileDetails
+              className="w3-animate-left"
+              onClick={() =>
+                downloadFile(
+                  homework.homeworkFile?.downloadUrl,
+                  homework.homeworkFile?.name
+                )
+              }
+            >
               <FileName>{homework.homeworkFile?.name}</FileName>
               <FileSize>
                 {(homework.homeworkFile?.size &&
@@ -173,7 +184,15 @@ function HomeworkPage() {
 
           <Label> Solution file</Label>
           {homework.solutionFile && (
-            <FileDetails className="w3-animate-left">
+            <FileDetails
+              className="w3-animate-left"
+              onClick={() =>
+                downloadFile(
+                  homework.solutionFile?.downloadUrl,
+                  homework.solutionFile?.name
+                )
+              }
+            >
               <FileName>{homework.solutionFile?.name}</FileName>
               <FileSize>
                 {(homework.solutionFile?.size &&
@@ -193,6 +212,7 @@ function HomeworkPage() {
 
           {user?.status === "TEACHER" ? (
             <TeacherButton
+              isLoading={isLoading}
               homework={homework}
               idObject={{
                 classroomId: id,
@@ -202,6 +222,7 @@ function HomeworkPage() {
             />
           ) : (
             <StudentButton
+              isLoading={isLoading}
               homework={homework}
               idObject={{
                 classroomId: id,

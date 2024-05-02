@@ -35,6 +35,12 @@ export default function AuthorizedRoutes({ user, loading }: RouterProps) {
         element: <lazyPages.CreateHomeworkPage />,
       },
 
+      // Update homework
+      {
+        path: "/classroom/:id/homeworks/:homeworkId/update",
+        element: <lazyPages.UpdateHomeworkPage />,
+      },
+
       // Students' homeworks
       {
         path: "/classroom/:id/homeworks/:homeworkId",

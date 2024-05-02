@@ -147,6 +147,79 @@ public class HomeworkService {
 
     }
 
+    public HomeworkResponseDTO getHomework(Long classroomId, Long homeworkId) {
+        // get user from security context
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        Classroom classroom = classroomRepository.findById(classroomId)
+                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+
+        // if the classroom is associated with this teacher
+        if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
+
+            Homework homework = homeworkRepository.getReferenceById(homeworkId);
+            File homeworkFile = homework.getHomeworkFile();
+
+            HomeworkResponseDTO homeworkResponseDTO = new HomeworkResponseDTO();
+            homeworkResponseDTO.setTitle(homework.getTitle());
+            homeworkResponseDTO.setInstruction(homework.getInstruction());
+            homeworkResponseDTO.setTotalGrade(homework.getTotalGrade());
+            if (homeworkFile != null) {
+                homeworkResponseDTO.setHomeworkFile(
+                        new FileDTO(
+                                homeworkFile.getName(),
+                                homeworkFile.getSize(),
+                                fileService.generateDownloadUrl(homeworkFile.getHash())
+                        )
+                );
+            }
+
+            return homeworkResponseDTO;
+        } else {
+            // throw error if the classroom is not associated with this teacher
+            throw new NotFoundException("You are not associated with this classroom");
+        }
+    }
+
+
+    public void updateHomework(
+            Long classroomId,
+            Long homeworkId,
+            HomeworkRequestDTO homeworkRequestDTO) throws NoSuchAlgorithmException, IOException {
+        // get user from security context
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        Classroom classroom = classroomRepository.findById(classroomId)
+                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+
+        // if the classroom is associated with this teacher
+        if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
+
+            Homework homework = homeworkRepository.getReferenceById(homeworkId);
+            homework.setTitle(homeworkRequestDTO.getTitle());
+            homework.setInstruction(homeworkRequestDTO.getInstruction());
+            homework.setTotalGrade(homeworkRequestDTO.getTotalGrade());
+
+            if (homeworkRequestDTO.getFile() != null) {
+                // save and return file
+                MultipartFile[] files = new MultipartFile[]{homeworkRequestDTO.getFile()};
+                // the method works for files array, so we need only homework file
+                File file = fileService.addFile(files, FileType.HOMEWORK)[0];
+
+                homework.setHomeworkFile(file);
+            }
+
+            homeworkRepository.save(homework);
+        } else {
+            // throw error if the classroom is not associated with this teacher
+            throw new NotFoundException("You are not associated with this classroom");
+        }
+    }
+
 
     public StudentHomeworkListDTO getStudentHomeworks(Long classroomId, Long homeworkId) {
         // get user from security context
@@ -205,7 +278,7 @@ public class HomeworkService {
         }
     }
 
-    public HomeworkDTO getHomework(
+    public HomeworkDTO getStudentHomework(
             Long homeworkId,
             Long studentId
     ) {
@@ -309,12 +382,22 @@ public class HomeworkService {
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
+        if (user.getRole() == Role.STUDENT) {
+            StudentHomework studentHomework = studentHomeworkRepository.findById(new StudentHomeworkId(user.getUserId(), homeworkId))
+                    .orElseThrow(() -> new NotFoundException("Student is not associated with this homework"));
 
-        StudentHomework studentHomework = studentHomeworkRepository.findById(new StudentHomeworkId(user.getUserId(), homeworkId))
-                .orElseThrow(() -> new NotFoundException("Student is not associated with this homework"));
+            studentHomework.setSolutionFile(null);
+            studentHomeworkRepository.save(studentHomework);
+        } else {
+            Homework homework = homeworkRepository.findById(homeworkId)
+                    .orElseThrow(() -> new NotFoundException("Homework is not found"));
 
-        studentHomework.setSolutionFile(null);
-        studentHomeworkRepository.save(studentHomework);
+            if (Objects.equals(homework.getClassroom().getTeacher().getUserId(), user.getUserId())) {
+                homework.setHomeworkFile(null);
+                homeworkRepository.save(homework);
+            }
+        }
+
     }
 
     public void gradeHomework(

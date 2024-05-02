@@ -11,4 +11,5 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "document")
 public class FileStorageProperty {
     private String uploadDirectory;
+
 }

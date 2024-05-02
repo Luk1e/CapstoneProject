@@ -22,6 +22,11 @@ const CreateHomeworkPage = lazyLoadComponent(
   () => import("../auth/createHomework/CreateHomeworkPage")
 );
 
+// Update homework
+const UpdateHomeworkPage = lazyLoadComponent(
+  () => import("../auth/updateHomework/UpdateHomeworkPage")
+);
+
 // Students homeworks
 const StudentHomeworksPage = lazyLoadComponent(
   () => import("../auth/studentHomeworks/StudentHomeworksPage")
@@ -38,6 +43,7 @@ export const lazyAuthPages = {
   ClassroomsPage,
   HomeworkPage,
   CreateHomeworkPage,
+  UpdateHomeworkPage,
   StudentHomeworksPage,
   StudentsPage,
 };

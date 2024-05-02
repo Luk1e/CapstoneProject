@@ -2,10 +2,7 @@ package com.kiu.capstoneproject.controller;
 
 
 import com.kiu.capstoneproject.dto.file.SolutionFileDTO;
-import com.kiu.capstoneproject.dto.homework.HomeworkDTO;
-import com.kiu.capstoneproject.dto.homework.HomeworkDescriptionDTO;
-import com.kiu.capstoneproject.dto.homework.HomeworkRequestDTO;
-import com.kiu.capstoneproject.dto.homework.StudentHomeworkListDTO;
+import com.kiu.capstoneproject.dto.homework.*;
 import com.kiu.capstoneproject.service.HomeworkService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,14 +46,34 @@ public class HomeworkController {
     }
 
 
+    @GetMapping(path = "/{homeworkId}/details")
+    @ResponseStatus(HttpStatus.OK)
+    public HomeworkResponseDTO getHomework(
+            @PathVariable("classroomId") Long classroomId,
+            @PathVariable("homeworkId") Long homeworkId
+    ) {
+        return homeworkService.getHomework(classroomId, homeworkId);
+    }
+
+    @PatchMapping(path = "/{homeworkId}/update")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateHomework(
+            @PathVariable("classroomId") Long classroomId,
+            @PathVariable("homeworkId") Long homeworkId,
+            @Valid @ModelAttribute HomeworkRequestDTO homeworkRequestDTO
+    ) throws NoSuchAlgorithmException, IOException {
+        homeworkService.updateHomework(classroomId, homeworkId, homeworkRequestDTO);
+    }
+
+
     @GetMapping(path = "/{homeworkId}/{studentId}")
     @ResponseStatus(HttpStatus.OK)
-    public HomeworkDTO getHomework(
+    public HomeworkDTO getStudentHomework(
             @PathVariable("homeworkId") Long homeworkId,
             @PathVariable("studentId") Long studentId
     ) {
 
-        return homeworkService.getHomework(homeworkId, studentId);
+        return homeworkService.getStudentHomework(homeworkId, studentId);
     }
 
     @PatchMapping(path = "/{homeworkId}/{studentId}/grade")
@@ -80,7 +97,7 @@ public class HomeworkController {
     @PatchMapping(path = "/{homeworkId}/remove")
     @ResponseStatus(HttpStatus.OK)
     public void removeSolution(
-            @PathVariable("homeworkId") Long homeworkId){
+            @PathVariable("homeworkId") Long homeworkId) {
         homeworkService.removeSolution(homeworkId);
     }
 

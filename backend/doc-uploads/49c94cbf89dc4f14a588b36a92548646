@@ -1,0 +1,1243 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 24, 2024 at 04:59 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `ecowood`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group`
+--
+
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+CREATE TABLE `auth_group_permissions` (
+  `id` bigint(20) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_permission`
+--
+
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALUES
+(1, 'Can add log entry', 1, 'add_logentry'),
+(2, 'Can change log entry', 1, 'change_logentry'),
+(3, 'Can delete log entry', 1, 'delete_logentry'),
+(4, 'Can view log entry', 1, 'view_logentry'),
+(5, 'Can add permission', 2, 'add_permission'),
+(6, 'Can change permission', 2, 'change_permission'),
+(7, 'Can delete permission', 2, 'delete_permission'),
+(8, 'Can view permission', 2, 'view_permission'),
+(9, 'Can add group', 3, 'add_group'),
+(10, 'Can change group', 3, 'change_group'),
+(11, 'Can delete group', 3, 'delete_group'),
+(12, 'Can view group', 3, 'view_group'),
+(13, 'Can add content type', 4, 'add_contenttype'),
+(14, 'Can change content type', 4, 'change_contenttype'),
+(15, 'Can delete content type', 4, 'delete_contenttype'),
+(16, 'Can view content type', 4, 'view_contenttype'),
+(17, 'Can add session', 5, 'add_session'),
+(18, 'Can change session', 5, 'change_session'),
+(19, 'Can delete session', 5, 'delete_session'),
+(20, 'Can view session', 5, 'view_session'),
+(21, 'Can add blacklisted token', 6, 'add_blacklistedtoken'),
+(22, 'Can change blacklisted token', 6, 'change_blacklistedtoken'),
+(23, 'Can delete blacklisted token', 6, 'delete_blacklistedtoken'),
+(24, 'Can view blacklisted token', 6, 'view_blacklistedtoken'),
+(25, 'Can add outstanding token', 7, 'add_outstandingtoken'),
+(26, 'Can change outstanding token', 7, 'change_outstandingtoken'),
+(27, 'Can delete outstanding token', 7, 'delete_outstandingtoken'),
+(28, 'Can view outstanding token', 7, 'view_outstandingtoken'),
+(29, 'Can add user', 8, 'add_user'),
+(30, 'Can change user', 8, 'change_user'),
+(31, 'Can delete user', 8, 'delete_user'),
+(32, 'Can view user', 8, 'view_user'),
+(33, 'Can add category', 9, 'add_category'),
+(34, 'Can change category', 9, 'change_category'),
+(35, 'Can delete category', 9, 'delete_category'),
+(36, 'Can view category', 9, 'view_category'),
+(37, 'Can add color', 10, 'add_color'),
+(38, 'Can change color', 10, 'change_color'),
+(39, 'Can delete color', 10, 'delete_color'),
+(40, 'Can view color', 10, 'view_color'),
+(41, 'Can add discount', 11, 'add_discount'),
+(42, 'Can change discount', 11, 'change_discount'),
+(43, 'Can delete discount', 11, 'delete_discount'),
+(44, 'Can view discount', 11, 'view_discount'),
+(45, 'Can add order', 12, 'add_order'),
+(46, 'Can change order', 12, 'change_order'),
+(47, 'Can delete order', 12, 'delete_order'),
+(48, 'Can view order', 12, 'view_order'),
+(49, 'Can add product', 13, 'add_product'),
+(50, 'Can change product', 13, 'change_product'),
+(51, 'Can delete product', 13, 'delete_product'),
+(52, 'Can view product', 13, 'view_product'),
+(53, 'Can add shipping prices', 14, 'add_shippingprices'),
+(54, 'Can change shipping prices', 14, 'change_shippingprices'),
+(55, 'Can delete shipping prices', 14, 'delete_shippingprices'),
+(56, 'Can view shipping prices', 14, 'view_shippingprices'),
+(57, 'Can add warehouse', 15, 'add_warehouse'),
+(58, 'Can change warehouse', 15, 'change_warehouse'),
+(59, 'Can delete warehouse', 15, 'delete_warehouse'),
+(60, 'Can view warehouse', 15, 'view_warehouse'),
+(61, 'Can add without shipping', 16, 'add_withoutshipping'),
+(62, 'Can change without shipping', 16, 'change_withoutshipping'),
+(63, 'Can delete without shipping', 16, 'delete_withoutshipping'),
+(64, 'Can view without shipping', 16, 'view_withoutshipping'),
+(65, 'Can add variants', 17, 'add_variants'),
+(66, 'Can change variants', 17, 'change_variants'),
+(67, 'Can delete variants', 17, 'delete_variants'),
+(68, 'Can view variants', 17, 'view_variants'),
+(69, 'Can add translation', 18, 'add_translation'),
+(70, 'Can change translation', 18, 'change_translation'),
+(71, 'Can delete translation', 18, 'delete_translation'),
+(72, 'Can view translation', 18, 'view_translation'),
+(73, 'Can add specific discount', 19, 'add_specificdiscount'),
+(74, 'Can change specific discount', 19, 'change_specificdiscount'),
+(75, 'Can delete specific discount', 19, 'delete_specificdiscount'),
+(76, 'Can view specific discount', 19, 'view_specificdiscount'),
+(77, 'Can add shipping address', 20, 'add_shippingaddress'),
+(78, 'Can change shipping address', 20, 'change_shippingaddress'),
+(79, 'Can delete shipping address', 20, 'delete_shippingaddress'),
+(80, 'Can view shipping address', 20, 'view_shippingaddress'),
+(81, 'Can add picture', 21, 'add_picture'),
+(82, 'Can change picture', 21, 'change_picture'),
+(83, 'Can delete picture', 21, 'delete_picture'),
+(84, 'Can view picture', 21, 'view_picture'),
+(85, 'Can add order item', 22, 'add_orderitem'),
+(86, 'Can change order item', 22, 'change_orderitem'),
+(87, 'Can delete order item', 22, 'delete_orderitem'),
+(88, 'Can view order item', 22, 'view_orderitem'),
+(89, 'Can add add to cart', 23, 'add_addtocart'),
+(90, 'Can change add to cart', 23, 'change_addtocart'),
+(91, 'Can delete add to cart', 23, 'delete_addtocart'),
+(92, 'Can view add to cart', 23, 'view_addtocart');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_addtocart`
+--
+
+CREATE TABLE `base_addtocart` (
+  `id` bigint(20) NOT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `variants_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_addtocart`
+--
+
+INSERT INTO `base_addtocart` (`id`, `qty`, `product_id`, `user_id`, `variants_id`) VALUES
+(5, 23, 3, 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_category`
+--
+
+CREATE TABLE `base_category` (
+  `_id` int(11) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `createdAt` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_category`
+--
+
+INSERT INTO `base_category` (`_id`, `name`, `createdAt`) VALUES
+(1, '232wsa', '2023-09-04 18:19:08.825541'),
+(4, '12312asdzxcas', '2023-10-13 21:12:28.487018');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_color`
+--
+
+CREATE TABLE `base_color` (
+  `_id` int(11) NOT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `image` varchar(100) DEFAULT NULL,
+  `createdAt` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_color`
+--
+
+INSERT INTO `base_color` (`_id`, `name`, `image`, `createdAt`) VALUES
+(1, 'წითელი', 'Screenshot_2023-09-02_145339.png', '2023-10-12 12:45:02.370898'),
+(2, 'ლურჯი', 'Screenshot_2023-09-02_150051.png', '2023-10-13 16:17:08.441602');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_discount`
+--
+
+CREATE TABLE `base_discount` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `percentage` decimal(5,2) NOT NULL,
+  `start_date` datetime(6) DEFAULT NULL,
+  `end_date` datetime(6) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_discount`
+--
+
+INSERT INTO `base_discount` (`id`, `name`, `percentage`, `start_date`, `end_date`, `active`) VALUES
+(2, '15.0% discount', 15.00, '2023-09-04 04:00:00.000000', '2023-09-04 04:00:00.000000', 1),
+(3, '12.0% discount', 12.00, '2023-09-04 19:30:00.000000', '2023-09-04 19:31:00.000000', 1),
+(4, '15.0% discount', 15.00, '2023-09-08 16:00:00.000000', '2023-09-10 04:00:00.000000', 1),
+(6, '12.0% discount', 12.00, '2023-09-20 23:59:00.000000', '2023-09-23 23:59:00.000000', 1),
+(7, '23.0% discount', 23.00, '2023-10-13 23:59:00.000000', '2023-11-15 23:59:00.000000', 1),
+(8, '12.0% discount', 12.00, '2023-11-01 23:59:00.000000', '2023-11-15 23:59:00.000000', 1),
+(9, '16.0% discount', 16.00, '2023-11-01 04:00:00.000000', '2023-11-10 04:00:00.000000', 1),
+(10, '0% discount', 0.00, NULL, NULL, 1),
+(11, '12.0% discount', 12.00, '2023-12-22 04:00:00.000000', '2023-12-22 04:00:00.000000', 1),
+(12, '12.0% discount', 12.00, '2023-12-05 23:59:00.000000', '2023-12-15 23:59:00.000000', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_order`
+--
+
+CREATE TABLE `base_order` (
+  `paymentMethod` varchar(200) DEFAULT NULL,
+  `taxPrice` decimal(7,2) DEFAULT NULL,
+  `shippingPrice` decimal(7,2) DEFAULT NULL,
+  `totalPrice` decimal(7,2) DEFAULT NULL,
+  `wants_delivery` tinyint(1) NOT NULL,
+  `isPaid` tinyint(1) NOT NULL,
+  `paidAt` datetime(6) DEFAULT NULL,
+  `isDelivered` tinyint(1) NOT NULL,
+  `physicPerson` tinyint(1) NOT NULL,
+  `deliveredAt` datetime(6) DEFAULT NULL,
+  `createdAt` datetime(6) NOT NULL,
+  `transactionId` varchar(255) NOT NULL,
+  `_id` int(11) NOT NULL,
+  `user_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_orderitem`
+--
+
+CREATE TABLE `base_orderitem` (
+  `name` longtext DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `price` decimal(7,2) DEFAULT NULL,
+  `image` varchar(100) DEFAULT NULL,
+  `_id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `variant_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_picture`
+--
+
+CREATE TABLE `base_picture` (
+  `id` bigint(20) NOT NULL,
+  `picture` varchar(100) DEFAULT NULL,
+  `ord` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_picture`
+--
+
+INSERT INTO `base_picture` (`id`, `picture`, `ord`, `product_id`) VALUES
+(1, 'Screenshot_2023-09-07_184106.png', 0, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_product`
+--
+
+CREATE TABLE `base_product` (
+  `name_geo` longtext DEFAULT NULL,
+  `brand` longtext DEFAULT NULL,
+  `size` varchar(1000) DEFAULT NULL,
+  `technicalRequirements` longtext DEFAULT NULL,
+  `instructionForUse` longtext DEFAULT NULL,
+  `safetyStandard` longtext DEFAULT NULL,
+  `coverageLength` longtext DEFAULT NULL,
+  `youtubeUrl` varchar(1000) DEFAULT NULL,
+  `price` decimal(7,2) NOT NULL,
+  `createdAt` datetime(6) NOT NULL,
+  `_id` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `discount_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_product`
+--
+
+INSERT INTO `base_product` (`name_geo`, `brand`, `size`, `technicalRequirements`, `instructionForUse`, `safetyStandard`, `coverageLength`, `youtubeUrl`, `price`, `createdAt`, `_id`, `active`, `category_id`, `discount_id`, `user_id`) VALUES
+('qweqw', 'qwe', 'qwe', '23', '23', '23sda', '23', '', 23.00, '2023-09-04 18:20:14.529111', 1, 0, 1, NULL, 1),
+('qwe', 'qwe', 'qwe', '123', '123', '123', '23', '', 123.00, '2023-09-04 18:22:18.682788', 2, 1, 1, NULL, 1),
+('qartuy', 'qwe', '123', 'qwe', 'qwe', 'usafrt geo', '2323', '', 23.00, '2023-09-04 18:22:43.937221', 3, 1, 1, 10, 1),
+('asdasd', 'asdasd', 'asdas', '123as', '123as', 'daswada', '12', '', 2132.00, '2023-10-13 21:14:23.954834', 4, 0, 1, NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_shippingaddress`
+--
+
+CREATE TABLE `base_shippingaddress` (
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `postalCode` varchar(200) DEFAULT NULL,
+  `personId` varchar(40) DEFAULT NULL,
+  `phone` varchar(50) NOT NULL,
+  `shippingPrice` decimal(7,2) DEFAULT NULL,
+  `_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_shippingprices`
+--
+
+CREATE TABLE `base_shippingprices` (
+  `_id` int(11) NOT NULL,
+  `location` longtext DEFAULT NULL,
+  `limit` decimal(7,2) NOT NULL,
+  `upperLimit` decimal(7,2) NOT NULL,
+  `lowerLimit` decimal(7,2) NOT NULL,
+  `createdAt` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_shippingprices`
+--
+
+INSERT INTO `base_shippingprices` (`_id`, `location`, `limit`, `upperLimit`, `lowerLimit`, `createdAt`) VALUES
+(2, 'ქუთაისი', 120.00, 22.00, 12.00, '2023-10-13 17:41:42.684477');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_specificdiscount`
+--
+
+CREATE TABLE `base_specificdiscount` (
+  `id` bigint(20) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `percentage_id` bigint(20) DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_specificdiscount`
+--
+
+INSERT INTO `base_specificdiscount` (`id`, `active`, `percentage_id`, `product_id`, `user_id`) VALUES
+(1, 1, 6, 3, 1),
+(4, 1, 12, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_translation`
+--
+
+CREATE TABLE `base_translation` (
+  `id` bigint(20) NOT NULL,
+  `language` varchar(3) NOT NULL,
+  `key` longtext NOT NULL,
+  `value` longtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_translation`
+--
+
+INSERT INTO `base_translation` (`id`, `language`, `key`, `value`) VALUES
+(1, 'ENG', '232', 'ews3'),
+(2, 'RUS', '232', 'rusga'),
+(3, 'ENG', 'qweqw', ''),
+(4, 'RUS', 'qweqw', ''),
+(5, 'ENG', 'qwe', ''),
+(6, 'RUS', 'qwe', ''),
+(7, 'ENG', '23sda', ''),
+(8, 'RUS', '23sda', ''),
+(9, 'ENG', 'qwe32', 'sk32'),
+(10, 'RUS', 'qwe32', ''),
+(11, 'ENG', 'wre', '21312s'),
+(12, 'RUS', 'wre', ''),
+(13, 'ENG', '1234', '2'),
+(14, 'RUS', '1234', ''),
+(15, 'ENG', '1234sada', '2sdwadsd'),
+(16, 'RUS', '1234sada', ''),
+(17, 'ENG', '12.0% discount', NULL),
+(18, 'RUS', '12.0% discount', NULL),
+(19, 'ENG', '23.0% discount', NULL),
+(20, 'RUS', '23.0% discount', NULL),
+(21, 'ENG', 'წითელი', 'red'),
+(22, 'RUS', 'წითელი', 'красни'),
+(23, 'ENG', 'productID=3 color=წითელი', NULL),
+(24, 'RUS', 'productID=3 color=წითელი', NULL),
+(25, 'ENG', 'productID=3 color=ლურჯი', NULL),
+(26, 'RUS', 'productID=3 color=ლურჯი', NULL),
+(27, 'ENG', 'ლურჯი', NULL),
+(28, 'RUS', 'ლურჯი', NULL),
+(29, 'ENG', 'ქუთაისი', ''),
+(30, 'RUS', 'ქუთაისი', 'рус'),
+(31, 'ENG', 'qweasd2waw', ''),
+(32, 'RUS', 'qweasd2waw', 'qweasrrrr'),
+(33, 'ENG', '12312', ''),
+(34, 'RUS', '12312', ''),
+(35, 'ENG', '12312asdzxcas', ''),
+(36, 'RUS', '12312asdzxcas', ''),
+(37, 'ENG', '232wsa', 'ews3'),
+(38, 'RUS', '232wsa', 'rusga'),
+(39, 'ENG', 'usafrt geo', ''),
+(40, 'RUS', 'usafrt geo', 'usafrtx'),
+(41, 'ENG', 'qartuy', 'sk32'),
+(42, 'RUS', 'qartuy', ''),
+(43, 'ENG', 'asdasd', ''),
+(44, 'RUS', 'asdasd', ''),
+(45, 'ENG', 'asdas', ''),
+(46, 'RUS', 'asdas', ''),
+(47, 'ENG', '123as', ''),
+(48, 'RUS', '123as', ''),
+(49, 'ENG', 'daswada', ''),
+(50, 'RUS', 'daswada', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_user`
+--
+
+CREATE TABLE `base_user` (
+  `id` bigint(20) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  `first_name` varchar(240) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `email_verification_token` varchar(200) DEFAULT NULL,
+  `is_email_verified` tinyint(1) NOT NULL,
+  `expiration_date` datetime(6) DEFAULT NULL,
+  `password_reset_token` varchar(200) DEFAULT NULL,
+  `password_reset_token_expiration_date` datetime(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_user`
+--
+
+INSERT INTO `base_user` (`id`, `password`, `last_login`, `is_superuser`, `is_staff`, `is_active`, `date_joined`, `first_name`, `last_name`, `email`, `phone`, `email_verification_token`, `is_email_verified`, `expiration_date`, `password_reset_token`, `password_reset_token_expiration_date`) VALUES
+(1, 'pbkdf2_sha256$720000$REWItR5IVxKGoaOObWEcuO$hz+AOfWdAVg3YssaujtN+OXca4VoAYSkEz+B9Xz/c6I=', '2024-02-08 17:49:17.014856', 1, 1, 1, '2023-09-04 18:17:59.096399', 'luka', 'gogiashvili', 'luka@gmail.com', '577 67 43 23', NULL, 1, NULL, 'jvFi4YcrMnyhVbvb5UEVWFkrous7hZ', '2023-10-12 12:27:34.648792'),
+(2, 'pbkdf2_sha256$600000$09UJa9OWSYlU8wVVFm1em3$eVDKPCM7mkMhiq1i0ubGDjwr7vj0xighNEgOwT2tDz0=', NULL, 0, 0, 0, '2023-10-10 20:47:43.793474', 'luka', 'g23', 'luka.gogiashvili.02@gmail.com', '123123', 'nIcJzY1PDTMNHoZElzoMQDPw9whBId', 1, '2023-10-11 20:47:43.915734', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_user_groups`
+--
+
+CREATE TABLE `base_user_groups` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `group_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_user_user_permissions`
+--
+
+CREATE TABLE `base_user_user_permissions` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `permission_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_variants`
+--
+
+CREATE TABLE `base_variants` (
+  `id` bigint(20) NOT NULL,
+  `title` longtext DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `previous_quantity` int(11) DEFAULT NULL,
+  `active` tinyint(1) NOT NULL,
+  `color_id` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_variants`
+--
+
+INSERT INTO `base_variants` (`id`, `title`, `quantity`, `previous_quantity`, `active`, `color_id`, `product_id`) VALUES
+(1, 'productID=3 color=წითელი', 23, 0, 1, 1, 3),
+(2, 'productID=3 color=ლურჯი', 23, 0, 1, 2, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_warehouse`
+--
+
+CREATE TABLE `base_warehouse` (
+  `_id` int(11) NOT NULL,
+  `location` varchar(200) DEFAULT NULL,
+  `createdAt` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `base_warehouse`
+--
+
+INSERT INTO `base_warehouse` (`_id`, `location`, `createdAt`) VALUES
+(1, 'ecowood', '2023-10-13 17:34:15.465466'),
+(2, 'express', '2023-10-13 17:34:26.793419');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `base_withoutshipping`
+--
+
+CREATE TABLE `base_withoutshipping` (
+  `name` longtext DEFAULT NULL,
+  `surname` longtext DEFAULT NULL,
+  `personId` varchar(40) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `_id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `warehouse_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext DEFAULT NULL,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) UNSIGNED NOT NULL CHECK (`action_flag` >= 0),
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`, `action_flag`, `change_message`, `content_type_id`, `user_id`) VALUES
+(1, '2023-10-12 12:45:02.372403', '1', 'წითელი', 1, '[{\"added\": {}}]', 10, 1),
+(2, '2023-10-12 12:45:33.483487', '21', '(\'ENG\', \'წითელი\')', 1, '[{\"added\": {}}]', 18, 1),
+(3, '2023-10-12 12:45:36.614192', '21', '(\'ENG\', \'წითელი\')', 2, '[]', 18, 1),
+(4, '2023-10-12 12:45:51.205454', '22', '(\'RUS\', \'წითელი\')', 1, '[{\"added\": {}}]', 18, 1),
+(5, '2023-10-13 16:17:08.441602', '2', 'ლურჯი', 1, '[{\"added\": {}}]', 10, 1),
+(6, '2023-10-13 17:34:15.466473', '1', 'ecowood', 1, '[{\"added\": {}}]', 15, 1),
+(7, '2023-10-13 17:34:26.793419', '2', 'altax', 1, '[{\"added\": {}}]', 15, 1),
+(8, '2023-10-13 17:37:43.222488', '2', 'express', 2, '[{\"changed\": {\"fields\": [\"Location\"]}}]', 15, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_content_type`
+--
+
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
+(1, 'admin', 'logentry'),
+(3, 'auth', 'group'),
+(2, 'auth', 'permission'),
+(23, 'base', 'addtocart'),
+(9, 'base', 'category'),
+(10, 'base', 'color'),
+(11, 'base', 'discount'),
+(12, 'base', 'order'),
+(22, 'base', 'orderitem'),
+(21, 'base', 'picture'),
+(13, 'base', 'product'),
+(20, 'base', 'shippingaddress'),
+(14, 'base', 'shippingprices'),
+(19, 'base', 'specificdiscount'),
+(18, 'base', 'translation'),
+(8, 'base', 'user'),
+(17, 'base', 'variants'),
+(15, 'base', 'warehouse'),
+(16, 'base', 'withoutshipping'),
+(4, 'contenttypes', 'contenttype'),
+(5, 'sessions', 'session'),
+(6, 'token_blacklist', 'blacklistedtoken'),
+(7, 'token_blacklist', 'outstandingtoken');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_migrations`
+--
+
+CREATE TABLE `django_migrations` (
+  `id` bigint(20) NOT NULL,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
+(1, 'contenttypes', '0001_initial', '2023-09-04 18:17:34.697231'),
+(2, 'contenttypes', '0002_remove_content_type_name', '2023-09-04 18:17:34.721002'),
+(3, 'auth', '0001_initial', '2023-09-04 18:17:34.803735'),
+(4, 'auth', '0002_alter_permission_name_max_length', '2023-09-04 18:17:34.822484'),
+(5, 'auth', '0003_alter_user_email_max_length', '2023-09-04 18:17:34.825675'),
+(6, 'auth', '0004_alter_user_username_opts', '2023-09-04 18:17:34.829595'),
+(7, 'auth', '0005_alter_user_last_login_null', '2023-09-04 18:17:34.832799'),
+(8, 'auth', '0006_require_contenttypes_0002', '2023-09-04 18:17:34.834200'),
+(9, 'auth', '0007_alter_validators_add_error_messages', '2023-09-04 18:17:34.836204'),
+(10, 'auth', '0008_alter_user_username_max_length', '2023-09-04 18:17:34.839211'),
+(11, 'auth', '0009_alter_user_last_name_max_length', '2023-09-04 18:17:34.841605'),
+(12, 'auth', '0010_alter_group_name_max_length', '2023-09-04 18:17:34.852052'),
+(13, 'auth', '0011_update_proxy_permissions', '2023-09-04 18:17:34.855120'),
+(14, 'auth', '0012_alter_user_first_name_max_length', '2023-09-04 18:17:34.857119'),
+(15, 'base', '0001_initial', '2023-09-04 18:17:35.434514'),
+(16, 'admin', '0001_initial', '2023-09-04 18:17:35.487635'),
+(17, 'admin', '0002_logentry_remove_auto_add', '2023-09-04 18:17:35.495151'),
+(18, 'admin', '0003_logentry_add_action_flag_choices', '2023-09-04 18:17:35.520941'),
+(19, 'sessions', '0001_initial', '2023-09-04 18:17:35.535876'),
+(20, 'token_blacklist', '0001_initial', '2023-09-04 18:17:35.599807'),
+(21, 'token_blacklist', '0002_outstandingtoken_jti_hex', '2023-09-04 18:17:35.612265'),
+(22, 'token_blacklist', '0003_auto_20171017_2007', '2023-09-04 18:17:35.621234'),
+(23, 'token_blacklist', '0004_auto_20171017_2013', '2023-09-04 18:17:35.649008'),
+(24, 'token_blacklist', '0005_remove_outstandingtoken_jti', '2023-09-04 18:17:35.663303'),
+(25, 'token_blacklist', '0006_auto_20171017_2113', '2023-09-04 18:17:35.678419'),
+(26, 'token_blacklist', '0007_auto_20171017_2214', '2023-09-04 18:17:35.825648'),
+(27, 'token_blacklist', '0008_migrate_to_bigautofield', '2023-09-04 18:17:35.933892'),
+(28, 'token_blacklist', '0010_fix_migrate_to_bigautofield', '2023-09-04 18:17:35.944186'),
+(29, 'token_blacklist', '0011_linearizes_history', '2023-09-04 18:17:35.945463'),
+(30, 'token_blacklist', '0012_alter_outstandingtoken_user', '2023-09-04 18:17:35.953185');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_session`
+--
+
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('5sus08vig9xjof8otjhrl8wdg4r0cf2m', '.eJxVjEEOwiAQRe_C2hCgOAwu3XuGZmBGqRpISrsy3l2bdKHb_977LzXSupRx7TKPE6uTsurwuyXKD6kb4DvVW9O51WWekt4UvdOuL43led7dv4NCvXzrK7JNBhAAiIV9GmJG7-LRpECQyYmIMya4gD6iddEOkiMxAmUBSer9AeM2OA8:1rY8WT:ka8EgQnrP7XuDz-NlJYXkunDoFZfD740Ti6h1wA0q7A', '2024-02-22 17:49:17.015856'),
+('bgg9rcp4abn6681jntm9oie24gnsf0d2', '.eJxVjDsOwyAQBe9CHSHMbyFlep8B7RoITiKQjF1FuXuE5CJp38y8Nwt47CUcPW1hjezKJnb53QiXZ6oDxAfWe-NLq_u2Eh8KP2nnc4vpdTvdv4OCvYyavDIe3IRZZlIKrLRZKNCaEgkt0FG0oJw2JqGAZIzRKKMgb4WDCOzzBc14Nxo:1qqrJB:Cthc6BhTSkhjoADKvtOCMPA3j7aQhnjlp7oQQBSmQ_A', '2023-10-26 12:44:41.939922');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `token_blacklist_blacklistedtoken`
+--
+
+CREATE TABLE `token_blacklist_blacklistedtoken` (
+  `id` bigint(20) NOT NULL,
+  `blacklisted_at` datetime(6) NOT NULL,
+  `token_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `token_blacklist_outstandingtoken`
+--
+
+CREATE TABLE `token_blacklist_outstandingtoken` (
+  `id` bigint(20) NOT NULL,
+  `token` longtext NOT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `expires_at` datetime(6) NOT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `jti` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `auth_group`
+--
+ALTER TABLE `auth_group`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  ADD KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`);
+
+--
+-- Indexes for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`);
+
+--
+-- Indexes for table `base_addtocart`
+--
+ALTER TABLE `base_addtocart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `base_addtocart_product_id_6d43069a_fk_base_product__id` (`product_id`),
+  ADD KEY `base_addtocart_user_id_dfdb2000_fk_base_user_id` (`user_id`),
+  ADD KEY `base_addtocart_variants_id_e9dfedf2_fk_base_variants_id` (`variants_id`);
+
+--
+-- Indexes for table `base_category`
+--
+ALTER TABLE `base_category`
+  ADD PRIMARY KEY (`_id`);
+
+--
+-- Indexes for table `base_color`
+--
+ALTER TABLE `base_color`
+  ADD PRIMARY KEY (`_id`);
+
+--
+-- Indexes for table `base_discount`
+--
+ALTER TABLE `base_discount`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `base_order`
+--
+ALTER TABLE `base_order`
+  ADD PRIMARY KEY (`_id`),
+  ADD KEY `base_order_user_id_8ad0adec_fk_base_user_id` (`user_id`);
+
+--
+-- Indexes for table `base_orderitem`
+--
+ALTER TABLE `base_orderitem`
+  ADD PRIMARY KEY (`_id`),
+  ADD KEY `base_orderitem_order_id_aaa7f08a_fk_base_order__id` (`order_id`),
+  ADD KEY `base_orderitem_product_id_397c77c4_fk_base_product__id` (`product_id`),
+  ADD KEY `base_orderitem_variant_id_63dc2c95_fk_base_variants_id` (`variant_id`);
+
+--
+-- Indexes for table `base_picture`
+--
+ALTER TABLE `base_picture`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `base_picture_product_id_5ca503c2_fk_base_product__id` (`product_id`);
+
+--
+-- Indexes for table `base_product`
+--
+ALTER TABLE `base_product`
+  ADD PRIMARY KEY (`_id`),
+  ADD KEY `base_product_category_id_2193a903_fk_base_category__id` (`category_id`),
+  ADD KEY `base_product_discount_id_995a66c7_fk_base_discount_id` (`discount_id`),
+  ADD KEY `base_product_user_id_95204f5a_fk_base_user_id` (`user_id`);
+
+--
+-- Indexes for table `base_shippingaddress`
+--
+ALTER TABLE `base_shippingaddress`
+  ADD PRIMARY KEY (`_id`),
+  ADD UNIQUE KEY `order_id` (`order_id`),
+  ADD KEY `base_shippingaddress_city_id_a6c9b60b_fk_base_shippingprices__id` (`city_id`);
+
+--
+-- Indexes for table `base_shippingprices`
+--
+ALTER TABLE `base_shippingprices`
+  ADD PRIMARY KEY (`_id`);
+
+--
+-- Indexes for table `base_specificdiscount`
+--
+ALTER TABLE `base_specificdiscount`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `base_specificdiscount_percentage_id_26db94d6_fk_base_discount_id` (`percentage_id`),
+  ADD KEY `base_specificdiscount_product_id_9fa3da1e_fk_base_product__id` (`product_id`),
+  ADD KEY `base_specificdiscount_user_id_434b5512_fk_base_user_id` (`user_id`);
+
+--
+-- Indexes for table `base_translation`
+--
+ALTER TABLE `base_translation`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `base_translation_language_key_17d0f8ef_uniq` (`language`,`key`) USING HASH;
+
+--
+-- Indexes for table `base_user`
+--
+ALTER TABLE `base_user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indexes for table `base_user_groups`
+--
+ALTER TABLE `base_user_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `base_user_groups_user_id_group_id_774631b7_uniq` (`user_id`,`group_id`),
+  ADD KEY `base_user_groups_group_id_c0eca7d6_fk_auth_group_id` (`group_id`);
+
+--
+-- Indexes for table `base_user_user_permissions`
+--
+ALTER TABLE `base_user_user_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `base_user_user_permissions_user_id_permission_id_e9093277_uniq` (`user_id`,`permission_id`),
+  ADD KEY `base_user_user_permi_permission_id_0418bc02_fk_auth_perm` (`permission_id`);
+
+--
+-- Indexes for table `base_variants`
+--
+ALTER TABLE `base_variants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `base_variants_color_id_beb76ee2_fk_base_color__id` (`color_id`),
+  ADD KEY `base_variants_product_id_e93a549a_fk_base_product__id` (`product_id`);
+
+--
+-- Indexes for table `base_warehouse`
+--
+ALTER TABLE `base_warehouse`
+  ADD PRIMARY KEY (`_id`);
+
+--
+-- Indexes for table `base_withoutshipping`
+--
+ALTER TABLE `base_withoutshipping`
+  ADD PRIMARY KEY (`_id`),
+  ADD UNIQUE KEY `order_id` (`order_id`),
+  ADD KEY `base_withoutshipping_warehouse_id_be98956d_fk_base_warehouse__id` (`warehouse_id`);
+
+--
+-- Indexes for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  ADD KEY `django_admin_log_user_id_c564eba6_fk_base_user_id` (`user_id`);
+
+--
+-- Indexes for table `django_content_type`
+--
+ALTER TABLE `django_content_type`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`);
+
+--
+-- Indexes for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `django_session`
+--
+ALTER TABLE `django_session`
+  ADD PRIMARY KEY (`session_key`),
+  ADD KEY `django_session_expire_date_a5c62663` (`expire_date`);
+
+--
+-- Indexes for table `token_blacklist_blacklistedtoken`
+--
+ALTER TABLE `token_blacklist_blacklistedtoken`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `token_id` (`token_id`);
+
+--
+-- Indexes for table `token_blacklist_outstandingtoken`
+--
+ALTER TABLE `token_blacklist_outstandingtoken`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_uniq` (`jti`),
+  ADD KEY `token_blacklist_outs_user_id_83bc629a_fk_base_user` (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `auth_group`
+--
+ALTER TABLE `auth_group`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+
+--
+-- AUTO_INCREMENT for table `base_addtocart`
+--
+ALTER TABLE `base_addtocart`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `base_category`
+--
+ALTER TABLE `base_category`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `base_color`
+--
+ALTER TABLE `base_color`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `base_discount`
+--
+ALTER TABLE `base_discount`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `base_order`
+--
+ALTER TABLE `base_order`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `base_orderitem`
+--
+ALTER TABLE `base_orderitem`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `base_picture`
+--
+ALTER TABLE `base_picture`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `base_product`
+--
+ALTER TABLE `base_product`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `base_shippingaddress`
+--
+ALTER TABLE `base_shippingaddress`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `base_shippingprices`
+--
+ALTER TABLE `base_shippingprices`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `base_specificdiscount`
+--
+ALTER TABLE `base_specificdiscount`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `base_translation`
+--
+ALTER TABLE `base_translation`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT for table `base_user`
+--
+ALTER TABLE `base_user`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `base_user_groups`
+--
+ALTER TABLE `base_user_groups`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `base_user_user_permissions`
+--
+ALTER TABLE `base_user_user_permissions`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `base_variants`
+--
+ALTER TABLE `base_variants`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `base_warehouse`
+--
+ALTER TABLE `base_warehouse`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `base_withoutshipping`
+--
+ALTER TABLE `base_withoutshipping`
+  MODIFY `_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `django_content_type`
+--
+ALTER TABLE `django_content_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `django_migrations`
+--
+ALTER TABLE `django_migrations`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `token_blacklist_blacklistedtoken`
+--
+ALTER TABLE `token_blacklist_blacklistedtoken`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `token_blacklist_outstandingtoken`
+--
+ALTER TABLE `token_blacklist_outstandingtoken`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
+
+--
+-- Constraints for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
+
+--
+-- Constraints for table `base_addtocart`
+--
+ALTER TABLE `base_addtocart`
+  ADD CONSTRAINT `base_addtocart_product_id_6d43069a_fk_base_product__id` FOREIGN KEY (`product_id`) REFERENCES `base_product` (`_id`),
+  ADD CONSTRAINT `base_addtocart_user_id_dfdb2000_fk_base_user_id` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`),
+  ADD CONSTRAINT `base_addtocart_variants_id_e9dfedf2_fk_base_variants_id` FOREIGN KEY (`variants_id`) REFERENCES `base_variants` (`id`);
+
+--
+-- Constraints for table `base_order`
+--
+ALTER TABLE `base_order`
+  ADD CONSTRAINT `base_order_user_id_8ad0adec_fk_base_user_id` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`);
+
+--
+-- Constraints for table `base_orderitem`
+--
+ALTER TABLE `base_orderitem`
+  ADD CONSTRAINT `base_orderitem_order_id_aaa7f08a_fk_base_order__id` FOREIGN KEY (`order_id`) REFERENCES `base_order` (`_id`),
+  ADD CONSTRAINT `base_orderitem_product_id_397c77c4_fk_base_product__id` FOREIGN KEY (`product_id`) REFERENCES `base_product` (`_id`),
+  ADD CONSTRAINT `base_orderitem_variant_id_63dc2c95_fk_base_variants_id` FOREIGN KEY (`variant_id`) REFERENCES `base_variants` (`id`);
+
+--
+-- Constraints for table `base_picture`
+--
+ALTER TABLE `base_picture`
+  ADD CONSTRAINT `base_picture_product_id_5ca503c2_fk_base_product__id` FOREIGN KEY (`product_id`) REFERENCES `base_product` (`_id`);
+
+--
+-- Constraints for table `base_product`
+--
+ALTER TABLE `base_product`
+  ADD CONSTRAINT `base_product_category_id_2193a903_fk_base_category__id` FOREIGN KEY (`category_id`) REFERENCES `base_category` (`_id`),
+  ADD CONSTRAINT `base_product_discount_id_995a66c7_fk_base_discount_id` FOREIGN KEY (`discount_id`) REFERENCES `base_discount` (`id`),
+  ADD CONSTRAINT `base_product_user_id_95204f5a_fk_base_user_id` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`);
+
+--
+-- Constraints for table `base_shippingaddress`
+--
+ALTER TABLE `base_shippingaddress`
+  ADD CONSTRAINT `base_shippingaddress_city_id_a6c9b60b_fk_base_shippingprices__id` FOREIGN KEY (`city_id`) REFERENCES `base_shippingprices` (`_id`),
+  ADD CONSTRAINT `base_shippingaddress_order_id_d85223e7_fk_base_order__id` FOREIGN KEY (`order_id`) REFERENCES `base_order` (`_id`);
+
+--
+-- Constraints for table `base_specificdiscount`
+--
+ALTER TABLE `base_specificdiscount`
+  ADD CONSTRAINT `base_specificdiscount_percentage_id_26db94d6_fk_base_discount_id` FOREIGN KEY (`percentage_id`) REFERENCES `base_discount` (`id`),
+  ADD CONSTRAINT `base_specificdiscount_product_id_9fa3da1e_fk_base_product__id` FOREIGN KEY (`product_id`) REFERENCES `base_product` (`_id`),
+  ADD CONSTRAINT `base_specificdiscount_user_id_434b5512_fk_base_user_id` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`);
+
+--
+-- Constraints for table `base_user_groups`
+--
+ALTER TABLE `base_user_groups`
+  ADD CONSTRAINT `base_user_groups_group_id_c0eca7d6_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  ADD CONSTRAINT `base_user_groups_user_id_29a796b6_fk_base_user_id` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`);
+
+--
+-- Constraints for table `base_user_user_permissions`
+--
+ALTER TABLE `base_user_user_permissions`
+  ADD CONSTRAINT `base_user_user_permi_permission_id_0418bc02_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `base_user_user_permissions_user_id_2eec4d63_fk_base_user_id` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`);
+
+--
+-- Constraints for table `base_variants`
+--
+ALTER TABLE `base_variants`
+  ADD CONSTRAINT `base_variants_color_id_beb76ee2_fk_base_color__id` FOREIGN KEY (`color_id`) REFERENCES `base_color` (`_id`),
+  ADD CONSTRAINT `base_variants_product_id_e93a549a_fk_base_product__id` FOREIGN KEY (`product_id`) REFERENCES `base_product` (`_id`);
+
+--
+-- Constraints for table `base_withoutshipping`
+--
+ALTER TABLE `base_withoutshipping`
+  ADD CONSTRAINT `base_withoutshipping_order_id_8d8c6596_fk_base_order__id` FOREIGN KEY (`order_id`) REFERENCES `base_order` (`_id`),
+  ADD CONSTRAINT `base_withoutshipping_warehouse_id_be98956d_fk_base_warehouse__id` FOREIGN KEY (`warehouse_id`) REFERENCES `base_warehouse` (`_id`);
+
+--
+-- Constraints for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_base_user_id` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`);
+
+--
+-- Constraints for table `token_blacklist_blacklistedtoken`
+--
+ALTER TABLE `token_blacklist_blacklistedtoken`
+  ADD CONSTRAINT `token_blacklist_blacklistedtoken_token_id_3cc7fe56_fk` FOREIGN KEY (`token_id`) REFERENCES `token_blacklist_outstandingtoken` (`id`);
+
+--
+-- Constraints for table `token_blacklist_outstandingtoken`
+--
+ALTER TABLE `token_blacklist_outstandingtoken`
+  ADD CONSTRAINT `token_blacklist_outs_user_id_83bc629a_fk_base_user` FOREIGN KEY (`user_id`) REFERENCES `base_user` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

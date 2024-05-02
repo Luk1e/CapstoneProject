@@ -83,10 +83,10 @@ export const removeSolution = createAsyncThunk<
   removeSolutionValuesProps,
   { rejectValue: RejectWithValueProps }
 >(
-  "homework/removeSolution",
+  "homework/removeSolutionFile",
   async ({ classroomId, homeworkId }, { rejectWithValue }) => {
     try {
-      await useAuthFileAxios.patch(
+      await useAuthAxios.patch(
         `/api/v1/classroom/${classroomId}/homeworks/${homeworkId}/remove`
       );
     } catch (err: any) {

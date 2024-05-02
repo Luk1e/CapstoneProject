@@ -1,22 +1,31 @@
 package com.kiu.capstoneproject.service;
 
 import com.kiu.capstoneproject.enums.FileType;
+import com.kiu.capstoneproject.exception.NotFoundException;
 import com.kiu.capstoneproject.model.entity.File;
 import com.kiu.capstoneproject.property.FileStorageProperty;
 import com.kiu.capstoneproject.repository.FileRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -59,8 +68,32 @@ public class FileService {
     public String generateDownloadUrl(String hash) {
         // Implement logic to generate a downloadable URL for the file based on hash
         // This could involve a separate endpoint for file download
-        return "http://localhost:8080/download/" + hash; // Example URL structure
+        return "files/" + hash + "/download"; // Example URL structure
     }
+
+    public ResponseEntity<UrlResource> downloadFile(String fileHash) {
+        File file = fileRepository.findByHash(fileHash);
+
+        try {
+            Path filePath = this.docStorageLocation.resolve(file.getHash());
+
+            UrlResource resource = new UrlResource(filePath.toUri());
+
+            // Set headers including content type and filename
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", file.getName()); // Adjust the filename here
+
+            // Return the ResponseEntity with headers and resource
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+
+        } catch (Exception e) {
+            throw new NotFoundException("File not found");
+        }
+    }
+
 
     private void storeFile(MultipartFile file, String hash) throws IOException {
         Path targetLocation = this.docStorageLocation.resolve(hash);

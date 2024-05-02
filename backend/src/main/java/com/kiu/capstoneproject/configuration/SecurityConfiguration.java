@@ -39,27 +39,27 @@ public class SecurityConfiguration {
                 // Disable CSRF(Cross-Site Request Forgery) because of JWT Auth
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-                                req.requestMatchers(WHITE_LIST_URL)
-                                        .permitAll()
-                                        .requestMatchers("/api/v1/classroom/enroll").hasAnyAuthority(Role.STUDENT.name())
-                                        .requestMatchers
-                                                (
-                                                        GET,
-                                                        "/api/v1/classroom",
-                                                        "api/v1/classroom/{classroomId}/homeworks",
-                                                        "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/{studentId}"
-                                                )
-                                        .hasAnyAuthority(Role.TEACHER.name(), Role.STUDENT.name())
-                                        .requestMatchers
-                                                (
-                                                        PATCH,
-                                                        "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/submit",
-                                                        "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/remove"
-                                                )
-                                        .hasAnyAuthority(Role.STUDENT.name())
-                                        .requestMatchers("/api/v1/classroom/**").hasAnyAuthority(Role.TEACHER.name())
-                                        .anyRequest()
-                                        .authenticated()
+                        req.requestMatchers(WHITE_LIST_URL)
+                                .permitAll()
+                                .requestMatchers("/api/v1/classroom/enroll").hasAnyAuthority(Role.STUDENT.name())
+                                .requestMatchers
+                                        (
+                                                GET,
+                                                "/api/v1/classroom",
+                                                "api/v1/classroom/{classroomId}/homeworks",
+                                                "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/{studentId}"
+                                        )
+                                .hasAnyAuthority(Role.TEACHER.name(), Role.STUDENT.name())
+                                .requestMatchers
+                                        (
+                                                PATCH,
+                                                "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/submit",
+                                                "api/v1/classroom/{classroomId}/homeworks/{homeworkId}/remove"
+                                        )
+                                .hasAnyAuthority(Role.TEACHER.name(), Role.STUDENT.name())
+                                .requestMatchers("/api/v1/classroom/**").hasAnyAuthority(Role.TEACHER.name())
+                                .anyRequest()
+                                .authenticated()
                 )
                 .exceptionHandling((exception) -> exception.accessDeniedHandler(new CustomAccessDeniedHandler())
                         .authenticationEntryPoint(new CustomAuthenticationEntryPoint()))

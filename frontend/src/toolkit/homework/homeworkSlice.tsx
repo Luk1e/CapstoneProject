@@ -40,12 +40,12 @@ interface RejectWithValueProps {
 export type HomeworkType = ActionProps | null;
 
 /* reducers */
-export const getHomework = createAsyncThunk<
+export const getStudentHomework = createAsyncThunk<
   ActionProps,
   ValuesProps,
   { rejectValue: RejectWithValueProps }
 >(
-  "homework/get",
+  "homework/getStudentHomework",
   async ({ classroomId, homeworkId, studentId }, { rejectWithValue }) => {
     try {
       // should return homework
@@ -88,7 +88,7 @@ export const homeworkSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getHomework.pending, (state) => {
+    builder.addCase(getStudentHomework.pending, (state) => {
       state.isLoading = true;
     });
 
@@ -107,7 +107,7 @@ export const homeworkSlice = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(getHomework.fulfilled, (state, action) => {
+    builder.addCase(getStudentHomework.fulfilled, (state, action) => {
       state.homework = action.payload;
       state.error = null;
       state.isLoading = false;
@@ -131,7 +131,7 @@ export const homeworkSlice = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(getHomework.rejected, (state, action) => {
+    builder.addCase(getStudentHomework.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

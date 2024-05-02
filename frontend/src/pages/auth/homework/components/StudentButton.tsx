@@ -98,13 +98,14 @@ const RemoveButton = styled.p`
 
 interface StudentButtonProps {
   homework: HomeworkType;
+  isLoading: boolean;
   idObject: {
     classroomId: string | undefined;
     homeworkId: string | undefined;
   };
 }
 
-function StudentButton({ homework, idObject }: StudentButtonProps) {
+function StudentButton({ homework, idObject, isLoading }: StudentButtonProps) {
   const dispatch: DispatchType = useDispatch();
 
   const validateForm = (values: FileFormvalues) => {
@@ -152,7 +153,7 @@ function StudentButton({ homework, idObject }: StudentButtonProps) {
                   {homework && homework.grade + " / " + homework.totalGrade}
                 </Text>
                 {homework && homework.status !== "GRADED" && (
-                  <Button>submit</Button>
+                  <Button disabled={isLoading}>submit</Button>
                 )}
               </ButtonContainer>
             </Form>

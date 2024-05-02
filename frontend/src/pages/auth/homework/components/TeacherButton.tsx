@@ -96,13 +96,14 @@ const Button = styled.button`
 
 interface TeacherButtonProps {
   homework: HomeworkType;
+  isLoading: boolean;
   idObject: {
     classroomId: string | undefined;
     homeworkId: string | undefined;
     studentId: string | null;
   };
 }
-function TeacherButton({ homework, idObject }: TeacherButtonProps) {
+function TeacherButton({ homework, idObject, isLoading }: TeacherButtonProps) {
   const dispatch: DispatchType = useDispatch();
 
   const validateForm = (values: GradeFormValues) => {
@@ -144,7 +145,7 @@ function TeacherButton({ homework, idObject }: TeacherButtonProps) {
                   {"  / "} {homework ? homework?.totalGrade : 0}
                 </Text>
               </InputContainer>
-              <Button>submit</Button>
+              <Button disabled={isLoading}>submit</Button>
             </Form>
           );
         }}

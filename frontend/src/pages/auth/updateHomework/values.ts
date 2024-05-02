@@ -1,0 +1,64 @@
+import { z } from "zod";
+import { DispatchType } from "../../../store/store";
+import { updateHomework } from "../../../toolkit/homework/getHomeworkSlice";
+import { HomeworkType } from "../../../toolkit/homework/getHomeworkSlice";
+
+interface InitialValuesProps {
+  homework: HomeworkType;
+}
+export const initialValues = ({ homework }: InitialValuesProps) => {
+  return {
+    title: homework ? homework?.title : "",
+    instruction: homework?.instruction ? homework?.instruction : "",
+    totalGrade: homework?.totalGrade ? homework?.totalGrade : 0,
+    file: undefined,
+  };
+};
+
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 100; // 100MB
+
+export const validationSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  instruction: z.string().min(1, "Instruction is required"),
+  totalGrade: z.number().int("Points is required"),
+  file: z
+    .instanceof(File)
+    .optional()
+    .refine((file) => {
+      return !file || file.size <= MAX_UPLOAD_SIZE;
+    }, "File size must be less than 3MB"),
+});
+
+export type FormValues = z.infer<typeof validationSchema>;
+
+interface FormProps {
+  classroomId: string | undefined;
+  homeworkId: string | undefined;
+  title: string;
+  instruction: string;
+  totalGrade: number;
+  file: File | undefined;
+
+  dispatch: DispatchType;
+}
+
+export const onSubmit = ({
+  classroomId,
+  title,
+  instruction,
+  totalGrade,
+  file,
+  homeworkId,
+  dispatch,
+}: FormProps) => {
+  dispatch(
+    updateHomework({
+      title,
+      instruction,
+      totalGrade,
+      file,
+      classroomId,
+      homeworkId,
+    })
+  );
+};

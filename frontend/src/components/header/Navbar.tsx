@@ -32,7 +32,7 @@ const Container = styled.div`
 `;
 
 const InnerContainer = styled.div`
-  width: 80%;
+  width: 90%;
 
   ${respondTo.desktop`
     width: 70%;
@@ -54,7 +54,7 @@ const InnerContainer = styled.div`
 
 const HeaderText = styled.h2`
   cursor: pointer;
-
+  font-size: var(--medium-m);
   color: var(--white);
   transition: color 0.4s ease 0s;
 

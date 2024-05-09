@@ -39,10 +39,10 @@ const InnerContainer = styled.div`
   display: flex;
   width: max-content;
   max-width: 100%;
-  padding: 10px 20px;
+  padding: 10px;
 
-  border-radius: 99px;
-  background-color: var(--primary);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
   form {
     display: flex;
     gap: 20px;
@@ -70,15 +70,16 @@ const HeaderText = styled.h3`
   font-weight: normal;
 
   color: var(--white);
-  padding: 10px 20px;
+  padding: 5px 20px;
   text-transform: capitalize;
 
-  border-radius: 20px;
-  background-color: var(--primary);
-  transition: color 0.4s ease 0s;
   font-size: var(--small-m);
+  background-color: var(--magenta);
+  transition: all 0.4s ease 0s;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   &:hover {
     color: var(--whiteWithOpacity);
+    background-color: var(--primaryWithOpacity);
   }
 `;
 

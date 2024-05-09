@@ -45,6 +45,7 @@ const InnerContainer = styled.div`
         height:69px;
         position:static;
     `}
+
   ${respondTo.smallTablet`
         height:69px;
         position:static;

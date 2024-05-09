@@ -13,12 +13,11 @@ const StyledButton = styled.button`
   min-width: 100%;
   margin-bottom: 10px;
   border: none;
-  padding: 10px 30px;
-  border-radius: 20px;
+  padding: 5px 20px;
   background-color: var(--magenta);
 
   color: white;
-  font-size: var(--small-l);
+  font-size: var(--small-m);
   transition: all 0.4s ease 0s;
 
   ${respondTo.desktop`
@@ -48,10 +47,6 @@ const StyledText = styled.p`
   ${respondTo.mobile`
     color: var(--magenta);
   `}
-
-  ${respondTo.smallTablet`
-    color: var(--magenta);
-  `}
 `;
 
 const StyledLink = styled.a`
@@ -65,7 +60,7 @@ const StyledLink = styled.a`
   `}
 
   ${respondTo.smallTablet`
-    color: var(--magentaWithOpacity);
+    color: var(--white);
   `}
 
   ${respondTo.desktop`

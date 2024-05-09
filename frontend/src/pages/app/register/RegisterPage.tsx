@@ -7,10 +7,13 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  padding: 100px 0;
+  display: flex;
+  margin-top: 20vh;
+  flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
+    margin-top:5vh;
   `}
   ${respondTo.desktop`
     width: 70%;
@@ -19,8 +22,6 @@ const Container = styled.div`
   ${respondTo.tv`
     width: 60%;
   `}
-  display: flex;
-  flex-direction: column;
 `;
 
 const InnerContainer = styled.div`

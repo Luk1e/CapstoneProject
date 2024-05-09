@@ -10,10 +10,10 @@ import downloadFile from "../../../../utils/helpers/downloadFile";
 import { useDispatch } from "react-redux";
 
 const Container = styled.div`
-  width: 400px;
+  width: 350px;
 
   & > div {
-    margin: 20px 0;
+    margin: 10px 0;
 
     /* color for error message */
     & div {
@@ -31,33 +31,24 @@ const Container = styled.div`
 
   input,
   textarea {
-    width: 400px;
-    padding: 10px 30px;
-
+    width: 350px;
+    padding: 5px 10px;
     font-size: var(--small-m);
-    border-radius: 20px;
-    outline: 1px solid var(--magenta);
 
     &[type="number"] {
       width: 90px;
       display: flex;
       text-align: center;
-      padding: 5px 20px;
+      padding: 5px 10px;
     }
   }
 
   ${respondTo.mobile`
-    width: 350px;
-    input,textarea {
-      width: 350px;
-      color: var(--magenta);
-    }
-  `};
+    width: 300px;
 
-  ${respondTo.smallTablet`
-   width: 350px;
     input,textarea {
-      width:350px;
+      width: 300px;
+
       color: var(--magenta);
     }
   `};
@@ -78,16 +69,16 @@ const FileButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  padding: 10px 10px;
+  padding: 5px 10px;
 
   color: var(--white);
   font-size: var(--small-m);
   text-transform: capitalize;
 
   border: none;
-  border-radius: 99px;
   background-color: var(--secondary);
   transition: all 0.4s ease 0s;
+  border-radius: 99px;
 
   svg {
     transition: all 0.4s ease 0s;
@@ -131,17 +122,15 @@ const FileDetails = styled.div`
 `;
 
 const FileName = styled.h4`
-  margin: 10px;
-  padding-left: 10px;
-  font-weight: 500;
+  margin: 5px 10px;
+  font-style: italic;
   color: var(--white);
-
   font-size: var(--small-m);
 `;
 
 const FileSize = styled.p`
-  margin: 10px;
-  font-weight: 500;
+  margin: 5px 10px;
+  font-style: italic;
   color: var(--white);
   font-size: var(--small-m);
   margin-left: auto;

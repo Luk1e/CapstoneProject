@@ -1,4 +1,4 @@
-import BackgroundImage from "./../../static/images/background.png";
+import BackgroundImage from "./../../static/images/cover-photo.png";
 
 // Export default styles
 export const DefaultStyles = `

@@ -10,10 +10,9 @@ const ButtonContainer = styled.div`
 const StyledButton = styled.button`
   cursor: pointer;
   min-width: 100%;
-  padding: 8px 20px;
+  padding: 5px 20px;
 
   border: none;
-  border-radius: 20px;
   background-color: var(--magenta);
 
   color: white;

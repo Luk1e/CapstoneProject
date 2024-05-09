@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { StudentContainer } from "./components";
 
 const Container = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   padding: 100px 0;
   flex-direction: column;
@@ -17,6 +17,14 @@ const Container = styled.div`
   ${respondTo.mobile`
     padding: 50px 0;
   `}
+
+  ${respondTo.tablet`
+    width: 80%;
+  `};
+
+  ${respondTo.laptop`
+    width: 80%;
+  `};
 
   ${respondTo.desktop`
     width: 70%;
@@ -31,8 +39,9 @@ const InnerContainer = styled.div``;
 
 const Label = styled.p`
   font-weight: 500;
-  font-size: var(--small-l);
   font-style: italic;
+  color: var(--black);
+  font-size: var(--small-l);
 `;
 
 const ErrorText = styled.p`

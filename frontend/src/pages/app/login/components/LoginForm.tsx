@@ -21,19 +21,16 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 
-  padding: 30px 50px;
-  border-radius: 10%;
-  border: 5px solid var(--primary);
+  padding: 20px 30px;
   background-color: var(--primary);
 
   ${respondTo.mobile`
     border:none;
-    background:transparent;
-  `};
-
-  ${respondTo.smallTablet`
-    border:none;
+    box-shadow: none;
     background:transparent;
   `};
 `;
@@ -42,17 +39,15 @@ const HeaderText = styled.h2`
   display: flex;
   text-align: center;
   align-items: center;
+  padding: 0;
+  margin: 0;
   margin-bottom: 20px;
   justify-content: center;
 
   color: var(--white);
-  font-size: var(--medium-m);
+  font-size: 35px;
 
   ${respondTo.mobile`
-    color: var(--magenta);
-  `}
-
-  ${respondTo.smallTablet`
     color: var(--magenta);
   `}
 `;
@@ -63,19 +58,10 @@ const ErrorContainer = styled.div`
   justify-content: center;
   margin: 1rem 0;
   color: var(--white);
-  font-size: var(--small-l);
+  font-size: var(--small-m);
 
   ${respondTo.mobile`
-    width:350px;
-    color: var(--error);
-
-    & svg{
-      stroke: var(--error);
-    }
-  `};
-
-  ${respondTo.smallTablet`
-    width:350px;
+    width:300px;
     color: var(--error);
 
     & svg{

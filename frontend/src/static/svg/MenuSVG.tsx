@@ -5,8 +5,8 @@ interface MenuSVGProps {
 
 const SVG = styled.svg`
   height: fit-content !important;
-  height: var(--medium-m);
-  width: var(--medium-m);
+  height: 36px;
+  width: 36px;
 
   path {
     stroke: var(--white);

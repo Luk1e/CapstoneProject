@@ -4,10 +4,9 @@ export const InputStyles = `
 input,textarea {    
   border: none;
   outline: none;
-  border-radius: 100px;
 
-  font-size: var(--small-l);
-  padding-left: 30px;
+  font-size: var(--small-m);
+  padding-left: 20px;
 
 
   [id*="placeholder"] {

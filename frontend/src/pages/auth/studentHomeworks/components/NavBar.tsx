@@ -16,18 +16,17 @@ const IconButton = styled.button`
   cursor: pointer;
   display: flex;
   margin-right: 10px;
-  padding: 10px;
+  padding: 8px;
   align-items: center;
   justify-content: center;
 
   border: none;
-  border-radius: 99px;
   background-color: green;
   transition: all 0.4s ease 0s;
 
   svg {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     fill: var(--white);
   }
 

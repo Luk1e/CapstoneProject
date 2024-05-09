@@ -3,21 +3,31 @@ import { respondTo } from "../../../utils/helpers/_respondTo";
 import { CreateForm } from "./components";
 
 const Container = styled.div`
-  width: 80%;
   display: flex;
-  padding: 100px 0;
+  width: 90%;
+  margin-top: 20vh;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
+    margin-top:5vh;
   `}
+
+  ${respondTo.tablet`
+    width: 80%;
+  `};
+
+  ${respondTo.laptop`
+    width: 80%;
+  `};
+
   ${respondTo.desktop`
     width: 70%;
-  `}
+  `};
 
   ${respondTo.tv`
     width: 60%;
-  `}
+  `};
 `;
 
 const InnerContainer = styled.div`

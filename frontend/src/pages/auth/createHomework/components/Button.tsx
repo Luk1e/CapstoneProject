@@ -10,15 +10,15 @@ const ButtonContainer = styled.div`
 const StyledButton = styled.button`
   cursor: pointer;
   min-width: 100%;
+  padding: 5px 20px;
   margin-bottom: 10px;
-  border: none;
-  padding: 10px 30px;
-  border-radius: 20px;
-  background-color: var(--magenta);
 
   color: white;
-  font-size: var(--small-l);
+  font-size: var(--small-m);
+
+  border: none;
   transition: all 0.4s ease 0s;
+  background-color: var(--magenta);
 
   ${respondTo.desktop`
     &:hover{

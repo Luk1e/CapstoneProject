@@ -79,7 +79,7 @@ export const SideBar = ({ toggle, user }: SidebarProps) => {
     toggle();
   };
   return (
-    <Container>
+    <Container className="w3-animate-right">
       <InnerContainer>
         <InnerContainer>
           <CloseSVG toggle={toggle} />

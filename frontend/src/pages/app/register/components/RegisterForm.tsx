@@ -27,36 +27,33 @@ const Container = styled.div`
   justify-content: center;
   position: relative;
 
-  padding: 30px 50px;
-  border-radius: 10%;
-  border: 5px solid var(--primary);
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+
+  padding: 20px 30px;
   background-color: var(--primary);
 
   ${respondTo.mobile`
     border:none;
+    box-shadow: none;
     background:transparent;
-  `}
-
-  ${respondTo.smallTablet`
-    border:none;
-    background:transparent;
-  `}
+  `};
 `;
 
 const HeaderText = styled.h2`
   display: flex;
+  text-align: center;
   align-items: center;
+  padding: 0;
+  margin: 0;
   margin-bottom: 20px;
   justify-content: center;
 
   color: var(--white);
-  font-size: var(--medium-m);
+  font-size: 35px;
 
   ${respondTo.mobile`
-    color: var(--magenta);
-  `}
-
-  ${respondTo.smallTablet`
     color: var(--magenta);
   `}
 `;
@@ -75,12 +72,12 @@ const ArrowContainer = styled.div<ArrowContainerType>`
   position: absolute;
   width: fit-content;
 
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 0.5rem;
-  border-radius: 50%;
+  padding: 0.2rem;
   transform: translate(var(--value), -50%);
   background-color: var(--magenta);
 
@@ -89,7 +86,8 @@ const ArrowContainer = styled.div<ArrowContainerType>`
     "left:0;right:auto;  transform: translate(calc(var(--value) * -1),-50%);"}
 
   ${respondTo.mobile`
-    --value:calc(100% - 40px);
+    --value:calc(100% - 20px);
+    padding: 0.1rem;
     
     & svg{
       height:24px;
@@ -113,9 +111,9 @@ const ErrorContainer = styled.div`
   justify-content: center;
   margin: 1rem 0;
   color: var(--white);
-  font-size: var(--small-l);
+  font-size: var(--small-m);
 
-  width: 400px;
+  width: 350px;
 
   ${respondTo.mobile`
     width:300px;

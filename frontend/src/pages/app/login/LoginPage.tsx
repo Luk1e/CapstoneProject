@@ -8,11 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  padding: 100px 0;
+  margin-top: 20vh;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
+    margin-top:10vh;
   `}
   ${respondTo.desktop`
     width: 70%;
@@ -28,11 +29,6 @@ const InnerContainer = styled.div`
   justify-content: space-evenly;
 
   ${respondTo.tablet`
-    flex-direction: column;
-    gap:20px;
-  `}
-
-  ${respondTo.smallTablet`
     flex-direction: column;
     gap:20px;
   `}

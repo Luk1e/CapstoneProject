@@ -39,8 +39,10 @@ ${respondTo.laptop`
 
 /* Variables */
 :root {
+
   /* Colors */
-  --primary: #9c36b5;
+  --primary: rgb(156, 54, 181);
+  --primaryWithOpacity:  rgb(156, 54, 181, 0.7);
   --error: #d31027;
 
   --gradient-primary: linear-gradient(326deg, #a4508b 0%, #5f0a87 74%);

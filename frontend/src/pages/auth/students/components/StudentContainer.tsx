@@ -13,35 +13,35 @@ const Container = styled.div`
   display: flex;
   margin: 10px 0;
   align-items: center;
+  background-color: var(--magenta);
+
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
 
   ${respondTo.mobile`
-    border-radius: 99px;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--primary);
   `}
 
   ${respondTo.smallTablet`
-    border-radius: 99px;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--primary);
   `}
 `;
 
 const UserText = styled.div`
   padding: 8px 20px;
-
   color: var(--white);
-  border-radius: 99px;
   text-transform: capitalize;
-  background-color: var(--primary);
 
   ${respondTo.mobile`
+    box-shadow: none;
     background:transparent;
   `}
 
   ${respondTo.smallTablet`
+    box-shadow: none;
     background:transparent;
   `}
 `;
@@ -51,16 +51,16 @@ const ButtonContainer = styled.div`
   margin-left: auto;
 
   padding: 8px 20px;
-  border-radius: 99px;
-  background-color: var(--primary);
 
   ${respondTo.mobile`
     margin-left: 0;
+    box-shadow: none;
     background:transparent;
   `}
 
   ${respondTo.smallTablet`
     margin-left: 0;
+    box-shadow: none;
     background:transparent;
   `}
 `;
@@ -70,10 +70,9 @@ const Button = styled.button`
   height: 100%;
   padding: 5px 20px;
 
-  color: var(--white);
-
   border: none;
-  border-radius: 99px;
+  color: var(--white);
+  font-size: var(--small-m);
   transition: all 0.4s ease 0s;
 
   &:first-of-type {

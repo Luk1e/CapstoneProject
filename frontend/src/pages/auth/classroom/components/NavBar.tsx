@@ -11,12 +11,12 @@ import { PlusSVG } from "../../../../static/svg";
 const Container = styled.div`
   display: flex;
 `;
+
 const Button = styled.button`
   cursor: pointer;
-  padding: 0px 20px;
+  padding: 0px 10px;
 
   border: none;
-  border-radius: 99px;
   background-color: var(--magenta);
 
   color: var(--white);
@@ -43,12 +43,11 @@ const IconButton = styled.button`
   cursor: pointer;
   display: flex;
   margin-right: 10px;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
   justify-content: center;
 
   border: none;
-  border-radius: 99px;
   background-color: green;
   transition: all 0.4s ease 0s;
 
@@ -56,6 +55,7 @@ const IconButton = styled.button`
     height: 20px;
     width: 20px;
     fill: var(--white);
+    transition: all 0.4s ease 0s;
   }
 
   ${respondTo.desktop`

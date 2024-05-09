@@ -22,9 +22,9 @@ const Container = styled.div`
 
 const Title = styled.h4`
   margin: 0;
-  padding: 10px 0px 10px 30px;
+  padding: 10px 0px 10px 20px;
 
-  font-size: var(--small-l);
+  font-size: var(--small-m);
   text-transform: capitalize;
   transition: all 0.4s ease 0s;
 `;
@@ -32,12 +32,12 @@ const Title = styled.h4`
 const SubmittedNumber = styled.h4`
   display: flex;
   margin: 0;
-  padding: 10px 10px;
-  margin-right: 30px;
+  padding: 5px 10px;
+  margin-right: 20px;
   margin-left: auto;
 
   border-radius: 0;
-  font-size: var(--small-m);
+  font-size: var(--small-s);
   text-transform: capitalize;
   background-color: var(--primary);
   transition: all 0.4s ease 0s;

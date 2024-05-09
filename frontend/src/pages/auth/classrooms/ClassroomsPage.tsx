@@ -8,21 +8,30 @@ import { useEffect } from "react";
 import { getClassrooms, reset } from "../../../toolkit/classroom/getAllSlice";
 
 const Container = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   padding: 100px 0;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
-  `}
+  `};
+
+  ${respondTo.tablet`
+    width: 80%;
+  `};
+
+  ${respondTo.laptop`
+    width: 80%;
+  `};
+
   ${respondTo.desktop`
     width: 70%;
-  `}
+  `};
 
   ${respondTo.tv`
     width: 60%;
-  `}
+  `};
 `;
 
 const HeaderContainer = styled.div`
@@ -58,8 +67,11 @@ const ClassroomContainer = styled.div`
 `;
 
 const Label = styled.p`
-  font-weight: 500;
   margin: 40px 0 0 0;
+
+  font-weight: 500;
+  font-style: italic;
+  color: var(--black);
   font-size: var(--small-l);
 `;
 

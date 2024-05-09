@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const SVG = styled.svg`
-  height: 36px;
-  width: 36px;
+  height: 25px;
+  width: 25px;
 `;
 
 const RightArrowSVG = () => {

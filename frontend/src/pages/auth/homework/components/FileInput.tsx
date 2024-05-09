@@ -24,18 +24,22 @@ const FileInputContainer = styled.div`
 const FileSize = styled.p`
   margin: 10px;
   display: flex;
+  margin-left: auto;
+
   font-weight: 500;
+  font-style: italic;
   color: var(--white);
   font-size: var(--small-m);
-  margin-left: auto;
 `;
 
 const FileLabel = styled.label`
-  cursor: pointer;
   margin: 10px;
   flex-grow: 1;
+  cursor: pointer;
   padding-left: 10px;
+
   font-weight: 500;
+  font-style: italic;
   color: var(--white);
   font-size: var(--small-m);
 `;

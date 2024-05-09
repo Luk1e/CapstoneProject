@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const SVG = styled.svg`
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
 `;
 
 const AttachFileSVG = () => {

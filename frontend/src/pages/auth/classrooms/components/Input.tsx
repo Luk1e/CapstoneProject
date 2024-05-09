@@ -4,7 +4,7 @@ import FormikControl from "../../../../components/formik/FormikControl";
 
 const Container = styled.div`
   & > div:not(:first-child) {
-    margin: 20px 0;
+    margin: 10px 0;
 
     /* color for error message */
     & div {
@@ -22,11 +22,9 @@ const Container = styled.div`
 
   input {
     width: 300px;
-    padding: 8px 20px;
-
+    padding: 5px 20px;
+    border: none;
     font-size: var(--small-m);
-    border-radius: 20px;
-    outline: 1px solid var(--magenta);
   }
 
   ${respondTo.mobile`

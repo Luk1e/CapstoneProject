@@ -3,10 +3,10 @@ import { respondTo } from "../../../../utils/helpers/_respondTo";
 import FormikControl from "../../../../components/formik/FormikControl";
 
 const Container = styled.div`
-  width: 400px;
+  width: 350px;
 
   & > div {
-    margin: 20px 0;
+    margin: 10px 0;
 
     /* color for error message */
     & div {
@@ -15,34 +15,20 @@ const Container = styled.div`
       ${respondTo.mobile`
         color: var(--error);
       `};
-
-      ${respondTo.smallTablet`
-        color: var(--error);
-      `};
     }
   }
 
   input {
-    width: 400px;
-    padding: 10px 30px;
+    width: 350px;
+    padding: 5px 20px;
 
-    font-size: var(--small-l);
-    border-radius: 20px;
-    outline: 1px solid var(--magenta);
+    font-size: var(--small-m);
   }
 
   ${respondTo.mobile`
-    width: 350px;
+    width: 300px;
     input {
-      width: 350px;
-      color: var(--magenta);
-    }
-  `};
-
-  ${respondTo.smallTablet`
-   width: 350px;
-    input {
-      width:350px;
+      width: 300px;
       color: var(--magenta);
     }
   `};

@@ -9,13 +9,14 @@ const Container = styled.div`
   right: 0;
   min-width: max-content;
   position: absolute;
-  transform: translateY(calc(100% + 35px));
+  transform: translateY(calc(100% + 25px));
 `;
 
 const InnerContainer = styled.div`
   display: flex;
-  padding: 10px 20px;
-  border-radius: 10%;
+  padding: 5px 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
   flex-direction: column;
   background-color: var(--secondary);
 `;
@@ -25,7 +26,7 @@ interface LinkProps {
 }
 
 const Link = styled.a<LinkProps>`
-  margin: 10px 10px;
+  margin: 5px 10px;
 
   text-align: center;
   color: var(--white);

@@ -4,50 +4,35 @@ import FormikControl from "../../../../components/formik/FormikControl";
 import RadioInputs from "./RadioInputs";
 
 const Container = styled.div`
-  width: 400px;
+  width: 350px;
 
   ${respondTo.mobile`
       width:300px;
   `};
 
-  ${respondTo.smallTablet`
-      width:300px;
-  `};
-
-  & > div:not(:first-child) {
-    margin: 20px 0;
+  & > div {
+    margin: 10px 0;
 
     /* color for error message */
-    & div {
-      color: var(--white);
+    &:not(:first-child) {
+      & div {
+        color: var(--white);
 
-      ${respondTo.mobile`
+        ${respondTo.mobile`
         color: var(--error);
       `};
-
-      ${respondTo.smallTablet`
-        color: var(--error);
-      `};
+      }
     }
   }
 
   input {
-    width: 400px;
-    padding: 10px 30px;
+    width: 350px;
+    padding: 5px 20px;
 
-    font-size: var(--small-l);
-    border-radius: 20px;
-    outline: 1px solid var(--magenta);
+    font-size: var(--small-m);
   }
 
   ${respondTo.mobile`
-    input {
-      width:300px;
-      color: var(--magenta);
-    }
-  `}
-
-  ${respondTo.smallTablet`
     input {
       width:300px;
       color: var(--magenta);

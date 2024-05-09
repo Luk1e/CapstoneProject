@@ -13,7 +13,10 @@ const ItemInnerContainer = styled.div`
   padding: 10px;
   cursor: pointer;
 
-  border-radius: 10%;
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+
   border: 5px solid var(--primary);
   background-color: var(--primary);
 
@@ -63,9 +66,11 @@ interface TextProps {
 const Text = styled.h1<TextProps>`
   margin: 10px 0;
   cursor: pointer;
-  text-transform: capitalize;
-  color: var(--primary);
+  
   opacity: 0;
+  color: var(--primary);
+  font-size: var(--medium-l);
+  text-transform: capitalize;
 
   ${respondTo.tablet`
       opacity: 1;
@@ -92,11 +97,7 @@ const Text = styled.h1<TextProps>`
 `;
 
 const Image = styled.img`
-  height: 300px;
-
-  ${respondTo.mobile`
-      height:250px;
-    `}
+  height: 200px;
 `;
 
 interface BookProps {

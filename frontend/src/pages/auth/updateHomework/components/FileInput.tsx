@@ -15,10 +15,9 @@ const FileLabel = styled.label`
   align-items: center;
   justify-content: center;
 
-  padding: 10px 0;
+  padding: 5px 0;
   color: var(--white);
   font-size: var(--small-m);
-  border-radius: 20px;
   transition: all 0.4s ease 0s;
   background-color: var(--secondary);
 

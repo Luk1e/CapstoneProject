@@ -10,21 +10,30 @@ import { useDispatch } from "react-redux";
 import { getHomeworks, reset } from "../../../toolkit/homework/getAllSlice";
 
 const Container = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   padding: 100px 0;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
-  `}
+  `};
+
+  ${respondTo.tablet`
+    width: 80%;
+  `};
+
+  ${respondTo.laptop`
+    width: 80%;
+  `};
+
   ${respondTo.desktop`
     width: 70%;
-  `}
+  `};
 
   ${respondTo.tv`
     width: 60%;
-  `}
+  `};
 `;
 
 const NavContainer = styled.div``;
@@ -35,10 +44,10 @@ const Label = styled.div`
 `;
 
 const Text = styled.p`
-  color: var(--black);
   font-weight: 500;
-  font-size: var(--small-l);
   font-style: italic;
+  color: var(--black);
+  font-size: var(--small-l);
 
   &:not(:first-of-type) {
     margin-left: auto;

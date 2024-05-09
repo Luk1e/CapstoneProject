@@ -10,26 +10,40 @@ import { useDispatch } from "react-redux";
 import { getStudentHomeworks, reset } from "../../../toolkit/homework/getSlice";
 
 const Container = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   padding: 100px 0;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
-  `}
+  `};
+
+  ${respondTo.tablet`
+    width: 80%;
+  `};
+  
+  ${respondTo.laptop`
+    width: 80%;
+  `};
+
   ${respondTo.desktop`
     width: 70%;
-  `}
+  `};
 
   ${respondTo.tv`
     width: 60%;
-  `}
+  `};
 `;
 
 const Label = styled.div`
   display: flex;
   margin: 40px 0 0 0;
+
+  font-weight: 500;
+  font-style: italic;
+  color: var(--black);
+  font-size: var(--small-m);
 `;
 
 const NavContainer = styled.div``;

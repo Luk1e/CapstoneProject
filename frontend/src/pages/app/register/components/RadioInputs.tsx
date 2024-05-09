@@ -30,17 +30,19 @@ const Label = styled.label`
   cursor: pointer;
   display: flex;
   width: 100%;
-  padding: 10px 30px;
+  padding: 5px 20px;
 
   align-items: center;
   flex-direction: column;
   justify-content: center;
 
-  font-size: var(--small-l);
+  font-size: var(--small-m);
   text-transform: capitalize;
 
-  border-radius: 20px;
-  outline: 1px solid var(--magenta);
+  outline: none;
+  border: none;
+  border-color: transparent;
+
   background-color: whitesmoke;
   transition: all 0.1s ease-in-out;
 
@@ -76,7 +78,7 @@ const ErrorText = styled.p`
   margin-left: 1rem;
 
   color: var(--red);
-  font-size: var(--small-m);
+  font-size: var(--small-s);
   text-transform: capitalize;
 `;
 

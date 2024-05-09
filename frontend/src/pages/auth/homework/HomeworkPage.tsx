@@ -14,26 +14,36 @@ import { TeacherButton, StudentButton } from "./components";
 import downloadFile from "../../../utils/helpers/downloadFile";
 
 const Container = styled.div`
-  width: 80%;
+  width: 90%;
   display: flex;
   padding: 100px 0;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
-  `}
+  `};
+
+  ${respondTo.tablet`
+    width: 80%;
+  `};
+
+  ${respondTo.laptop`
+    width: 80%;
+  `};
+
   ${respondTo.desktop`
     width: 70%;
-  `}
+  `};
 
   ${respondTo.tv`
     width: 60%;
-  `}
+  `};
 `;
 
 const TitleContainer = styled.div`
   display: flex;
   align-items: end;
+  justify-content: center;
 `;
 
 const TitleText = styled.h3`
@@ -54,20 +64,19 @@ const StatusText = styled.p`
 `;
 
 const Label = styled.p`
-  margin: 10px 0;
-
-  color: var(--primary);
-  font-weight: 500;
   font-style: italic;
+  color: var(--primary);
   font-size: var(--small-l);
   text-transform: capitalize;
+
+  &:first-of-type{
+    margin-top: 10px;
+  }
 `;
 
 const Text = styled.p`
   margin: 10px;
-  font-weight: 500;
-  color: var(--black);
-  font-size: var(--small-l);
+  font-size: var(--small-m);
 `;
 
 const FileDetails = styled.div`
@@ -90,18 +99,21 @@ const FileDetails = styled.div`
 const FileName = styled.h4`
   margin: 10px;
   padding-left: 10px;
-  font-weight: 500;
-  color: var(--white);
 
+  font-weight: 500;
+  font-style: italic;
+  color: var(--white);
   font-size: var(--small-m);
 `;
 
 const FileSize = styled.p`
   margin: 10px;
   font-weight: 500;
+  margin-left: auto;
+
+  font-style: italic;
   color: var(--white);
   font-size: var(--small-m);
-  margin-left: auto;
 `;
 
 const InnerContainer = styled.div`

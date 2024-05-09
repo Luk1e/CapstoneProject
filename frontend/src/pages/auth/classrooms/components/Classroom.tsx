@@ -14,12 +14,14 @@ const Container = styled.div<ContainerProps>`
   max-width: 400px;
 
   padding: 0px 30px;
-  border-radius: 99px;
   background-color: ${(props) => props.$color};
+  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px,
+    rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px,
+    rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
   transition: all 0.4s ease 0s;
 
   &:hover {
-    opacity: 0.9;
+    opacity: 0.8;
     h3 {
       color: var(--whiteWithOpacity);
     }

@@ -13,15 +13,14 @@ const StyledDivButton = styled.div`
   text-transform: capitalize;
   text-align: center;
   min-width: 100%;
-  padding: 10px 30px;
+  padding: 5px 20px;
   margin-bottom: 10px;
 
   border: none;
-  border-radius: 20px;
   background-color: var(--magenta);
 
   color: white;
-  font-size: var(--small-l);
+  font-size: var(--small-m);
   transition: all 0.4s ease 0s;
 
   ${respondTo.desktop`
@@ -48,15 +47,14 @@ const StyledDivButton = styled.div`
 const StyledButton = styled.button`
   cursor: pointer;
   min-width: 100%;
-  padding: 10px 30px;
+  padding: 5px 20px;
   margin-bottom: 10px;
 
   border: none;
-  border-radius: 20px;
   background-color: var(--magenta);
 
   color: white;
-  font-size: var(--small-l);
+  font-size: var(--small-მ);
   transition: all 0.4s ease 0s;
 
   ${respondTo.desktop`
@@ -87,10 +85,6 @@ const StyledText = styled.p`
   ${respondTo.mobile`
     color: var(--magenta);
   `}
-
-  ${respondTo.smallTablet`
-    color: var(--magenta);
-  `}
 `;
 
 const StyledLink = styled.a`
@@ -104,7 +98,7 @@ const StyledLink = styled.a`
   `}
 
   ${respondTo.smallTablet`
-    color: var(--magentaWithOpacity);
+    color: var(--white);
   `}
 
   ${respondTo.desktop`
@@ -134,7 +128,7 @@ function Buttons({
   isLoading,
 }: ButtonsProps) {
   return (
-    <ButtonContainer >
+    <ButtonContainer>
       {isFirstPage ? (
         <StyledDivButton onClick={() => setIsFirstPage()}>next</StyledDivButton>
       ) : (

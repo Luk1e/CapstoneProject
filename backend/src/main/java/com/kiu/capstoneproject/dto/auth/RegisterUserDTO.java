@@ -23,12 +23,12 @@ import lombok.NoArgsConstructor;
 )
 public class RegisterUserDTO {
     @NotBlank(message = "First name is mandatory.")
-    @Size(min = 3, message = "First name must be at least 3 characters.")
+    @Size(min = 2, message = "First name must be at least 2 characters.")
     @Size(max = 30, message = "First name must not exceed 30 characters.")
     private String firstName;
 
     @NotBlank(message = "Last name is mandatory.")
-    @Size(min = 3, message = "Last name must be at least 3 characters.")
+    @Size(min = 2, message = "Last name must be at least 2 characters.")
     @Size(max = 30, message = "Last name must not exceed 30 characters.")
     private String lastName;
 

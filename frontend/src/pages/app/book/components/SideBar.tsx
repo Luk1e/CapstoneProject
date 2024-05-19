@@ -1,13 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { respondTo } from "../../../../utils/helpers/_respondTo";
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
   align-items: start;
-  min-width: 400px;
-  min-height: 400px;
+  justify-content: center;
+
   margin: 10px;
+  min-width: 20vw;
+  min-height: 400px;
+
+  ${respondTo.mobile`
+    margin:0;
+    min-width:0vw;
+  `};
+
+  ${respondTo.smallTablet`
+    margin:0;
+    min-width:0vw;
+  `};
+
+  ${respondTo.tablet`
+    min-width:10vw;
+  `};
+
+  ${respondTo.laptop`
+    min-width:10vw;
+  `};
 `;
 
 const InnerContainer = styled.div`
@@ -18,6 +38,7 @@ const InnerContainer = styled.div`
 
   padding: 10px 0px 10px 40px;
   background-color: var(--secondary);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
   .render {
     visibility: hidden;
@@ -59,11 +80,33 @@ interface SideBarProps {
 
 function SideBar({ empty }: SideBarProps) {
   const [isOpen, setIsopen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      const viewportHeight = window.innerHeight;
+
+      if (scrolled > viewportHeight) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup function to remove the event listener when component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // empty dependency array to run only once
+
   return (
     <Container>
-      <InnerContainer>
-        {!empty && (
-          <List>
+      {!empty && isVisible && (
+        <InnerContainer>
+          <List className="w3-animate-right">
             <ListElement
               onMouseEnter={() => setIsopen(true)}
               onMouseLeave={() => setIsopen(false)}
@@ -79,8 +122,8 @@ function SideBar({ empty }: SideBarProps) {
             <ListElement>თავსატეხი</ListElement>
             <ListElement>ტესტები</ListElement>
           </List>
-        )}
-      </InnerContainer>
+        </InnerContainer>
+      )}
     </Container>
   );
 }

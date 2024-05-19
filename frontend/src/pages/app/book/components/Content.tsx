@@ -1,17 +1,22 @@
 import styled from "styled-components";
+import TableOfContents from "./TableOfContents";
+import Quiz from "./Quiz";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  padding: 20px;
-  margin: 10px;
-  color: var(--whiteWithOpacity);
+  padding: 40px;
+  color: var(--white);
   background-color: var(--secondary);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  flex-direction: column;
+  width: 100%;
 `;
 
 function Content() {
   return (
-    <Container>
+    <Container className="w3-animate-left">
+      <TableOfContents />
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam expedita
       aliquid eligendi similique, magni ea quo illo dolorem asperiores ducimus
       quaerat repudiandae. Iusto cupiditate aut saepe itaque impedit placeat
@@ -313,6 +318,7 @@ function Content() {
       nesciunt perferendis quia beatae minima aut nemo. Possimus blanditiis iste
       dolores. Necessitatibus, eveniet! Vel ipsam, dolorem voluptates ullam,
       excepturi tempora deleniti quos harum necessitatibus natus pariatur esse
+      <p id="Chaining-Promises">asdasd</p>
       earum? Error fugit ex culpa repellendus exercitationem. Dicta ratione,
       distinctio consequuntur quaerat maxime excepturi harum aspernatur quos
       earum! Delectus nulla dolores commodi vel ipsam, quaerat officia illo
@@ -333,6 +339,7 @@ function Content() {
       nesciunt possimus autem necessitatibus, maiores quo expedita consectetur
       eveniet hic quia doloremque. Voluptatum veniam vel doloribus ut a, facilis
       consequuntur quam.
+      <Quiz />
     </Container>
   );
 }

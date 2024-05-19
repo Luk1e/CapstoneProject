@@ -2,7 +2,7 @@ import { Suspense, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./routes/routes";
 import GlobalStyle from "./styles/GlobalStyles";
-import Header from "./components/header/Header";
+import { Header, Footer } from "./components";
 import { useSelector, useDispatch } from "react-redux";
 import { StateType, DispatchType } from "./store/store";
 import { authenticate } from "./toolkit/auth/authSlice";
@@ -22,7 +22,7 @@ function App() {
         <GlobalStyle />
         <Header />
         <Router user={user} loading={isLoading} />
-        {/* <Footer /> */}
+        <Footer />
       </BrowserRouter>
     </Suspense>
   );

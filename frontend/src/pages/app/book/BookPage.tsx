@@ -1,31 +1,23 @@
 import styled from "styled-components";
-import { respondTo } from "../../../utils/helpers/_respondTo";
-import BackgroundImagePath from "../../../static/images/book-background.jpg";
+import useWindowDimensions from "../../../utils/hooks/useWindowDimensions";
 import { SideBar, Content } from "./components";
+import BackgroundImage from "../../../static/images/cover-photo.png";
 
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   display: flex;
-
-  background-image: url(${BackgroundImagePath});
-  background-repeat: repeat;
-  background-size: 100%;
-  ${respondTo.mobile`
-    padding: 50px 0;
-  `}
-
-  ${respondTo.desktop`
-  width: 100%;
-  `}
+  background-color: var(--magenta);
+  background-image: url(${BackgroundImage});
 `;
 
 function BookPage() {
+  const { width } = useWindowDimensions();
   return (
     <Container>
       <SideBar empty />
       <Content />
-      <SideBar />
+      <SideBar empty={width > 1600 ? false : true} />
     </Container>
   );
 }

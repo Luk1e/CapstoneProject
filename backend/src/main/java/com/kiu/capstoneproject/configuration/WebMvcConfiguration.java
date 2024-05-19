@@ -12,7 +12,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
          .allowedMethods("*")
          .allowedHeaders("*")
-         .allowedOrigins("http://192.168.215.76:5173")
+         .allowedOrigins("http://localhost:5173")
          .allowCredentials(true)
          .maxAge(-1);
     }

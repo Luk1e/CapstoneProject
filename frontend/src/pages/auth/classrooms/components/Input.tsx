@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import FormikControl from "../../../../components/formik/FormikControl";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   & > div:not(:first-child) {
@@ -44,6 +45,7 @@ const Container = styled.div`
 
 // Export classroom name input
 function Input() {
+  const { t } = useTranslation(["auth"]);
   return (
     <Container>
       <FormikControl
@@ -51,7 +53,7 @@ function Input() {
         type="text"
         label="name"
         name="name"
-        placeholder={"classroom name"}
+        placeholder={t("classroomsPage.classroom name")}
         required
       />
     </Container>

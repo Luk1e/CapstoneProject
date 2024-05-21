@@ -7,11 +7,13 @@ import { useEffect } from "react";
 import { getStudents, reset } from "../../../toolkit/classroom/studentSlice";
 import { useParams } from "react-router-dom";
 import { StudentContainer } from "./components";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 90%;
   display: flex;
   padding: 100px 0;
+  max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
@@ -54,6 +56,8 @@ const ErrorText = styled.p`
 function StudentsPage() {
   const { id } = useParams();
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["auth"]);
+
   const { isLoading, studentList, success } = useSelector(
     (state: StateType) => state.students
   );
@@ -83,7 +87,7 @@ function StudentsPage() {
         <Loader color={"darkmagenta"} />
       ) : (
         <InnerContainer className="w3-animate-left">
-          <Label> Pending</Label>
+          <Label> {t("studentsPage.Pending")}</Label>
           {pendingStudentList.length > 0 ? (
             pendingStudentList.map((student) => (
               <StudentContainer
@@ -93,10 +97,12 @@ function StudentsPage() {
               />
             ))
           ) : (
-            <ErrorText>There are no pending requests</ErrorText>
+            <ErrorText>
+              {t("studentsPage.There are no pending requests")}
+            </ErrorText>
           )}
 
-          <Label>Enrolled</Label>
+          <Label>{t("studentsPage.Enrolled")}</Label>
           {enrolledStudentList.length > 0 ? (
             enrolledStudentList.map((student) => (
               <StudentContainer
@@ -107,7 +113,9 @@ function StudentsPage() {
             ))
           ) : (
             <ErrorText>
-              There are no students enrolled in this classroom
+              {t(
+                "studentsPage.There are no students enrolled in this classroom"
+              )}
             </ErrorText>
           )}
         </InnerContainer>

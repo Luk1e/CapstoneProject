@@ -1,0 +1,54 @@
+{
+  "global": {
+    "join": "დამატება",
+    "create": "შექმნა",
+    "Status": "სტატუსი",
+    "Submitted": "ატვირთულია",
+    "Homeworks": "დავალებები",
+    "students": "სტუდენტები",
+    "Homework": "დავალება",
+    "submit": "გაგზავნა",
+    "Grade": "ქულა"
+  },
+  "classroomsPage": {
+    "Classrooms": "კლასები",
+    "classroom name": "კლასის სახელი",
+    "Request Sent": "მოთხოვნა გაგზავნილია",
+    "join classroom": "კლასში დამატება",
+    "create classroom": "კლასის შექმნა"
+  },
+  "classroomPage": {
+    "delete classroom": "კლასის წაშლა",
+    "There are no homeworks": "დავალება არ არის"
+  },
+  "studentsPage": {
+    "Pending": "მოთხოვნები",
+    "There are no pending requests": "მოთხოვნები არ არის",
+    "Enrolled": "მოსწავლეები",
+    "There are no students enrolled in this classroom": "კლასი ცარიელია",
+    "accept": "დამატება",
+    "reject": "გაუქმება",
+    "remove": "წაშლა"
+  },
+  "validation": {
+    "Choose a file": "აირჩიეთ ფაილი",
+    "title...": "დავალების სახელი",
+    "instruction...": "ინსტრუქცია",
+    "points": "ქულა",
+    "Title is required": "სახელი სავალდებულოა",
+    "Instruction is required": "ინსტრუქცია სავალდებულოა",
+    "Points is required": "ქულა სავალდებულოა",
+    "remove": "წაშლა",
+    "File size must be less than 3MB": "ფაილის ზომა უნდა იყოს 3 მბ-ზე ნაკლები"
+  },
+  "studentHomeworksPage": {
+    "delete homework": "დავალების წაშლა",
+    "There are no homeworks": "დავალება არ არის"
+  },
+  "homeworkPage": {
+    "instruction": "ინსტრუქცია",
+    "Task file": "დავალების ფაილი",
+    "File not uploaded": "ფაილი არ არის ატვირთული",
+    "Solution file": "ამოხსნის ფაილი"
+  }
+}

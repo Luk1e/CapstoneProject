@@ -1,6 +1,7 @@
 // Import styles
 import { styled } from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
+import { useTranslation } from "react-i18next";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -44,10 +45,11 @@ interface ButtonsProps {
 }
 
 function Button({ isLoading }: ButtonsProps) {
+  const { t } = useTranslation("auth");
   return (
     <ButtonContainer>
       <StyledButton type="submit" disabled={isLoading}>
-        submit
+        {t("global.submit")}
       </StyledButton>
     </ButtonContainer>
   );

@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { DispatchType } from "../../../../store/store";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import { HomeworkType } from "../../../../toolkit/homework/homeworkSlice";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 100%;
@@ -105,6 +106,7 @@ interface TeacherButtonProps {
 }
 function TeacherButton({ homework, idObject, isLoading }: TeacherButtonProps) {
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["auth"]);
 
   const validateForm = (values: GradeFormValues) => {
     try {
@@ -115,9 +117,10 @@ function TeacherButton({ homework, idObject, isLoading }: TeacherButtonProps) {
       }
     }
   };
+
   return (
     <Container>
-      <Label> Grade</Label>
+      <Label> {t("global.Grade")}</Label>
 
       <Formik
         initialValues={gradeInitialValues(homework?.grade)}
@@ -145,7 +148,7 @@ function TeacherButton({ homework, idObject, isLoading }: TeacherButtonProps) {
                   {"  / "} {homework ? homework?.totalGrade : 0}
                 </Text>
               </InputContainer>
-              <Button disabled={isLoading}>submit</Button>
+              <Button disabled={isLoading}>{t("global.submit")}</Button>
             </Form>
           );
         }}

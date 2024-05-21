@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import styled, { css, keyframes } from "styled-components";
 import book from "../../../../static/images/book.png";
+import { useTranslation } from "react-i18next";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -66,7 +67,7 @@ interface TextProps {
 const Text = styled.h1<TextProps>`
   margin: 10px 0;
   cursor: pointer;
-  
+
   opacity: 0;
   color: var(--primary);
   font-size: var(--medium-l);
@@ -109,7 +110,7 @@ function Book({ width, navigate }: BookProps) {
   // Initial animation and animation boolean for book component
   const [isHoveredBook, setIsHoveredBook] = useState(false);
   const [showAnimationBook, setShowAnimationBook] = useState(false);
-
+  const { t } = useTranslation(["app"]);
   /* use Effects to control initial render animations */
   useEffect(() => {
     // Set showAnimationBook true only if it is not initial render
@@ -131,7 +132,7 @@ function Book({ width, navigate }: BookProps) {
         $animate={isHoveredBook}
         $showAnimation={width > 1024 && showAnimationBook}
       >
-        book
+        {t("homePage.book")}
       </Text>
       <ItemInnerContainer
         onClick={() => navigate("/book")}

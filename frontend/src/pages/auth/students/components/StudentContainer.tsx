@@ -8,6 +8,7 @@ import {
 import { useDispatch } from "react-redux";
 import { DispatchType } from "../../../../store/store";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -105,6 +106,7 @@ interface StudentContainerProps {
 
 function StudentContainer({ student, classroomId }: StudentContainerProps) {
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["auth"]);
   return (
     <Container>
       <UserText>{student.firstName + " " + student.lastName}</UserText>
@@ -121,7 +123,7 @@ function StudentContainer({ student, classroomId }: StudentContainerProps) {
                 )
               }
             >
-              accept
+              {t("studentsPage.accept")}
             </Button>
             <Button
               onClick={() =>
@@ -133,7 +135,7 @@ function StudentContainer({ student, classroomId }: StudentContainerProps) {
                 )
               }
             >
-              reject
+              {t("studentsPage.reject")}
             </Button>
           </>
         ) : (
@@ -148,7 +150,7 @@ function StudentContainer({ student, classroomId }: StudentContainerProps) {
             }
           >
             {" "}
-            remove
+            {t("studentsPage.remove")}
           </Button>
         )}
       </ButtonContainer>

@@ -105,6 +105,7 @@ export type HomeworkType = ActionProps | null;
 interface StateProps {
   homework: HomeworkType;
   success: boolean;
+  successRemoveHomework: boolean;
   isLoading: boolean;
   error: any;
 }
@@ -112,6 +113,7 @@ interface StateProps {
 const initialState = {
   homework: null,
   success: false,
+  successRemoveHomework: false,
   isLoading: false,
   error: null,
 } satisfies StateProps as StateProps;
@@ -138,7 +140,7 @@ export const getHomeworkSlice = createSlice({
     });
 
     builder.addCase(removeHomeworkFile.pending, (state) => {
-      state.success = false;
+      state.successRemoveHomework = false;
       state.isLoading = true;
     });
 
@@ -155,7 +157,7 @@ export const getHomeworkSlice = createSlice({
     });
 
     builder.addCase(removeHomeworkFile.fulfilled, (state) => {
-      state.success = true;
+      state.successRemoveHomework = true;
       state.error = null;
       state.isLoading = false;
     });

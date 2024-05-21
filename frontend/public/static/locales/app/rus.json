@@ -1,0 +1,39 @@
+{
+  "global": {
+    "log in": "войти",
+    "register": "регистрация",
+    "next": "дальше"
+  },
+  "homePage": {
+    "book": "книга",
+    "classroom": "класс"
+  },
+
+  "loginPage": {
+    "Don't have an account?": "Нет аккаунта?",
+    "Create new account": "Создать новый аккаунт"
+  },
+  "registerPage": {
+    "Already have an account?": "Уже есть аккаунт?",
+    "First Name": "Имя",
+    "Last Name": "Фамилия",
+    "teacher": "учитель",
+    "student": "студент"
+  },
+  "validation": {
+    "Invalid email format": "Неверный формат электронной почты",
+    "Password is required": "Пароль обязателен",
+    "Email is required": "Электронная почта обязательна",
+    "password": "пароль",
+    "Confirm Password": "Подтвердить пароль",
+    "email": "электронная почта",
+    "First name must contain only letters and numbers": "Имя должно содержать только буквы и цифры",
+    "Last name must contain only letters and numbers": "Фамилия должно содержать только буквы и цифры",
+    "First name is required": "Имя обязательно",
+    "Last name is required": "Фамилия обязательна",
+    "Status is required": "Статус обязателен",
+    "Password must contain at least eight characters, at least one number and both lower and uppercase letters": "Пароль должен содержать не менее 8 символов, хотя бы одну цифру, а также строчные и прописные буквы",
+    "Confirm password is required": "Подтверждение пароля обязательно",
+    "Passwords don't match": "Пароли не совпадают"
+  }
+}

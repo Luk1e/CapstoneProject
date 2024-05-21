@@ -14,6 +14,7 @@ import { DispatchType } from "../../../../store/store";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import { HomeworkType } from "../../../../toolkit/homework/homeworkSlice";
 import { removeSolution } from "../../../../toolkit/homework/homeworkActions";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 100%;
@@ -107,6 +108,7 @@ interface StudentButtonProps {
 
 function StudentButton({ homework, idObject, isLoading }: StudentButtonProps) {
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["auth"]);
 
   const validateForm = (values: FileFormvalues) => {
     try {
@@ -142,18 +144,18 @@ function StudentButton({ homework, idObject, isLoading }: StudentButtonProps) {
                 <RemoveButton
                   onClick={() => dispatch(removeSolution(idObject))}
                 >
-                  remove
+                  {t("validation.remove")}
                 </RemoveButton>
               )}
 
-              <Label> Grade</Label>
+              <Label> {t("global.Grade")}</Label>
 
               <ButtonContainer>
                 <Text>
                   {homework && homework.grade + " / " + homework.totalGrade}
                 </Text>
                 {homework && homework.status !== "GRADED" && (
-                  <Button disabled={isLoading}>submit</Button>
+                  <Button disabled={isLoading}>{t("global.submit")}</Button>
                 )}
               </ButtonContainer>
             </Form>

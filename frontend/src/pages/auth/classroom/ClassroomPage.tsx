@@ -8,11 +8,13 @@ import { Loader } from "../../../components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getHomeworks, reset } from "../../../toolkit/homework/getAllSlice";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 90%;
   display: flex;
   padding: 100px 0;
+  max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
@@ -67,6 +69,7 @@ function ClassroomPage() {
   const { id } = useParams();
   const dispatch: DispatchType = useDispatch();
   const { user } = useSelector((state: StateType) => state.authentication);
+  const { t } = useTranslation(["auth"]);
 
   const { isLoading, homeworkList, error } = useSelector(
     (state: StateType) => state.getHomeworks
@@ -92,18 +95,18 @@ function ClassroomPage() {
 
       {!isLoading && (
         <Label className="w3-animate-left">
-          <Text>Homeworks</Text>
+          <Text>{t("global.Homeworks")}</Text>
           {user && user.status === "TEACHER" ? (
-            <Text>Submitted</Text>
+            <Text>{t("global.Submitted")}</Text>
           ) : (
-            <Text>Status</Text>
+            <Text>{t("global.Status")}</Text>
           )}
         </Label>
       )}
 
       {!isLoading && (error || (homeworkList && homeworkList?.length == 0)) && (
         <ErrorText className="w3-animate-left">
-          There are no homeworks
+          {t("classroomPage.There are no homeworks")}
         </ErrorText>
       )}
 

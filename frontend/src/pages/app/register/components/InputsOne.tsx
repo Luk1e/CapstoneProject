@@ -38,7 +38,7 @@ const Container = styled.div`
 `;
 
 // Export login inputs
-function InputsOne() {
+function InputsOne({ t }: any) {
   return (
     <Container className="w3-animate-left">
       <FormikControl
@@ -46,7 +46,7 @@ function InputsOne() {
         type="text"
         label="First Name"
         name="firstName"
-        placeholder={"First Name"}
+        placeholder={t("registerPage.First Name")}
         required
       />
 
@@ -55,7 +55,7 @@ function InputsOne() {
         type="text"
         label="Last Name"
         name="lastName"
-        placeholder={"Last Name"}
+        placeholder={t("registerPage.Last Name")}
         required
       />
 
@@ -64,7 +64,7 @@ function InputsOne() {
         type="email"
         label="Email"
         name="email"
-        placeholder={"email"}
+        placeholder={t("validation.email")}
         required
       />
     </Container>

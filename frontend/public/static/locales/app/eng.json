@@ -1,0 +1,39 @@
+{
+  "global": {
+    "log in": "log in",
+    "register": "register",
+    "next": "next"
+  },
+  "homePage": {
+    "book": "book",
+    "classroom": "classroom"
+  },
+
+  "loginPage": {
+    "Don't have an account?": "Don't have an account?",
+    "Create new account": "Create new account"
+  },
+  "registerPage": {
+    "Already have an account?": "Already have an account?",
+    "First Name": "First Name",
+    "Last Name": "Last Name",
+    "teacher": "teacher",
+    "student": "student"
+  },
+  "validation": {
+    "Invalid email format": "Invalid email format",
+    "Password is required": "Password is required",
+    "Email is required": "Email is required",
+    "Confirm Password": "Confirm Password",
+    "password": "password",
+    "email": "email",
+    "First name must contain only letters and numbers": "First name must contain only letters and numbers",
+    "Last name must contain only letters and numbers": "Last name must contain only letters and numbers",
+    "First name is required": "First name is required",
+    "Last name is required": "Last name is required",
+    "Status is required": "Status is required",
+    "Password must contain at least eight characters, at least one number and both lower and uppercase letters": "Password must contain at least eight characters, at least one number and both lower and uppercase letters",
+    "Confirm password is required": "Confirm password is required",
+    "Passwords don't match": "Passwords don't match"
+  }
+}

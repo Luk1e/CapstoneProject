@@ -1,0 +1,55 @@
+{
+  "global": {
+    "join": "join",
+    "create": "create",
+    "Status": "Status",
+    "Submitted": "Submitted",
+    "Homeworks": "Homeworks",
+    "students": "students",
+    "Homework": "Homework",
+    "submit": "submit",
+    "Grade": "Grade"
+  },
+
+  "classroomsPage": {
+    "Classrooms": "Classrooms",
+    "classroom name": "classroom name",
+    "Request Sent": "Request Sent",
+    "join classroom": "join classroom",
+    "create classroom": "create classroom"
+  },
+  "classroomPage": {
+    "delete classroom": "delete classroom",
+    "There are no homeworks": "There are no homeworks"
+  },
+  "studentsPage": {
+    "Pending": "Pending",
+    "There are no pending requests": "There are no pending requests",
+    "Enrolled": "Enrolled",
+    "There are no students enrolled in this classroom": "There are no students enrolled in this classroom",
+    "accept": "accept",
+    "reject": "reject",
+    "remove": "remove"
+  },
+  "validation": {
+    "Choose a file": "Choose a file",
+    "title...": "title...",
+    "instruction...": "instruction...",
+    "points": "points",
+    "remove": "remove",
+    "Title is required": "Title is required",
+    "Instruction is required": "Instruction is required",
+    "Points is required": "Points is required",
+    "File size must be less than 3MB": "File size must be less than 3MB"
+  },
+  "studentHomeworksPage": {
+    "delete homework": "delete homework",
+    "There are no homeworks": "There are no homeworks"
+  },
+  "homeworkPage": {
+    "instruction": "instruction",
+    "Task file": "Task file",
+    "File not uploaded": "File not uploaded",
+    "Solution file": "Solution file"
+  }
+}

@@ -12,11 +12,13 @@ import {
 } from "../../../toolkit/homework/homeworkSlice";
 import { TeacherButton, StudentButton } from "./components";
 import downloadFile from "../../../utils/helpers/downloadFile";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 90%;
   display: flex;
   padding: 100px 0;
+  max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
@@ -69,7 +71,7 @@ const Label = styled.p`
   font-size: var(--small-l);
   text-transform: capitalize;
 
-  &:first-of-type{
+  &:first-of-type {
     margin-top: 10px;
   }
 `;
@@ -131,6 +133,7 @@ const ErrorText = styled.div`
 function HomeworkPage() {
   const { id, homeworkId } = useParams();
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation(["auth"]);
 
   const dispatch: DispatchType = useDispatch();
   const { user } = useSelector((state: StateType) => state.authentication);
@@ -166,10 +169,10 @@ function HomeworkPage() {
 
       {!isLoading && !error && homework && (
         <InnerContainer className="w3-animate-left">
-          <Label> instruction</Label>
+          <Label> {t("homeworkPage.instruction")}</Label>
           <Text>{homework.instruction}</Text>
 
-          <Label> Task file</Label>
+          <Label> {t("homeworkPage.Task file")}</Label>
           {homework.homeworkFile ? (
             <FileDetails
               className="w3-animate-left"
@@ -191,10 +194,10 @@ function HomeworkPage() {
               </FileSize>
             </FileDetails>
           ) : (
-            <ErrorText> File not uploaded </ErrorText>
+            <ErrorText> {t("homeworkPage.File not uploaded")} </ErrorText>
           )}
 
-          <Label> Solution file</Label>
+          <Label> {t("homeworkPage.Solution file")}</Label>
           {homework.solutionFile && (
             <FileDetails
               className="w3-animate-left"
@@ -219,7 +222,7 @@ function HomeworkPage() {
 
           {!homework.solutionFile &&
             (homework.status === "GRADED" || user?.status === "TEACHER") && (
-              <ErrorText> File not uploaded</ErrorText>
+              <ErrorText> {t("homeworkPage.File not uploaded")} </ErrorText>
             )}
 
           {user?.status === "TEACHER" ? (

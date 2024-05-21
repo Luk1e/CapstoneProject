@@ -7,6 +7,7 @@ import { DispatchType, StateType } from "../../../../store/store";
 import { useEffect } from "react";
 import { reset } from "../../../../toolkit/homework/deleteSlice";
 import { UpdateSVG } from "../../../../static/svg";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -80,6 +81,7 @@ interface NavBarProps {
 
 function NavBar({ classroomId, homeworkId }: NavBarProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation(["auth"]);
   const { success } = useSelector((state: StateType) => state.deleteHomework);
   const dispatch: DispatchType = useDispatch();
 
@@ -105,7 +107,7 @@ function NavBar({ classroomId, homeworkId }: NavBarProps) {
       <Text
         onClick={() => dispatch(deleteHomework({ classroomId, homeworkId }))}
       >
-        delete homework
+        {t("studentHomeworksPage.delete homework")}
       </Text>
     </Container>
   );

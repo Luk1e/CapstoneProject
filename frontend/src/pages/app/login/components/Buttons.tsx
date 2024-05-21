@@ -2,6 +2,7 @@
 import { styled } from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import { NavigateFunction } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -82,15 +83,16 @@ interface ButtonsProps {
 }
 
 function Buttons({ navigate, isLoading }: ButtonsProps) {
+  const { t } = useTranslation(["app"]);
   return (
     <ButtonContainer>
       <StyledButton type="submit" disabled={isLoading}>
-        log in
+        {t("global.log in")}
       </StyledButton>
       <StyledText>
-        Don't have an account?{" "}
+        {t("loginPage.Don't have an account?")}{" "}
         <StyledLink onClick={() => navigate("/register")}>
-          Create new account{" "}
+          {t("loginPage.Create new account")}{" "}
         </StyledLink>
       </StyledText>
     </ButtonContainer>

@@ -11,19 +11,20 @@ export const initialValues = {
 
 const MAX_UPLOAD_SIZE = 1024 * 1024 * 100; // 100MB
 
-export const validationSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  instruction: z.string().min(1, "Instruction is required"),
-  totalGrade: z.number().int("Points is required"),
-  file: z
-    .instanceof(File)
-    .optional()
-    .refine((file) => {
-      return !file || file.size <= MAX_UPLOAD_SIZE;
-    }, "File size must be less than 3MB"),
-});
+export const validationSchema = (t: any) =>
+  z.object({
+    title: z.string().min(1, t("validation.Title is required")),
+    instruction: z.string().min(1, t("validation.Instruction is required")),
+    totalGrade: z.number().int(t("validation.Points is required")),
+    file: z
+      .instanceof(File)
+      .optional()
+      .refine((file) => {
+        return !file || file.size <= MAX_UPLOAD_SIZE;
+      }, t("validation.File size must be less than 3MB")),
+  });
 
-export type FormValues = z.infer<typeof validationSchema>;
+export type FormValues = z.infer<ReturnType<typeof validationSchema>>;
 
 interface FormProps {
   classroomId: string | undefined;

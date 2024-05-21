@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { respondTo } from "../../utils/helpers/_respondTo";
+import { respondTo } from "../../../utils/helpers/_respondTo";
 import { Menu } from "./Menu";
 import { useNavigate } from "react-router-dom";
 
@@ -41,6 +41,8 @@ const InnerContainer = styled.div`
   ${respondTo.tv`
     width: 60%;
   `}
+
+  max-width:1600px;
   display: flex;
   align-items: center;
 

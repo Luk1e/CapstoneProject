@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 const Container = styled.div``;
@@ -45,13 +46,14 @@ const FileLabel = styled.label`
 `;
 
 function FileInput({ formik }: any) {
+  const { t } = useTranslation(["auth"]);
   return (
     <Container className="w3-animate-left">
       <FileInputContainer>
         <FileLabel htmlFor="file">
           {formik.values.file?.name
             ? formik.values.file?.name
-            : "Choose a file"}
+            : t("validation.Choose a file")}
         </FileLabel>
         <input
           id="file"

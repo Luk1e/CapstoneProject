@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { useState } from "react";
-import useWindowDimensions from "../../utils/hooks/useWindowDimensions";
-import { MenuSVG } from "../../static/svg/MenuSVG";
-import PanelSVG from "../../static/svg/PanelSVG";
+import useWindowDimensions from "../../../utils/hooks/useWindowDimensions";
+import { MenuSVG } from "../../../static/svg/MenuSVG";
+import PanelSVG from "../../../static/svg/PanelSVG";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { StateType } from "../../store/store";
-import { SideBar } from "./SideBar";
-import TopBar from "./TopBar";
+import { StateType } from "../../../store/store";
+import { SideBar } from "./mobile/SideBar";
+import TopBar from "./mobile/TopBar";
+import { useTranslation } from "react-i18next";
+import Translate from "./desktop/Translate";
 
 // styles
 const Container = styled.div`
@@ -21,11 +23,13 @@ const Container = styled.div`
 const InnerContainer = styled.div`
   display: flex;
   color: var(--white);
+  align-items: center;
 `;
 
 const UserTextContainer = styled.div`
   cursor: pointer;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   transition: all 0.4s ease 0s;
@@ -58,6 +62,7 @@ const Link = styled.a`
   padding: 0 5px 0 5px;
   transition: color 0.4s ease 0s;
 
+  z-index: 100;
   &:hover {
     color: var(--whiteWithOpacity);
   }
@@ -69,6 +74,7 @@ export const Menu = () => {
   const { width } = useWindowDimensions();
   const navigate = useNavigate();
   const authSlice = useSelector((state: StateType) => state.authentication);
+  const { t, i18n } = useTranslation(["components"]);
   const { user } = authSlice;
 
   // hook for opening & closing sidebar
@@ -85,14 +91,20 @@ export const Menu = () => {
             <UserTextContainer onClick={() => setIsOpenTopBar(!isOpenTopBar)}>
               <UserText> {user.firstName + " " + user.lastName}</UserText>
               <PanelSVG />
-              {isOpenTopBar && <TopBar />}
+              {isOpenTopBar && <TopBar t={t} />}
             </UserTextContainer>
           ) : (
             <>
-              <Link onClick={() => navigate("/login")}>log in</Link>|
-              <Link onClick={() => navigate("/register")}>register</Link>
+              <Link onClick={() => navigate("/login")}>
+                {t("header.log in")}
+              </Link>
+              |
+              <Link onClick={() => navigate("/register")}>
+                {t("header.register")}
+              </Link>
             </>
           )}
+          <Translate i18n={i18n} />
         </InnerContainer>
       ) : (
         <>
@@ -101,6 +113,8 @@ export const Menu = () => {
             <SideBar
               toggle={() => setIsOpenSideBar(!isOpenSideBar)}
               user={user}
+              t={t}
+              i18n={i18n}
             />
           )}
         </>

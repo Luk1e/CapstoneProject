@@ -3,10 +3,11 @@ import { QuestionProps } from "../../../../static/data/QuizData";
 import { useState } from "react";
 
 const Container = styled.div`
-  padding: 10px;
+  padding: 10px 0;
 `;
 const Header = styled.h3`
-  font-size: var(--medium-s);
+  font-size: var(--small-l);
+  margin: 0;
 `;
 
 type AnswerType = {
@@ -18,7 +19,7 @@ const AnswerContainer = styled.div``;
 const Answer = styled.p<AnswerType>`
   cursor: pointer;
   max-width: max-content;
-  padding: 5px 5px 5px 20px;
+  padding: 2px 5px 2px 20px;
   color: var(--white);
   font-size: var(--small-m);
   color: ${(props) => props.$color};
@@ -42,9 +43,8 @@ function QuizElement({ element }: QuizElementProps) {
       <Header>{question}</Header>
 
       {answers.map((answer, index) => (
-        <AnswerContainer>
+        <AnswerContainer key={index}>
           <Answer
-            key={index}
             onClick={() => SetClicked(index)}
             $color={
               clicked == index

@@ -1,10 +1,11 @@
 import { styled } from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import FormikControl from "../../../../components/formik/FormikControl";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 350px;
-
+  min-width: 100%;
   & > div {
     margin: 10px 0;
 
@@ -21,6 +22,7 @@ const Container = styled.div`
   input {
     width: 350px;
     padding: 5px 20px;
+    min-width: 100%;
 
     font-size: var(--small-m);
   }
@@ -36,6 +38,7 @@ const Container = styled.div`
 
 // Export login inputs
 function Inputs() {
+  const { t } = useTranslation(["app"]);
   return (
     <Container>
       <FormikControl
@@ -43,7 +46,7 @@ function Inputs() {
         type="email"
         label="email"
         name="email"
-        placeholder={"email"}
+        placeholder={t("validation.email")}
         required
       />
 
@@ -52,7 +55,7 @@ function Inputs() {
         type="password"
         label="password"
         name="password"
-        placeholder={"password"}
+        placeholder={t("validation.password")}
         required
       />
     </Container>

@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { CloseSVG } from "../../static/svg/CloseSVG";
+import { CloseSVG } from "../../../../static/svg/CloseSVG";
 import { useNavigate } from "react-router-dom";
-import { AuthUserProps } from "../../toolkit/auth/authSlice";
+import { AuthUserProps } from "../../../../toolkit/auth/authSlice";
 import { useDispatch } from "react-redux";
-import { DispatchType } from "../../store/store";
-import { logout } from "../../toolkit/auth/authSlice";
+import { DispatchType } from "../../../../store/store";
+import { logout } from "../../../../toolkit/auth/authSlice";
+import Translate from "./Translate";
 
 // styles
 const Container = styled.div`
@@ -68,9 +69,11 @@ const LinkContainer = styled.div`
 interface SidebarProps {
   toggle: () => void;
   user: AuthUserProps;
+  t: any;
+  i18n: any;
 }
 
-export const SideBar = ({ toggle, user }: SidebarProps) => {
+export const SideBar = ({ toggle, user, t, i18n }: SidebarProps) => {
   const navigate = useNavigate();
   const dispatch: DispatchType = useDispatch();
 
@@ -81,29 +84,36 @@ export const SideBar = ({ toggle, user }: SidebarProps) => {
   return (
     <Container className="w3-animate-right">
       <InnerContainer>
-        <InnerContainer>
-          <CloseSVG toggle={toggle} />
-          {user ? (
-            <>
-              <Link onClick={() => changePage("/book")}>book</Link>
-              <Link onClick={() => changePage("/classroom")}>classroom</Link>
-              <Link
-                onClick={() => {
-                  dispatch(logout());
-                  changePage("");
-                }}
-                $logout
-              >
-                log out
-              </Link>
-            </>
-          ) : (
-            <LinkContainer>
-              <Link onClick={() => changePage("login")}>log in</Link> |
-              <Link onClick={() => changePage("register")}>register</Link>
-            </LinkContainer>
-          )}
-        </InnerContainer>
+        <CloseSVG toggle={toggle} />
+
+        {user ? (
+          <>
+            <Link onClick={() => changePage("/book")}>{t("global.book")}</Link>
+            <Link onClick={() => changePage("/classroom")}>
+              {t("global.classroom")}
+            </Link>
+            <Link
+              onClick={() => {
+                dispatch(logout());
+                changePage("");
+              }}
+              $logout
+            >
+              {t("header.logout")}
+            </Link>
+          </>
+        ) : (
+          <LinkContainer>
+            <Link onClick={() => changePage("login")}>
+              {t("header.log in")}
+            </Link>{" "}
+            |
+            <Link onClick={() => changePage("register")}>
+              {t("header.register")}
+            </Link>
+          </LinkContainer>
+        )}
+        <Translate i18n={i18n} />
       </InnerContainer>
     </Container>
   );

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { respondTo } from "../../utils/helpers/_respondTo";
-import Navbar from "./Navbar";
-
+import { Navbar } from "./components";
 /* styles */
 const Container = styled.div`
   margin: 0;

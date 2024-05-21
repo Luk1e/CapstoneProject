@@ -1,0 +1,39 @@
+{
+  "global": {
+    "log in": "შესვლა",
+    "register": "რეგისტრაცია",
+    "next": "შემდეგ"
+  },
+  "homePage": {
+    "book": "წიგნი",
+    "classroom": "კლასი"
+  },
+
+  "loginPage": {
+    "Don't have an account?": "არ გაქვთ ანგარიში?",
+    "Create new account": "ანგარიშის შექმნა"
+  },
+  "registerPage": {
+    "Already have an account?": "უკვე გაქვთ ანგარიში?",
+    "First Name": "სახელი",
+    "Last Name": "გვარი",
+    "teacher": "მასწავლებელი",
+    "student": "მოსწავლე"
+  },
+  "validation": {
+    "Invalid email format": "ელფოსტის ფორმატი არასწორია",
+    "Password is required": "პაროლი სავალდებულოა",
+    "Email is required": "ელფოსტა სავალდებულოა",
+    "password": "პაროლი",
+    "Confirm Password": "დაადასტურეთ პაროლი",
+    "email": "ელფოსტა",
+    "First name must contain only letters and numbers": "სახელი უნდა შეიცავდეს მხოლოდ ასოებს და ციფრებს",
+    "Last name must contain only letters and numbers": "გვარი უნდა შეიცავდეს მხოლოდ ასოებს და ციფრებს",
+    "First name is required": "სახელი სავალდებულოა",
+    "Last name is required": "გვარი სავალდებულოა",
+    "Status is required": "სტატუსი სავალდებულოა",
+    "Password must contain at least eight characters, at least one number and both lower and uppercase letters": "პაროლი უნდა შეიცავდეს მინიმუმ რვა სიმბოლოს, მინიმუმ ერთ რიცხვს და მცირე და დიდ ასოებს",
+    "Confirm password is required": "საჭიროა პაროლის დადასტურება",
+    "Passwords don't match": "პაროლები არ დაემთხვა"
+  }
+}

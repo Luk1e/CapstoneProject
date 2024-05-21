@@ -20,6 +20,7 @@ import { DispatchType, StateType } from "../../../../store/store";
 import { useEffect } from "react";
 import { reset } from "../../../../toolkit/auth/registerSlice";
 import ErrorSVG from "../../../../static/svg/ErrorSVG";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -143,7 +144,7 @@ const IconContainer = styled.div`
 function RegisterForm() {
   const navigate = useNavigate();
   const dispatch: DispatchType = useDispatch();
-
+  const { t } = useTranslation(["app"]);
   const { isLoading, error } = useSelector(
     (state: StateType) => state.register
   );
@@ -158,7 +159,7 @@ function RegisterForm() {
 
   const validateForm = (values: FormValues) => {
     try {
-      validationSchema.parse(values);
+      validationSchema(t).parse(values);
     } catch (error) {
       if (error instanceof ZodError) {
         return error.formErrors.fieldErrors;
@@ -183,7 +184,7 @@ function RegisterForm() {
                 {isFirstPage ? <LeftArrowSVG /> : <RightArrowSVG />}
               </ArrowContainer>
 
-              <HeaderText>register</HeaderText>
+              <HeaderText>{t("global.register")}</HeaderText>
 
               {/* Display login error */}
               {error && !isLoading && (
@@ -195,11 +196,16 @@ function RegisterForm() {
                 </ErrorContainer>
               )}
 
-              {isFirstPage ? <InputsOne /> : <InputsTwo formik={formik} />}
+              {isFirstPage ? (
+                <InputsOne t={t} />
+              ) : (
+                <InputsTwo formik={formik} t={t} />
+              )}
               <Buttons
                 navigate={navigate}
                 isFirstPage={isFirstPage}
                 isLoading={isLoading}
+                t={t}
                 setIsFirstPage={() => setIsFirstPage(!isFirstPage)}
               />
             </Form>

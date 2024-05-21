@@ -16,6 +16,7 @@ import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../../../toolkit/classroom/enrollSlice";
 import { ErrorSVG } from "../../../../static/svg";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 100%;
@@ -131,6 +132,7 @@ const IconContainer = styled.div`
 function JoinClassroom() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["auth"]);
 
   const { isLoading, error, success } = useSelector(
     (state: StateType) => state.enrollClassroom
@@ -156,7 +158,7 @@ function JoinClassroom() {
     <Container className="w3-animate-left">
       {!isOpen ? (
         <HeaderText onClick={() => setIsOpen(!isOpen)}>
-          join classroom
+          {t("classroomsPage.join classroom")}
         </HeaderText>
       ) : (
         <InnerContainer>
@@ -169,7 +171,7 @@ function JoinClassroom() {
               return (
                 <Form className="w3-animate-left">
                   <Input />
-                  <Button isLoading={isLoading} text={"join"} />
+                  <Button isLoading={isLoading} text={t("global.join")} />
                 </Form>
               );
             }}
@@ -192,7 +194,7 @@ function JoinClassroom() {
           <IconContainer>
             <ErrorSVG />
           </IconContainer>
-          Request Sent
+          {t("classroomsPage.Request Sent")}
         </SuccessContainer>
       )}
     </Container>

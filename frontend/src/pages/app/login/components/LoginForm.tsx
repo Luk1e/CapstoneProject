@@ -16,6 +16,7 @@ import { ZodError } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchType, StateType } from "../../../../store/store";
 import { reset } from "../../../../toolkit/auth/loginSlice";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -82,6 +83,7 @@ const IconContainer = styled.div`
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["app"]);
 
   const { isLoading, error } = useSelector((state: StateType) => state.login);
 
@@ -93,7 +95,7 @@ function LoginForm() {
 
   const validateForm = (values: FormValues) => {
     try {
-      validationSchema.parse(values);
+      validationSchema(t).parse(values);
     } catch (error) {
       if (error instanceof ZodError) {
         return error.formErrors.fieldErrors;

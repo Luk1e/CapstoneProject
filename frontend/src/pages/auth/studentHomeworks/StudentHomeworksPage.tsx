@@ -8,11 +8,13 @@ import { Loader } from "../../../components";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getStudentHomeworks, reset } from "../../../toolkit/homework/getSlice";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 90%;
   display: flex;
   padding: 100px 0;
+  max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
@@ -22,7 +24,7 @@ const Container = styled.div`
   ${respondTo.tablet`
     width: 80%;
   `};
-  
+
   ${respondTo.laptop`
     width: 80%;
   `};
@@ -71,6 +73,7 @@ const ErrorText = styled.div`
 function StudentHomeworksPage() {
   const { id, homeworkId } = useParams();
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation("auth");
   const { isLoading, studentHomeworkList, error } = useSelector(
     (state: StateType) => state.getStudentHomeworks
   );
@@ -94,7 +97,7 @@ function StudentHomeworksPage() {
       {!isLoading && (
         <Label className="w3-animate-left">
           <Text>{studentHomeworkList?.title}</Text>
-          <Text>Status</Text>
+          <Text>{t("global.Status")}</Text>
         </Label>
       )}
 
@@ -103,7 +106,7 @@ function StudentHomeworksPage() {
           (studentHomeworkList &&
             studentHomeworkList.studentHomeworkDTOS?.length == 0)) && (
           <ErrorText className="w3-animate-left">
-            There are no homeworks
+            {t("studentHomeworksPage.There are no homeworks")}
           </ErrorText>
         )}
 

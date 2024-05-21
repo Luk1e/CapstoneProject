@@ -9,6 +9,9 @@ import store from "./store/store";
 import { Provider } from "react-redux";
 import { injectStore } from "./utils/hooks/useAxios";
 
+// Import i18next translate
+import "./i18next";
+
 // Inject store into axios interceptors
 injectStore(store);
 

@@ -87,7 +87,7 @@ const Text = styled.p`
 `;
 
 // Export radio container
-function RadioInputs({ formik }: any) {
+function RadioInputs({ formik, t }: any) {
   const radioOptions = [
     {
       key: "teacher",
@@ -95,7 +95,7 @@ function RadioInputs({ formik }: any) {
       label: (
         <>
           <Label htmlFor="teacher">
-            <Text>teacher</Text>
+            <Text>{t("registerPage.teacher")}</Text>
           </Label>
         </>
       ),
@@ -106,7 +106,7 @@ function RadioInputs({ formik }: any) {
       label: (
         <>
           <Label htmlFor="student">
-            <Text>student</Text>
+            <Text>{t("registerPage.student")}</Text>
           </Label>
         </>
       ),

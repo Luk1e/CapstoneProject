@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { DispatchType, StateType } from "../../../store/store";
 import { useEffect } from "react";
 import { getClassrooms, reset } from "../../../toolkit/classroom/getAllSlice";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 90%;
   display: flex;
   padding: 100px 0;
+  max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
@@ -86,7 +88,7 @@ function ClassroomsPage() {
   const dispatch: DispatchType = useDispatch();
   const authSlice = useSelector((state: StateType) => state.authentication);
   const { user } = authSlice;
-
+  const { t } = useTranslation(["auth"]);
   const classroomSlice = useSelector((state: StateType) => state.getClassrooms);
   const { classroomList, isLoading, error } = classroomSlice;
 
@@ -108,7 +110,9 @@ function ClassroomsPage() {
         )}
       </HeaderContainer>
 
-      <Label className="w3-animate-left">Classrooms</Label>
+      <Label className="w3-animate-left">
+        {t("classroomsPage.Classrooms")}
+      </Label>
       {/* Error component */}
       {error && !isLoading && (
         <ErrorText className="w3-animate-left">{error}</ErrorText>

@@ -20,6 +20,7 @@ import {
   reset,
 } from "../../../../toolkit/homework/getHomeworkSlice";
 import { Loader } from "../../../../components";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -85,23 +86,24 @@ const IconContainer = styled.div`
 function UpdateForm() {
   const dispatch: DispatchType = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation(["auth"]);
+
   const { id, homeworkId } = useParams();
-  const { isLoading, homework, success, error } = useSelector(
-    (state: StateType) => state.getHomework
-  );
+  const { isLoading, homework, success, error, successRemoveHomework } =
+    useSelector((state: StateType) => state.getHomework);
 
   useEffect(() => {
     dispatch(getHomework({ classroomId: id, homeworkId }));
-    if (success) navigate(`/classroom/${id}/homeworks/${homeworkId}`);
+    if (success)
+      navigate(`/classroom/${id}/homeworks/${homeworkId}`, { replace: true });
     return () => {
       dispatch(reset());
     };
-  }, [success]);
+  }, [success, successRemoveHomework]);
 
-  
   const validateForm = (values: FormValues) => {
     try {
-      validationSchema.parse(values);
+      validationSchema(t).parse(values);
     } catch (error) {
       if (error instanceof ZodError) {
         return error.formErrors.fieldErrors;
@@ -122,7 +124,7 @@ function UpdateForm() {
           {(formik) => {
             return (
               <Form className="w3-animate-left">
-                <HeaderText> Homework</HeaderText>
+                <HeaderText> {t("global.Homework")}</HeaderText>
                 {/* Display error message */}
                 {error && !isLoading && (
                   <ErrorContainer>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
 import styled, { css, keyframes } from "styled-components";
 import classroom from "../../../../static/images/classroom.png";
+import { useTranslation } from "react-i18next";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -109,7 +110,7 @@ function Classroom({ width, navigate }: ClassroomProps) {
   // Initial animation and animation boolean for classroom component
   const [isHoveredClassroom, setIsHoveredClassroom] = useState(false);
   const [showAnimationClassroom, setShowAnimationClassroom] = useState(false);
-
+  const { t } = useTranslation(["app"]);
   /* use Effects to control initial render animations */
   useEffect(() => {
     // Set showAnimationClassroom true only if it is not initial render
@@ -132,7 +133,7 @@ function Classroom({ width, navigate }: ClassroomProps) {
         $animate={isHoveredClassroom}
         $showAnimation={width > 1024 && showAnimationClassroom}
       >
-        classroom
+        {t("homePage.classroom")}
       </Text>
       <ItemInnerContainer
         onClick={() => navigate("/classroom")}

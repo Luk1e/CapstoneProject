@@ -7,12 +7,16 @@ export const initialValues = {
   password: "",
 };
 
-export const validationSchema = z.object({
-  email: z.string().email("Invalid email format").min(1, "Email is required"),
-  password: z.string().min(1, "Password is required"),
-});
+export const validationSchema = (t: any) =>
+  z.object({
+    email: z
+      .string()
+      .email(t("validation.Invalid email format"))
+      .min(1, t("validation.Email is required")),
+    password: z.string().min(1, t("validation.Password is required")),
+  });
 
-export type FormValues = z.infer<typeof validationSchema>;
+export type FormValues = z.infer<ReturnType<typeof validationSchema>>;
 
 interface FormProps {
   values: { email: string; password: string };

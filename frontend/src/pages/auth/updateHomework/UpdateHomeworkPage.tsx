@@ -5,6 +5,7 @@ import { UpdateForm } from "./components";
 const Container = styled.div`
   display: flex;
   margin-top: 20vh;
+  max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
@@ -26,6 +27,7 @@ const Container = styled.div`
 
   ${respondTo.tv`
     width: 60%;
+    margin-top: 10vh;
   `};
 `;
 

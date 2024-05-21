@@ -7,6 +7,7 @@ import { DispatchType, StateType } from "../../../../store/store";
 import { useEffect } from "react";
 import { reset } from "../../../../toolkit/classroom/deleteSlice";
 import { PlusSVG } from "../../../../static/svg";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -109,6 +110,7 @@ function NavBar({ id }: NavBarProps) {
   const navigate = useNavigate();
   const { success } = useSelector((state: StateType) => state.deleteClassroom);
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["auth"]);
 
   useEffect(() => {
     if (success) {
@@ -126,11 +128,11 @@ function NavBar({ id }: NavBarProps) {
       </IconButton>
 
       <Button onClick={() => navigate(`/classroom/${id}/students`)}>
-        students
+        {t("global.students")}
       </Button>
 
       <Text onClick={() => dispatch(deleteClassroom({ id }))}>
-        delete classroom
+        {t("classroomPage.delete classroom")}
       </Text>
     </Container>
   );

@@ -4,6 +4,9 @@ import { SideBar, Content } from "./components";
 import BackgroundImage from "../../../static/images/cover-photo.png";
 
 const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 100vh;
   display: flex;

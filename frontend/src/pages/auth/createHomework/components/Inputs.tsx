@@ -4,6 +4,7 @@ import FormikControl from "../../../../components/formik/FormikControl";
 import { useState } from "react";
 import { AttachFileSVG } from "../../../../static/svg";
 import FileInput from "./FileInput";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 350px;
@@ -102,6 +103,7 @@ const FileButton = styled.button`
 
 function Inputs({ formik }: any) {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation("auth");
   return (
     <Container>
       <FormikControl
@@ -109,7 +111,7 @@ function Inputs({ formik }: any) {
         type="string"
         label="title"
         name="title"
-        placeholder={"title..."}
+        placeholder={t("validation.title...")}
         required
       />
 
@@ -119,7 +121,7 @@ function Inputs({ formik }: any) {
         label="instruction"
         name="instruction"
         rows="3"
-        placeholder={"instruction..."}
+        placeholder={t("validation.instruction...")}
         required
       />
 
@@ -129,7 +131,7 @@ function Inputs({ formik }: any) {
           type="number"
           label="totalGrade"
           name="totalGrade"
-          placeholder={"points"}
+          placeholder={t("validation.points")}
           required
         />
 

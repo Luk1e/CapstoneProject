@@ -8,6 +8,7 @@ import PanelSVG from "./PanelSVG";
 import PlusSVG from "./PlusSVG";
 import AttachFileSVG from "./AttachFileSVG";
 import UpdateSVG from "./UpdateSVG";
+import { languageIcons } from "./language";
 
 // export svgs
 export {
@@ -20,4 +21,5 @@ export {
   PlusSVG,
   AttachFileSVG,
   UpdateSVG,
+  languageIcons
 };

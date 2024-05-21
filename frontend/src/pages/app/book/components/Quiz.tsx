@@ -10,8 +10,10 @@ const QuizHeader = styled.h1`
 
 const QuizSubHeader = styled.h2`
   text-align: center;
-  font-size: var(--medium-m);
+  font-size: var(--medium-s);
+  margin: 30px 0;
 `;
+
 const QuizContainer = styled.div``;
 function Quiz() {
   return (

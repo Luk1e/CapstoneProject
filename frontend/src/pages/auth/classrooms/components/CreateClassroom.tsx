@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../../../../toolkit/classroom/createSlice";
 import { ErrorSVG } from "../../../../static/svg";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 100%;
@@ -118,6 +119,7 @@ function CreateClassroom() {
   const dispatch: DispatchType = useDispatch();
   const navigate = useNavigate();
 
+  const { t } = useTranslation(["auth"]);
   const { isLoading, error, success } = useSelector(
     (state: StateType) => state.createClassroom
   );
@@ -145,7 +147,7 @@ function CreateClassroom() {
     <Container className="w3-animate-left">
       {!isOpen ? (
         <HeaderText onClick={() => setIsOpen(!isOpen)}>
-          create classroom
+          {t("classroomsPage.create classroom")}
         </HeaderText>
       ) : (
         <InnerContainer>
@@ -158,7 +160,7 @@ function CreateClassroom() {
               return (
                 <Form className="w3-animate-left">
                   <Input />
-                  <Button isLoading={isLoading} text={"create"} />
+                  <Button isLoading={isLoading} text={t("global.create")} />
                 </Form>
               );
             }}

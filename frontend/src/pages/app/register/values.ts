@@ -11,42 +11,47 @@ export const initialValues = {
   confirmPassword: "",
 };
 
-export const validationSchema = z
-  .object({
-    firstName: z
-      .string()
-      .regex(
-        new RegExp(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/),
-        "First name must contain only letters and numbers"
-      )
-      .min(1, "First name is required."),
-    lastName: z
-      .string()
-      .regex(
-        new RegExp(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/),
-        "Last name must contain only letters and numbers"
-      )
-      .min(1, "Last name is required."),
-    email: z
-      .string()
-      .email("Invalid email format.")
-      .min(1, "Email is required."),
-    status: z.string().min(1, "Status is required."),
-    password: z
-      .string()
-      .regex(
-        new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
-        "Password must contain at least eight characters, at least one number and both lower and uppercase letters."
-      )
-      .min(8, "Password is required."),
-    confirmPassword: z.string().min(1, "Confirm password is required."),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // path of error
-  });
+export const validationSchema = (t: any) =>
+  z
+    .object({
+      firstName: z
+        .string()
+        .regex(
+          new RegExp(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/),
+          t("validation.First name must contain only letters and numbers")
+        )
+        .min(1, "First name is required"),
+      lastName: z
+        .string()
+        .regex(
+          new RegExp(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/),
+          t("validation.Last name must contain only letters and numbers")
+        )
+        .min(1, t("validation.Last name is required")),
+      email: z
+        .string()
+        .email(t("validation.Invalid email format"))
+        .min(1, t("validation.Email is required")),
+      status: z.string().min(1, t("validation.Status is required")),
+      password: z
+        .string()
+        .regex(
+          new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/),
+          t(
+            "validation.Password must contain at least eight characters, at least one number and both lower and uppercase letters"
+          )
+        )
+        .min(8, t("validation.Password is required")),
+      confirmPassword: z
+        .string()
+        .min(1, t("validation.Confirm password is required")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t("validation.Passwords don't match"),
+      path: ["confirmPassword"], // path of error
+    });
 
-export type FormValues = z.infer<typeof validationSchema>;
+export type FormValues = z.infer<ReturnType<typeof validationSchema>>;
 
 interface FormProps {
   values: {

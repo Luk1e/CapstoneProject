@@ -16,6 +16,7 @@ import { ZodError } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchType, StateType } from "../../../../store/store";
 import { reset } from "../../../../toolkit/homework/createSlice";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   display: flex;
@@ -82,13 +83,15 @@ function CreateForm() {
   const navigate = useNavigate();
   const dispatch: DispatchType = useDispatch();
   const { id } = useParams();
+  const { t } = useTranslation("auth");
+
   const { isLoading, homeworkId, error } = useSelector(
     (state: StateType) => state.createHomework
   );
 
   useEffect(() => {
     if (homeworkId) {
-      navigate(`/classroom/${id}`);
+      navigate(`/classroom/${id}`, { replace: true });
     }
     return () => {
       dispatch(reset());
@@ -97,7 +100,7 @@ function CreateForm() {
 
   const validateForm = (values: FormValues) => {
     try {
-      validationSchema.parse(values);
+      validationSchema(t).parse(values);
     } catch (error) {
       if (error instanceof ZodError) {
         return error.formErrors.fieldErrors;
@@ -115,7 +118,7 @@ function CreateForm() {
         {(formik) => {
           return (
             <Form className="w3-animate-left">
-              <HeaderText> Homework</HeaderText>
+              <HeaderText> {t("global.Homework")}</HeaderText>
               {/* Display error message */}
               {error && !isLoading && (
                 <ErrorContainer>

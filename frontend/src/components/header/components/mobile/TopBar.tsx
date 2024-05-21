@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { DispatchType } from "../../store/store";
-import { logout } from "../../toolkit/auth/authSlice";
+import { DispatchType } from "../../../../store/store";
+import { logout } from "../../../../toolkit/auth/authSlice";
 
 const Container = styled.div`
   bottom: 0;
   right: 0;
   min-width: max-content;
   position: absolute;
+  min-width: 100px;
   transform: translateY(calc(100% + 25px));
 `;
 
@@ -41,15 +42,17 @@ const Link = styled.a<LinkProps>`
   }
 `;
 
-function TopBar() {
+function TopBar({ t }: any) {
   const navigate = useNavigate();
   const dispatch: DispatchType = useDispatch();
 
   return (
     <Container>
       <InnerContainer className="w3-animate-right">
-        <Link onClick={() => navigate("/book")}>book</Link>
-        <Link onClick={() => navigate("/classroom")}>classroom</Link>
+        <Link onClick={() => navigate("/book")}>{t("global.book")}</Link>
+        <Link onClick={() => navigate("/classroom")}>
+          {t("global.classroom")}
+        </Link>
         <Link
           onClick={() => {
             dispatch(logout());
@@ -57,7 +60,7 @@ function TopBar() {
           }}
           $logout
         >
-          log out
+          {t("header.logout")}
         </Link>
       </InnerContainer>
     </Container>

@@ -1,0 +1,55 @@
+{
+  "global": {
+    "join": "присоединиться",
+    "create": "создать",
+    "Status": "Статус",
+    "Submitted": "Отправлено ",
+    "Homeworks": "Задания",
+    "students": "студенты",
+    "Homework": "задание",
+    "submit": "Отправить",
+    "Grade": "Оценка"
+  },
+
+  "classroomsPage": {
+    "Classrooms": "Классы",
+    "classroom name": "Название класса",
+    "Request Sent": "Запрос отправлен",
+    "join classroom": "Присоединиться к классу",
+    "create classroom": "Создать класс"
+  },
+  "classroomPage": {
+    "delete classroom": "удалить класс",
+    "There are no homeworks": "Домашних заданий нет"
+  },
+  "studentsPage": {
+    "Pending": "В ожидании",
+    "There are no pending requests": "Нет ожидающих запросов",
+    "Enrolled": "Зачислен",
+    "There are no students enrolled in this classroom": "В этом классе нет учеников",
+    "accept": "Принять",
+    "reject": "Отклонить",
+    "remove": "Удалить"
+  },
+  "validation": {
+    "Choose a file": "Выберите файл",
+    "title...": "Название...",
+    "instruction...": "Инструкция...",
+    "points": "баллы",
+    "remove": "Удалить",
+    "Title is required": "Заголовок обязателен",
+    "Instruction is required": "Инструкция обязательна",
+    "Points is required": "Требуются баллы",
+    "File size must be less than 3MB": "Размер файла должен быть меньше 3 МБ"
+  },
+  "studentHomeworksPage": {
+    "delete homework": "удалить задание",
+    "There are no homeworks": "Нет заданий"
+  },
+  "homeworkPage": {
+    "instruction": "инструкция",
+    "Task file": "Файл задачи",
+    "File not uploaded": "Файл не загружен",
+    "Solution file": "Файл решения"
+  }
+}

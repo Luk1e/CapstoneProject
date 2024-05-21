@@ -10,6 +10,7 @@ const Container = styled.div`
   display: flex;
   margin-top: 20vh;
   flex-direction: column;
+  max-width: 1400px;
 
   ${respondTo.mobile`
     padding: 50px 0;
@@ -21,6 +22,7 @@ const Container = styled.div`
 
   ${respondTo.tv`
     width: 60%;
+    margin-top: 10vh;
   `}
 `;
 

@@ -41,16 +41,16 @@ const Container = styled.div`
 `;
 
 // Export login inputs
-function InputsTwo({ formik }: any) {
+function InputsTwo({ formik, t }: any) {
   return (
     <Container className="w3-animate-right">
-      <RadioInputs formik={formik} />
+      <RadioInputs formik={formik} t={t} />
       <FormikControl
         control="input"
         type="password"
         label="password"
         name="password"
-        placeholder={"password"}
+        placeholder={t("validation.password")}
         required
       />
 
@@ -59,7 +59,7 @@ function InputsTwo({ formik }: any) {
         type="password"
         label="confirmPassword"
         name="confirmPassword"
-        placeholder={"Confirm Password"}
+        placeholder={t("validation.Confirm Password")}
         required
       />
     </Container>

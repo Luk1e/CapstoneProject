@@ -8,6 +8,7 @@ import { DispatchType } from "../../../../store/store";
 import { removeHomeworkFile } from "../../../../toolkit/homework/getHomeworkSlice";
 import downloadFile from "../../../../utils/helpers/downloadFile";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const Container = styled.div`
   width: 350px;
@@ -160,6 +161,7 @@ const RemoveButton = styled.p`
 
 function Inputs({ formik, homework, idObject }: any) {
   const dispatch: DispatchType = useDispatch();
+  const { t } = useTranslation(["auth"]);
 
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -169,7 +171,7 @@ function Inputs({ formik, homework, idObject }: any) {
         type="string"
         label="title"
         name="title"
-        placeholder={"title..."}
+        placeholder={t("validation.title...")}
         required
       />
 
@@ -179,7 +181,7 @@ function Inputs({ formik, homework, idObject }: any) {
         label="instruction"
         name="instruction"
         rows="3"
-        placeholder={"instruction..."}
+        placeholder={t("validation.instruction...")}
         required
       />
 
@@ -210,13 +212,13 @@ function Inputs({ formik, homework, idObject }: any) {
           type="number"
           label="totalGrade"
           name="totalGrade"
-          placeholder={"points"}
+          placeholder={t("validation.points")}
           required
         />
 
         {homework && homework.homeworkFile && (
           <RemoveButton onClick={() => dispatch(removeHomeworkFile(idObject))}>
-            remove
+            {t("validation.remove")}
           </RemoveButton>
         )}
 

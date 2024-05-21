@@ -119,6 +119,7 @@ interface ButtonsProps {
   isFirstPage: boolean;
   setIsFirstPage: () => void;
   isLoading: boolean;
+  t: any;
 }
 
 function Buttons({
@@ -126,19 +127,24 @@ function Buttons({
   isFirstPage,
   setIsFirstPage,
   isLoading,
+  t,
 }: ButtonsProps) {
   return (
     <ButtonContainer>
       {isFirstPage ? (
-        <StyledDivButton onClick={() => setIsFirstPage()}>next</StyledDivButton>
+        <StyledDivButton onClick={() => setIsFirstPage()}>
+          {t("global.next")}
+        </StyledDivButton>
       ) : (
         <StyledButton type="submit" disabled={isLoading}>
-          register
+          {t("global.register")}
         </StyledButton>
       )}
       <StyledText>
-        Already have an account?{" "}
-        <StyledLink onClick={() => navigate("/login")}>log in</StyledLink>
+        {t("registerPage.Already have an account?")}{" "}
+        <StyledLink onClick={() => navigate("/login")}>
+          {t("global.log in")}
+        </StyledLink>
       </StyledText>
     </ButtonContainer>
   );

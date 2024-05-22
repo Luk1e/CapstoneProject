@@ -23,7 +23,14 @@ export const DefaultStyles = `
   color: var(--color-black);
   background-color: var(--whiteSmoke);
   background-image: url(${BackgroundImage});
-  font-family: "BPG Arial Caps", sans-serif !important;
   
+}
+
+.geo *{
+  font-family: "BPG Arial Caps", Georgia !important;
+}
+
+.eng *{
+  font-family: Georgia !important;
 }
 `;

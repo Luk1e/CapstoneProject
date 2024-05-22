@@ -6,23 +6,27 @@ import { Header, Footer } from "./components";
 import { useSelector, useDispatch } from "react-redux";
 import { StateType, DispatchType } from "./store/store";
 import { authenticate } from "./toolkit/auth/authSlice";
+import { useTranslation } from "react-i18next";
 
 function App() {
   const dispatch: DispatchType = useDispatch();
+  const { i18n } = useTranslation();
   const authSlice = useSelector((state: StateType) => state.authentication);
   const { user, isLoading } = authSlice;
 
   useEffect(() => {
     dispatch(authenticate());
   }, [dispatch]);
-
+  console.log(i18n.language);
   return (
     <Suspense fallback={null}>
       <BrowserRouter>
-        <GlobalStyle />
-        <Header />
-        <Router user={user} loading={isLoading} />
-        <Footer />
+        <span style={{ display: "contents" }} className={i18n.language}>
+          <GlobalStyle />
+          <Header />
+          <Router user={user} loading={isLoading} />
+          <Footer />
+        </span>
       </BrowserRouter>
     </Suspense>
   );

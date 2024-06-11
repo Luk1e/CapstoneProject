@@ -66,9 +66,7 @@ public class FileService {
     }
 
     public String generateDownloadUrl(String hash) {
-        // Implement logic to generate a downloadable URL for the file based on hash
-        // This could involve a separate endpoint for file download
-        return "files/" + hash + "/download"; // Example URL structure
+        return "files/" + hash + "/download";
     }
 
     public ResponseEntity<UrlResource> downloadFile(String fileHash) {

@@ -35,5 +35,9 @@
     "Password must contain at least eight characters, at least one number and both lower and uppercase letters": "პაროლი უნდა შეიცავდეს მინიმუმ რვა სიმბოლოს, მინიმუმ ერთ რიცხვს და მცირე და დიდ ასოებს",
     "Confirm password is required": "საჭიროა პაროლის დადასტურება",
     "Passwords don't match": "პაროლები არ დაემთხვა"
+  },
+  "error": {
+    "page not found": "გვერდი არ მოიძებნა",
+    "back to site": "საიტზე დაბრუნება"
   }
 }

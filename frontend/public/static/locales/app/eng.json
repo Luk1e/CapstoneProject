@@ -35,5 +35,9 @@
     "Password must contain at least eight characters, at least one number and both lower and uppercase letters": "Password must contain at least eight characters, at least one number and both lower and uppercase letters",
     "Confirm password is required": "Confirm password is required",
     "Passwords don't match": "Passwords don't match"
+  },
+  "error": {
+    "page not found": "page not found",
+    "back to site": "back to site"
   }
 }

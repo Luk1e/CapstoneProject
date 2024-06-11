@@ -12,12 +12,11 @@ const Container = styled.div`
 `;
 
 function Translate({ i18n }: any) {
-  const { GeorgianSVG, EnglishSVG, RussianSVG } = languageIcons;
+  const { GeorgianSVG, EnglishSVG } = languageIcons;
   const [isOpen, setIsOpen] = useState(false);
   const languages = [
     { lang: "geo", icon: GeorgianSVG },
     { lang: "eng", icon: EnglishSVG },
-    { lang: "rus", icon: RussianSVG },
   ];
 
   let selectedLanguage = languages.find(

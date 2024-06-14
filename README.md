@@ -35,10 +35,6 @@ To start the frontend, follow these steps:
    ```bash
    npm run dev
 
-5. **Install the dependencies**:
-   ```bash
-   npm install
-
 ### Backend
 
 To start the backend, ensure you have a MySQL server running. Then, follow these steps:

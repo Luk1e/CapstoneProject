@@ -8,6 +8,7 @@ const Container = styled.div`
 const Header = styled.h3`
   font-size: var(--small-l);
   margin: 0;
+  color: var(--whiteWithOpacity);
 `;
 
 type AnswerType = {
@@ -20,13 +21,14 @@ const Answer = styled.p<AnswerType>`
   cursor: pointer;
   max-width: max-content;
   padding: 2px 5px 2px 20px;
-  color: var(--white);
+  color: var(--whiteWithOpacity);
+
   font-size: var(--small-m);
   color: ${(props) => props.$color};
   transition: color 0.2s ease 0s;
 
   &:hover {
-    color: ${(props) => props.$color || "var(--whiteWithOpacity)"};
+    color: ${(props) => props.$color || "var(--white)"};
   }
 `;
 

@@ -18,7 +18,7 @@ const QuizContainer = styled.div``;
 function Quiz() {
   return (
     <Container>
-      <QuizHeader>ტესტები</QuizHeader>
+      <QuizHeader id="tests">ტესტები</QuizHeader>
       {quizData.map((element, quizIndex) => (
         <QuizContainer key={quizIndex}>
           <QuizSubHeader id={element.href}>{element.header}</QuizSubHeader>

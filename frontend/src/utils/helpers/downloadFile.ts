@@ -14,7 +14,7 @@ const downloadFile = async (
     const blob = new Blob([response.data], {
       type: response?.headers["content-disposition"] || "application/pdf",
     });
-    
+
     const url = window.URL.createObjectURL(blob);
 
     const link = document.createElement("a");

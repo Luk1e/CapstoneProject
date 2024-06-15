@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { respondTo } from "../../../../utils/helpers/_respondTo";
+import SideBarItem from "./SideBarItem";
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ const Container = styled.div`
 const InnerContainer = styled.div`
   display: flex;
   position: fixed;
-  margin-top: 20vh;
+  top: 20vh;
   height: max-content;
 
   padding: 10px 0px 10px 40px;
@@ -63,23 +64,11 @@ const List = styled.ul`
   list-style: upper-roman;
 `;
 
-const ListElement = styled.li`
-  cursor: pointer;
-  font-size: var(--small-m);
-  color: var(--whiteWithOpacity);
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    color: var(--white);
-  }
-`;
-
 interface SideBarProps {
   empty?: boolean;
 }
 
 function SideBar({ empty }: SideBarProps) {
-  const [isOpen, setIsopen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -107,20 +96,100 @@ function SideBar({ empty }: SideBarProps) {
       {!empty && isVisible && (
         <InnerContainer>
           <List className="w3-animate-right">
-            <ListElement
-              onMouseEnter={() => setIsopen(true)}
-              onMouseLeave={() => setIsopen(false)}
-            >
-              თეორიული ნაწილი
-              <List className={`render ${isOpen ? "show" : undefined}`}>
-                <ListElement>ფიზიკა ბავშვებისთვის</ListElement>
-                <ListElement>ფიზიკა ფიზიკოსებისთვის</ListElement>
-                <ListElement>ფიზიკის ფიზიკა</ListElement>
-                <ListElement>სასწაული ფიზიკა</ListElement>
-              </List>
-            </ListElement>
-            <ListElement>თავსატეხი</ListElement>
-            <ListElement>ტესტები</ListElement>
+            <SideBarItem
+              id="Introduction"
+              header="შესავალი"
+              ListItems={[
+                {
+                  title: "ორგანული ქიმიის საგანი და ამოცანები",
+                  path: "OrganChemistrySubject",
+                },
+                {
+                  title: "ორგანული ქიმიის დებულებები",
+                  path: "OrganChemistryProvisions",
+                },
+              ]}
+            />
+            <SideBarItem
+              header=" ორგანული ქიმია"
+              id="OrganChemistry"
+              ListItems={[
+                {
+                  title: "ალკენები (ოლეფინები)",
+                  path: "alcens",
+                },
+                {
+                  title: "ეთილენის მოლეკულის განლაგება",
+                  path: "etilen",
+                },
+                {
+                  title: "ალკენებთან ელექტროფილური მიერთება",
+                  path: "alcen2",
+                },
+                {
+                  title: "ალკადიენები (დიენური ნახშირწყალბადები)",
+                  path: "alcadiens",
+                },
+
+                {
+                  title: "სპირტები",
+                  path: "alcohol",
+                },
+                {
+                  title: "არომატული ნახშირწყალბადები",
+                  path: "hydrocarbon",
+                },
+                {
+                  title: "იზომერია",
+                  path: "isomer",
+                },
+              ]}
+            />
+            <SideBarItem
+              header="კეტონები"
+              id=""
+              ListItems={[
+                {
+                  title: "კანონმჟავები",
+                  path: "",
+                },
+                {
+                  title: "აზოტშემცველი ნაერთები-ამინები",
+                  path: "",
+                },
+                {
+                  title: "ამინომჟავები . პეპტიდები . ცილები",
+                  path: "",
+                },
+                {
+                  title: "ნუკლეინის მჟავები",
+                  path: "",
+                },
+                {
+                  title: "ნახშირწყლები",
+                  path: "",
+                },
+                {
+                  title: "იზომერია",
+                  path: "",
+                },
+              ]}
+            />
+
+            <SideBarItem
+              header="ტესტები"
+              id="tests"
+              ListItems={[
+                {
+                  title: "მხტუნავი ნატრიუმი",
+                  path: "jumpingNatrium",
+                },
+                {
+                  title: "დამატებითი ტესტები",
+                  path: "additionalTests",
+                },
+              ]}
+            />
           </List>
         </InnerContainer>
       )}

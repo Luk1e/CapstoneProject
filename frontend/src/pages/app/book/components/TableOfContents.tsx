@@ -28,7 +28,6 @@ const List = styled.ol`
   list-style-type: none;
   padding-inline-start: 2ch;
   color: var(--whiteWithOpacity);
-
 `;
 
 const ListSection = styled.div`
@@ -91,6 +90,12 @@ function TableOfContents() {
                 page={24}
               />
 
+              <ListElement
+                title="ალკადიენები (დიენური ნახშირწყალბადები)"
+                path="alcadiens"
+                page={25}
+              />
+
               <ListElement title="სპირტები" path="alcohol" page={27} />
 
               <ListElement
@@ -102,6 +107,7 @@ function TableOfContents() {
               <ListElement title="იზომერია" path="isomer" page={27} />
             </List>
           </ListSection>
+
           <ListSection>
             <ListElement title="2. კეტონები" path="" page={28} />
 

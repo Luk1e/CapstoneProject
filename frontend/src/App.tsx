@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     dispatch(authenticate());
   }, [dispatch]);
-  console.log(i18n.language);
+
   return (
     <Suspense fallback={null}>
       <BrowserRouter>

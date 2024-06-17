@@ -20,7 +20,7 @@ This project is licensed under the Kutaisi International University license. All
 
 ### Frontend
 
-To start the frontend, follow these steps:
+To start the frontend, ensure you have Node and npm installed. Then, follow these steps:
 
 1. **Navigate to the frontend directory**:
    
@@ -37,7 +37,7 @@ To start the frontend, follow these steps:
 
 ### Backend
 
-To start the backend, ensure you have a MySQL server running. Then, follow these steps:
+To start the backend, ensure you have a MySQL server running and have installed Java and Maven. Then, follow these steps:
 
 1. **Navigate to the backend directory**:
    ```bash
@@ -49,7 +49,9 @@ To start the backend, ensure you have a MySQL server running. Then, follow these
 
 3. **Configure your database connection**:
    1. Open the `application.properties` file located in the `src/main/resources` directory.
-   2. Update the database connection details (e.g., URL, username, password) to match your MySQL server configuration.
+   2. Create a database named "capstone-project".
+   3. Update the database connection details (e.g., URL, port, username, password) to match your MySQL server configuration.
+   4. Run the database.
 
 4. **Run the backend application**:
    Start the BackendApplication from your IDE or using the following Maven command

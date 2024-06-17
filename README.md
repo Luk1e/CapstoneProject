@@ -48,8 +48,8 @@ To start the backend, ensure you have a MySQL server running and have installed 
    mvn install
 
 3. **Configure your database connection**:
-   1. Open the `application.properties` file located in the `src/main/resources` directory.
-   2. Create a database named "capstone-project".
+   1. Create a database named "capstone-project".
+   2. Open the `application.properties` file located in the `src/main/resources` directory.
    3. Update the database connection details (e.g., URL, port, username, password) to match your MySQL server configuration.
    4. Run the database.
 

@@ -23,6 +23,7 @@ public class CookieUtils {
                 .maxAge(expiration)
                 .path("/")
                 .sameSite("None")
+                .domain("luk1e.github.io")
                 .build();
 
         // Attach cookie to the response header

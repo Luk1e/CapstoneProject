@@ -8,9 +8,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://capstoneproject-7f9w.onrender.com",
+        target: "http://localhost:8080",
         changeOrigin: true,
-        secure: true,
+        secure: false,
       },
     },
   },

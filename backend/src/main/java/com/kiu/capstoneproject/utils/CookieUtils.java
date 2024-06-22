@@ -22,7 +22,7 @@ public class CookieUtils {
                 .secure(true)
                 .maxAge(expiration)
                 .path("/")
-                .sameSite("Strict")
+                .sameSite("None")
                 .build();
 
         // Attach cookie to the response header

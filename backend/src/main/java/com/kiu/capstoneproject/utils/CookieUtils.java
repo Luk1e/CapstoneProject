@@ -19,9 +19,10 @@ public class CookieUtils {
         // Create required cookies with appropriate settings
         ResponseCookie cookie = ResponseCookie.from(cookieName, value)
                 .httpOnly(httpOnly)
-                .secure(false)
+                .secure(true)
                 .maxAge(expiration)
                 .path("/")
+                .sameSite("Strict")
                 .build();
 
         // Attach cookie to the response header

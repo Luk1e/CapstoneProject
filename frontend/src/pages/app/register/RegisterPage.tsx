@@ -53,7 +53,7 @@ function RegisterPage() {
   // If user is already authenticated navigate to main page
   useEffect(() => {
     if (user) {
-      navigate("/", { replace: true });
+      navigate("/CapstoneProject", { replace: true });
     }
   }, [user, navigate]);
 

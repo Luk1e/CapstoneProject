@@ -135,7 +135,7 @@ function Book({ width, navigate }: BookProps) {
         {t("homePage.book")}
       </Text>
       <ItemInnerContainer
-        onClick={() => navigate("/book")}
+        onClick={() => navigate("/CapstoneProject/book")}
         onMouseEnter={handleMouseEnterOnBook}
         onMouseLeave={handleMouseLeaveOnBook}
       >

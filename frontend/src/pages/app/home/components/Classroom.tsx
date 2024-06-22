@@ -136,7 +136,7 @@ function Classroom({ width, navigate }: ClassroomProps) {
         {t("homePage.classroom")}
       </Text>
       <ItemInnerContainer
-        onClick={() => navigate("/classroom")}
+        onClick={() => navigate("/CapstoneProject/classroom")}
         onMouseEnter={handleMouseEnterOnClassroom}
         onMouseLeave={handleMouseLeaveOnClassroom}
       >

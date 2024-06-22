@@ -6,30 +6,30 @@ export default function PublicRoutes() {
   const { PublicLayout } = lazyLayouts;
 
   return {
-    path: "/",
+    path: "/CapstoneProject",
     element: <PublicLayout />,
     children: [
       // Home
       {
-        path: "/",
+        index: true,
         element: <lazyPages.HomePage />,
       },
 
       // Book
       {
-        path: "/book",
+        path: "book",
         element: <lazyPages.BookPage />,
       },
 
       // Login
       {
-        path: "/login",
+        path: "login",
         element: <lazyPages.LoginPage />,
       },
 
       // Register
       {
-        path: "/register",
+        path: "register",
         element: <lazyPages.RegisterPage />,
       },
 

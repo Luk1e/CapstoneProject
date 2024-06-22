@@ -95,11 +95,11 @@ export const Menu = () => {
             </UserTextContainer>
           ) : (
             <>
-              <Link onClick={() => navigate("/login")}>
+              <Link onClick={() => navigate("/CapstoneProject/login")}>
                 {t("header.log in")}
               </Link>
               |
-              <Link onClick={() => navigate("/register")}>
+              <Link onClick={() => navigate("/CapstoneProject/register")}>
                 {t("header.register")}
               </Link>
             </>

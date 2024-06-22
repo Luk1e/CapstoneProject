@@ -142,7 +142,7 @@ function Buttons({
       )}
       <StyledText>
         {t("registerPage.Already have an account?")}{" "}
-        <StyledLink onClick={() => navigate("/login")}>
+        <StyledLink onClick={() => navigate("/CapstoneProject/login")}>
           {t("global.log in")}
         </StyledLink>
       </StyledText>

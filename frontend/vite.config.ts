@@ -10,7 +10,7 @@ export default defineConfig({
       "/api": {
         target: "https://capstoneproject-7f9w.onrender.com",
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     },
   },

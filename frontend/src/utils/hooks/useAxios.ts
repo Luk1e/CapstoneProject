@@ -7,13 +7,17 @@ export const injectStore = (_store: any) => {
   store = _store;
 };
 
+const BACKEND_URL = "https://capstoneproject-7f9w.onrender.com";
+
 // Export axios without cookies for public pages
 export const useAxios = axios.create({
+  baseURL: BACKEND_URL,
   headers: { "Content-Type": "application/json" },
 });
 
 // Export authorized axios with cookies for auth pages
 export const useAuthAxios = axios.create({
+  baseURL: BACKEND_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -35,6 +39,7 @@ useAuthAxios.interceptors.response.use(
 // Export custom axios for files
 // cookies included
 export const useAuthFileAxios = axios.create({
+  baseURL: BACKEND_URL,
   withCredentials: true,
   headers: {
     "Content-Type": "multipart/form-data",

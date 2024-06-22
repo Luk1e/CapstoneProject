@@ -114,7 +114,7 @@ function NavBar({ id }: NavBarProps) {
 
   useEffect(() => {
     if (success) {
-      navigate("/classroom");
+      navigate("/CapstoneProject/classroom");
     }
     return () => {
       dispatch(reset());
@@ -123,11 +123,17 @@ function NavBar({ id }: NavBarProps) {
 
   return (
     <Container>
-      <IconButton onClick={() => navigate(`/classroom/${id}/homeworks/create`)}>
+      <IconButton
+        onClick={() =>
+          navigate(`/CapstoneProject/classroom/${id}/homeworks/create`)
+        }
+      >
         <PlusSVG />
       </IconButton>
 
-      <Button onClick={() => navigate(`/classroom/${id}/students`)}>
+      <Button
+        onClick={() => navigate(`/CapstoneProject/classroom/${id}/students`)}
+      >
         {t("global.students")}
       </Button>
 

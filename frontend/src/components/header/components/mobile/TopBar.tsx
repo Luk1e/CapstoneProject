@@ -49,14 +49,16 @@ function TopBar({ t }: any) {
   return (
     <Container>
       <InnerContainer className="w3-animate-right">
-        <Link onClick={() => navigate("/book")}>{t("global.book")}</Link>
-        <Link onClick={() => navigate("/classroom")}>
+        <Link onClick={() => navigate("/CapstoneProject/book")}>
+          {t("global.book")}
+        </Link>
+        <Link onClick={() => navigate("/CapstoneProject/classroom")}>
           {t("global.classroom")}
         </Link>
         <Link
           onClick={() => {
             dispatch(logout());
-            navigate("");
+            navigate("/CapstoneProject");
           }}
           $logout
         >

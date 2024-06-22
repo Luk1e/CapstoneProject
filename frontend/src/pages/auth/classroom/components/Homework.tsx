@@ -58,10 +58,10 @@ function Homework({ classroomId, isTeacher, homework }: HomeworkProps) {
       onClick={() =>
         isTeacher
           ? navigate(
-              `/classroom/${classroomId}/homeworks/${homework.homeworkId}`
+              `/CapstoneProject/classroom/${classroomId}/homeworks/${homework.homeworkId}`
             )
           : navigate(
-              `/classroom/${classroomId}/homework/${homework.homeworkId}`
+              `/CapstoneProject/classroom/${classroomId}/homework/${homework.homeworkId}`
             )
       }
     >

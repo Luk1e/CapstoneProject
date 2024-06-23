@@ -62,7 +62,7 @@ function Homework({
     <Container
       onClick={() =>
         navigate(
-          `/CapstoneProject/classroom/${classroomId}/homework/${homeworkId}?id=${homework.studentId}`
+          `/classroom/${classroomId}/homework/${homeworkId}?id=${homework.studentId}`
         )
       }
     >

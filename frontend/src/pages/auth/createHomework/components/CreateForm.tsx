@@ -91,7 +91,7 @@ function CreateForm() {
 
   useEffect(() => {
     if (homeworkId) {
-      navigate(`/CapstoneProject/classroom/${id}`, { replace: true });
+      navigate(`/classroom/${id}`, { replace: true });
     }
     return () => {
       dispatch(reset());

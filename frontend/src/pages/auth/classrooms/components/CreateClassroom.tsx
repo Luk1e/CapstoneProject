@@ -126,7 +126,7 @@ function CreateClassroom() {
 
   useEffect(() => {
     if (success) {
-      navigate(`/CapstoneProject/classroom/${success}`);
+      navigate(`/classroom/${success}`);
     }
     return () => {
       dispatch(reset());

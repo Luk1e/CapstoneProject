@@ -12,7 +12,7 @@ i18n
   .init(
     {
       backend: {
-        loadPath: `/CapstoneProject/static/locales/{{ns}}/{{lng}}.json`,
+        loadPath: `/static/locales/{{ns}}/{{lng}}.json`,
         // loadPath: `${window.location.pathname}locales/{{ns}}/{{lng}}.json`,
       },
       fallbackLng: "geo",

@@ -8,7 +8,7 @@ export default function AuthorizedRoutes({ user, loading }: RouterProps) {
   const { AuthorizedLayout } = lazyLayouts;
 
   return {
-    path: "CapstoneProject",
+    path: "/",
     element: <AuthorizedLayout user={user} loading={loading} />,
     children: [
       // Classrooms

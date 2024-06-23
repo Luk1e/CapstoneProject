@@ -6,7 +6,7 @@ export default function PublicRoutes() {
   const { PublicLayout } = lazyLayouts;
 
   return {
-    path: "/CapstoneProject",
+    path: "/",
     element: <PublicLayout />,
     children: [
       // Home

@@ -87,7 +87,7 @@ function NavBar({ classroomId, homeworkId }: NavBarProps) {
 
   useEffect(() => {
     if (success) {
-      navigate(`/CapstoneProject/classroom/${classroomId}`);
+      navigate(`/classroom/${classroomId}`);
     }
     return () => {
       dispatch(reset());
@@ -98,9 +98,7 @@ function NavBar({ classroomId, homeworkId }: NavBarProps) {
     <Container>
       <IconButton
         onClick={() =>
-          navigate(
-            `/CapstoneProject/classroom/${classroomId}/homeworks/${homeworkId}/update`
-          )
+          navigate(`/classroom/${classroomId}/homeworks/${homeworkId}/update`)
         }
       >
         <UpdateSVG />

@@ -72,7 +72,7 @@ function Navbar() {
     <Container>
       <InnerContainer>
         {/* Navigate user to home page */}
-        <HeaderText onClick={() => navigate("/CapstoneProject")}>
+        <HeaderText onClick={() => navigate("")}>
           Capstone Project
         </HeaderText>
         {/* Right nav bar menu */}

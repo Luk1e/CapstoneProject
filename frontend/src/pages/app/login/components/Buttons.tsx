@@ -91,7 +91,7 @@ function Buttons({ navigate, isLoading }: ButtonsProps) {
       </StyledButton>
       <StyledText>
         {t("loginPage.Don't have an account?")}{" "}
-        <StyledLink onClick={() => navigate("/CapstoneProject/register")}>
+        <StyledLink onClick={() => navigate("register")}>
           {t("loginPage.Create new account")}{" "}
         </StyledLink>
       </StyledText>

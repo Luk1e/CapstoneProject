@@ -102,7 +102,7 @@ function Error() {
       <SVG src={svgArray[index]} className="w3-animate-right" />
       <TextContainer className="w3-animate-right">
         <Text>{t("error.page not found")}</Text>
-        <Button onClick={() => navigate("/CapstoneProject")}>
+        <Button onClick={() => navigate("")}>
           {t("error.back to site")}
         </Button>
       </TextContainer>

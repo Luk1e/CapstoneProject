@@ -88,7 +88,7 @@ function Classroom({ id, name }: ClassroomProps) {
   return (
     <Container
       $color={randomColor}
-      onClick={() => navigate(`/CapstoneProject/classroom/${id}`)}
+      onClick={() => navigate(`/classroom/${id}`)}
     >
       <StyledName>{name}</StyledName>
     </Container>

@@ -22,6 +22,8 @@ public class CookieUtils {
                 .secure(true)
                 .maxAge(expiration)
                 .path("/")
+                .domain("onrender.com")
+                .sameSite("Strict")
                 .build();
 
         // Attach cookie to the response header

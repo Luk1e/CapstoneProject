@@ -48,7 +48,21 @@ To start the backend, ensure you have a MySQL server running and have installed 
    mvn install
 
 3. **Configure your database connection**:
+   #### Option 1: Using MySQL
    1. Create a database named "capstone-project".
+   2. Open the `application.properties` file located in the `src/main/resources` directory.
+   3. Update the database connection details (e.g., URL, port, username, password) to match your MySQL server configuration.
+   4. Run the database.
+      
+   #### Option 2: Using MySQL with Docker
+
+   If you prefer not to install MySQL directly, you can use Docker to set up MySQL. Follow these steps:
+
+   1. **Set up MySQL using Docker**:
+
+      Run the following command to create and start a MySQL container:
+      ```bash
+      docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql
    2. Open the `application.properties` file located in the `src/main/resources` directory.
    3. Update the database connection details (e.g., URL, port, username, password) to match your MySQL server configuration.
    4. Run the database.

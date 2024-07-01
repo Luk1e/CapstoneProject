@@ -52,6 +52,12 @@ export default function AuthorizedRoutes({ user, loading }: RouterProps) {
         path: "/classroom/:id/homework/:homeworkId",
         element: <lazyPages.HomeworkPage />,
       },
+
+      // Notifications
+      {
+        path: "/notifications",
+        element: <lazyPages.NotificationPage />,
+      },
     ],
   };
 }

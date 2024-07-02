@@ -53,6 +53,7 @@ function TopBar({ t }: any) {
         <Link onClick={() => navigate("/classroom")}>
           {t("global.classroom")}
         </Link>
+
         <Link
           onClick={() => {
             dispatch(logout());

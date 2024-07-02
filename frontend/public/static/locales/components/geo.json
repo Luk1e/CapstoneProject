@@ -1,7 +1,8 @@
 {
   "global": {
     "book": "წიგნი",
-    "classroom": "კლასი"
+    "classroom": "კლასი",
+    "Notifications": "შეტყობინებები"
   },
   "header": {
     "log in": "ავტორიზაცია",

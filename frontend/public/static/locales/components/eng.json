@@ -1,7 +1,8 @@
 {
   "global": {
     "book": "book",
-    "classroom": "classroom"
+    "classroom": "classroom",
+    "Notifications": "Notifications"
   },
   "header": {
     "log in": "log in",

@@ -46,7 +46,6 @@ const Label = styled.div`
 
 const Text = styled.p`
   font-weight: 500;
-  font-style: italic;
   color: var(--black);
   font-size: var(--small-l);
 
@@ -96,7 +95,7 @@ function NotificationPage() {
         notificationList &&
         notificationList.length > 0 &&
         notificationList.map((notificationGroup) => (
-          <div className="w3-animate-left">
+          <div className="w3-animate-left" key={notificationGroup.date}>
             <Label>
               <Text>{notificationGroup.date}</Text>
             </Label>

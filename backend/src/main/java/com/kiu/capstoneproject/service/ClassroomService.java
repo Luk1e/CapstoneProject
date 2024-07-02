@@ -13,8 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,6 +30,7 @@ public class ClassroomService {
     private final StudentRepository studentRepository;
     private final ClassroomRepository classroomRepository;
     private final StudentClassroomRepository studentClassroomRepository;
+    private final NotificationService notificationService;
 
     public List<ClassroomDTO> getClassrooms() {
         // get user from security context
@@ -99,7 +102,6 @@ public class ClassroomService {
         }
     }
 
-
     public void deleteClassroom(Long classroomId) {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -111,6 +113,7 @@ public class ClassroomService {
 
         // if the classroom is associated with this teacher
         if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
+
             // delete classroom
             classroomRepository.deleteById(classroomId);
         } else {

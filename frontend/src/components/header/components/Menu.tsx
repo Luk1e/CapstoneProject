@@ -10,6 +10,7 @@ import { SideBar } from "./mobile/SideBar";
 import TopBar from "./mobile/TopBar";
 import { useTranslation } from "react-i18next";
 import Translate from "./desktop/Translate";
+import Notification from "./Notification";
 
 // styles
 const Container = styled.div`
@@ -88,11 +89,14 @@ export const Menu = () => {
       {width > 800 ? (
         <InnerContainer>
           {user ? (
-            <UserTextContainer onClick={() => setIsOpenTopBar(!isOpenTopBar)}>
-              <UserText> {user.firstName + " " + user.lastName}</UserText>
-              <PanelSVG />
-              {isOpenTopBar && <TopBar t={t} />}
-            </UserTextContainer>
+            <>
+              <UserTextContainer onClick={() => setIsOpenTopBar(!isOpenTopBar)}>
+                <UserText> {user.firstName + " " + user.lastName}</UserText>
+                <PanelSVG />
+                {isOpenTopBar && <TopBar t={t} />}
+              </UserTextContainer>
+              <Notification />
+            </>
           ) : (
             <>
               <Link onClick={() => navigate("/login")}>
@@ -108,6 +112,7 @@ export const Menu = () => {
         </InnerContainer>
       ) : (
         <>
+          {user && <Notification />}
           <MenuSVG toggle={() => setIsOpenSideBar(!isOpenSideBar)} />
           {isOpenSideBar && (
             <SideBar

@@ -34,7 +34,7 @@ public class UserController {
 
     @PutMapping(path = "/notifications/read")
     @ResponseStatus(HttpStatus.OK)
-    public void readNotifications(@Valid ReadNotificationDTO readNotificationDTO) {
-        notificationService.readNotifications(readNotificationDTO);
+    public void readNotifications() {
+        notificationService.readNotifications();
     }
 }

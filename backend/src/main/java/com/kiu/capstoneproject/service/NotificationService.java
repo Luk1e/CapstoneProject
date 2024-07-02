@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class NotificationService {
 
         // get notifications and group by date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-        Map<String, List<NotificationDTO>> groupedNotifications = notificationRepository.findByUser(user)
+        List<NotificationDTO> notifications = notificationRepository.findByUser(user)
                 .stream()
                 .map(notification -> NotificationDTO.builder()
                         .notificationId(notification.getNotificationId())
@@ -43,6 +44,11 @@ public class NotificationService {
                         .dateTime(notification.getDateTime())
                         .status(notification.getStatus())
                         .build())
+                .sorted(Comparator.comparing(NotificationDTO::getDateTime).reversed()) // Sort notifications by dateTime in descending order
+                .toList();
+
+        // group notifications by date
+        Map<String, List<NotificationDTO>> groupedNotifications = notifications.stream()
                 .collect(Collectors.groupingBy(notificationDTO -> notificationDTO.getDateTime().format(formatter)));
 
         // map to the new DTO
@@ -83,14 +89,14 @@ public class NotificationService {
     }
 
 
-    public void readNotifications(ReadNotificationDTO readNotificationDTO) {
+    public void readNotifications() {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
-
-        List<Notification> unreadNotifications  = notificationRepository.findUnreadNotificationsByUserIdBeforeDate(user.getUserId(), readNotificationDTO.getDateTime());
+        List<Notification> unreadNotifications  = notificationRepository.findUnreadNotificationsByUserIdBeforeDate(user.getUserId(),  LocalDateTime.now());
+        System.out.println(unreadNotifications);
         unreadNotifications.forEach(notification -> notification.setStatus(NotificationStatus.READ));
 
         notificationRepository.saveAll(unreadNotifications);

@@ -12,5 +12,5 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class ReadNotificationDTO {
-    private LocalDateTime dateTime;
+    private String dateTime;
 }

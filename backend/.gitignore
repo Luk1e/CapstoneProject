@@ -27,8 +27,9 @@ target/
 /.nb-gradle/
 build/
 
+/doc-uploads/**
+!**/.gitkeep
 
-/doc-uploads/*
 !**/src/main/**/build/
 !**/src/test/**/build/
 

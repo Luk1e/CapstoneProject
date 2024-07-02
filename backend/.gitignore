@@ -23,10 +23,12 @@ target/
 /nbproject/private/
 /nbbuild/
 /dist/
-/doc-uploads/
 /nbdist/
 /.nb-gradle/
 build/
+
+
+/doc-uploads/*
 !**/src/main/**/build/
 !**/src/test/**/build/
 

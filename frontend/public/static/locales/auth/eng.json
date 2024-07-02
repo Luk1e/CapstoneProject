@@ -51,5 +51,10 @@
     "Task file": "Task file",
     "File not uploaded": "File not uploaded",
     "Solution file": "Solution file"
+  },
+  "notificationPage": {
+    "There are no notifications": "There are no notifications",
+    "Notifications":"Notifications",
+    "Time": "Time"
   }
 }

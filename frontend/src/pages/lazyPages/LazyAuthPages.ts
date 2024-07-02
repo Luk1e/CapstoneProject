@@ -37,6 +37,11 @@ const StudentsPage = lazyLoadComponent(
   () => import("../auth/students/StudentsPage")
 );
 
+// Students
+const NotificationPage = lazyLoadComponent(
+  () => import("../auth/notifications/NotificationPage")
+);
+
 // Export lazy Public pages
 export const lazyAuthPages = {
   ClassroomPage,
@@ -46,4 +51,5 @@ export const lazyAuthPages = {
   UpdateHomeworkPage,
   StudentHomeworksPage,
   StudentsPage,
+  NotificationPage,
 };

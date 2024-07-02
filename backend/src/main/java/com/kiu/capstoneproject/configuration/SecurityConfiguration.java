@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
                                 .requestMatchers("/api/v1/classroom/enroll").hasAnyAuthority(Role.STUDENT.name())
+                                .requestMatchers("/api/v1/user/**").hasAnyAuthority(Role.STUDENT.name(), Role.TEACHER.name())
                                 .requestMatchers
                                         (
                                                 GET,
@@ -58,6 +59,7 @@ public class SecurityConfiguration {
                                         )
                                 .hasAnyAuthority(Role.TEACHER.name(), Role.STUDENT.name())
                                 .requestMatchers("/api/v1/classroom/**").hasAnyAuthority(Role.TEACHER.name())
+
                                 .anyRequest()
                                 .authenticated()
                 )

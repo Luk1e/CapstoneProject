@@ -15,11 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -34,7 +36,9 @@ public class HomeworkService {
     private final ClassroomRepository classroomRepository;
     private final StudentClassroomRepository studentClassroomRepository;
     private final StudentHomeworkRepository studentHomeworkRepository;
+    private final NotificationService notificationService;
 
+    @Transactional
     public Long createHomework(Long classroomId, HomeworkRequestDTO homeworkRequestDTO) throws NoSuchAlgorithmException, IOException {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -85,6 +89,17 @@ public class HomeworkService {
                             .build();
 
                     studentHomeworkRepository.save(studentHomework);
+                    notificationService.addNotifications(studentClassroom.getStudent(),
+                            "<b>"
+                                    + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                                    + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
+                                    + "</b> added an assignment in <b>"
+                                    + classroom.getName()
+                                    + "</b>"
+                            ,
+                            LocalDateTime.now()
+                    );
+
                 }
             }
 
@@ -183,7 +198,7 @@ public class HomeworkService {
         }
     }
 
-
+    @Transactional
     public void updateHomework(
             Long classroomId,
             Long homeworkId,
@@ -214,6 +229,23 @@ public class HomeworkService {
             }
 
             homeworkRepository.save(homework);
+
+            // add notification for each student
+            studentHomeworkRepository.findByHomeworkId(homeworkId).forEach(studentHomework ->
+                    notificationService.addNotifications(studentHomework.getStudent(),
+                            "<b>"
+                                    + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                                    + " "
+                                    + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
+                                    + "</b> updated an assignment <b>"
+                                    + homeworkRequestDTO.getTitle()
+                                    + "</b> in classroom <b>"
+                                    + classroom.getName()
+                                    + "</b>"
+                            ,
+                            LocalDateTime.now()
+                    ));
+
         } else {
             // throw error if the classroom is not associated with this teacher
             throw new NotFoundException("You are not associated with this classroom");
@@ -260,6 +292,7 @@ public class HomeworkService {
         }
     }
 
+    @Transactional
     public void deleteHomework(Long classroomId, Long homeworkId) {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -272,6 +305,8 @@ public class HomeworkService {
         // if the classroom is associated with this teacher
         if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
             homeworkRepository.deleteById(homeworkId);
+
+
         } else {
             // throw error if the classroom is not associated with this teacher
             throw new NotFoundException("You are not associated with this classroom");
@@ -400,6 +435,7 @@ public class HomeworkService {
 
     }
 
+    @Transactional
     public void gradeHomework(
             Long homeworkId,
             Long studentId,
@@ -423,9 +459,24 @@ public class HomeworkService {
                 homework.setSubmittedNumber(homework.getSubmittedNumber() + 1);
             }
 
+
             studentHomework.setGrade(grade);
             studentHomework.setStatus(HomeworkStatus.GRADED);
             studentHomeworkRepository.save(studentHomework);
+
+            notificationService.addNotifications(studentHomework.getStudent(),
+                    "<b>"
+                            + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                            + " "
+                            + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
+                            + "</b> returned an assignment <b>"
+                            + studentHomework.getHomework().getTitle()
+                            + "</b> in classroom <b>"
+                            + studentHomework.getHomework().getClassroom().getName()
+                            + "</b>"
+                    ,
+                    LocalDateTime.now()
+            );
 
         } else {
             // throw error if the student is not associated with this classroom

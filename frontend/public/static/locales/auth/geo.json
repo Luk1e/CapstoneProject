@@ -50,5 +50,10 @@
     "Task file": "დავალების ფაილი",
     "File not uploaded": "ფაილი არ არის ატვირთული",
     "Solution file": "ამოხსნის ფაილი"
+  },
+  "notificationPage": {
+    "There are no notifications": "შეტყობინებები არ არის",
+    "Notifications": "შეტყობინებები",
+    "Time": "დრო"
   }
 }

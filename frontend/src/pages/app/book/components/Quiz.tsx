@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import quizData from "../../../../static/data/QuizData";
 import QuizElement from "./QuizElement";
+
 const Container = styled.div``;
+
 const QuizHeader = styled.h1`
   padding-top: 20px;
   text-align: center;

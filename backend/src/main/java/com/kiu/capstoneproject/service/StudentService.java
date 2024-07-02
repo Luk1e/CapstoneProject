@@ -12,7 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,7 +27,9 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final ClassroomRepository classroomRepository;
     private final StudentClassroomRepository studentClassroomRepository;
+    private final NotificationService notificationService;
 
+    @Transactional
     public void enrollStudent(ClassroomNameDTO classroomNameDTO
     ) {
         // get user from security context
@@ -60,9 +64,19 @@ public class StudentService {
         studentClassroom.setStatus(EnrollmentStatus.PENDING);
 
         studentClassroomRepository.save(studentClassroom);
+
+        // add notification for teacher
+        notificationService.addNotifications(classroom.getTeacher(),
+                "<b>"
+                        + student.getFirstName().substring(0, 1).toUpperCase() + student.getFirstName().substring(1).toLowerCase()
+                        + " "
+                        + student.getLastName().substring(0, 1).toUpperCase() + student.getLastName().substring(1).toLowerCase()
+                        + "</b> wants to enroll in classroom <b>"
+                        + classroom.getName() + "</b>",
+                LocalDateTime.now());
     }
 
-
+    @Transactional
     public void acceptStudent(
             Long classroomId,
             Long studentId
@@ -91,14 +105,22 @@ public class StudentService {
             }
 
             studentClassroom.setStatus(EnrollmentStatus.APPROVED);
+
             studentClassroomRepository.save(studentClassroom);
+            // add notification for student
+            notificationService.addNotifications(student,
+                    "Your request to join the classroom <b>"
+                            + classroom.getName()
+                            + "</b> has been accepted",
+                    LocalDateTime.now()
+            );
         } else {
             // throw error if the classroom is not associated with this teacher
             throw new NotFoundException("You are not associated with this classroom");
         }
     }
 
-
+    @Transactional
     public void rejectStudent(
             Long classroomId,
             Long studentId
@@ -127,13 +149,20 @@ public class StudentService {
             }
 
             studentClassroomRepository.deleteById(studentClassroomId);
+            // add notification for student
+            notificationService.addNotifications(student,
+                    "Your request to join the classroom <b>"
+                            + classroom.getName()
+                            + "</b> has been rejected",
+                    LocalDateTime.now()
+            );
         } else {
             // throw error if the classroom is not associated with this teacher
             throw new NotFoundException("You are not associated with this classroom");
         }
     }
 
-
+    @Transactional
     public void removeStudent(
             Long classroomId,
             Long studentId
@@ -156,6 +185,19 @@ public class StudentService {
                     .orElseThrow(() -> new NotFoundException("Request does not exists"));
 
             studentClassroomRepository.deleteById(studentClassroomId);
+            // add notification for student
+            notificationService.addNotifications(student,
+                    "You have been removed from classroom <b>"
+                            + classroom.getName()
+                            + "</b> by <b>"
+                            + user.getFirstName().substring(0, 1).toUpperCase() + user.getUsername().substring(1).toLowerCase()
+                            + " "
+                            + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
+                            + "</b>"
+                    ,
+
+                    LocalDateTime.now()
+            );
         } else {
             // throw error if the classroom is not associated with this teacher
             throw new NotFoundException("You are not associated with this classroom");

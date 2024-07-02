@@ -92,6 +92,7 @@ export const SideBar = ({ toggle, user, t, i18n }: SidebarProps) => {
             <Link onClick={() => changePage("/classroom")}>
               {t("global.classroom")}
             </Link>
+
             <Link
               onClick={() => {
                 dispatch(logout());

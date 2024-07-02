@@ -9,7 +9,7 @@ import PlusSVG from "./PlusSVG";
 import AttachFileSVG from "./AttachFileSVG";
 import UpdateSVG from "./UpdateSVG";
 import { languageIcons } from "./language";
-
+import { NotificationSVG } from "./NotificationSVG";
 // export svgs
 export {
   CloseSVG,
@@ -21,5 +21,6 @@ export {
   PlusSVG,
   AttachFileSVG,
   UpdateSVG,
-  languageIcons
+  languageIcons,
+  NotificationSVG,
 };

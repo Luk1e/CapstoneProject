@@ -18,7 +18,7 @@ public class CookieUtils {
         ResponseCookie cookie = ResponseCookie.from(cookieName, value)
                 .httpOnly(httpOnly)
                 .secure(true)
-//                .domain(".bestproject.buzz")
+                .domain(".bestproject.buzz")
                 .path("/")
                 .maxAge(expiration)
                 .sameSite("Strict")

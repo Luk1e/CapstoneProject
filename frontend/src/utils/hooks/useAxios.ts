@@ -7,11 +7,11 @@ export const injectStore = (_store: any) => {
   store = _store;
 };
 
-// const BACKEND_URL = "https://api.bestproject.buzz";
+const BACKEND_URL = "https://api.bestproject.buzz";
 
 // Export axios without cookies for public pages
 export const useAxios = axios.create({
-  // baseURL: BACKEND_URL,
+  baseURL: BACKEND_URL,
   withCredentials: true,
 
   headers: {
@@ -21,7 +21,7 @@ export const useAxios = axios.create({
 
 // Export authorized axios with cookies for auth pages
 export const useAuthAxios = axios.create({
-  // baseURL: BACKEND_URL,
+  baseURL: BACKEND_URL,
   withCredentials: true,
 
   headers: {
@@ -47,7 +47,7 @@ useAuthAxios.interceptors.response.use(
 // Export custom axios for files
 // cookies included
 export const useAuthFileAxios = axios.create({
-  // baseURL: BACKEND_URL,
+  baseURL: BACKEND_URL,
   withCredentials: true,
 
   headers: {

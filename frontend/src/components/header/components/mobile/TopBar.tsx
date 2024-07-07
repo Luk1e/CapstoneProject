@@ -57,7 +57,7 @@ function TopBar({ t }: any) {
         <Link
           onClick={() => {
             dispatch(logout());
-            navigate("");
+            navigate("/");
           }}
           $logout
         >

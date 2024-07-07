@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,6 +41,7 @@ public class AuthService {
     private final TokenService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final LogoutService logoutService;
 
     @Value("${jwt.expiration}")
     private Long jwtExpiration;
@@ -129,7 +131,6 @@ public class AuthService {
             LoginUserDTO loginUserDto,
             HttpServletResponse response
     ) {
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginUserDto.getEmail(),
@@ -148,6 +149,7 @@ public class AuthService {
 
             // Revoke all tokens for this user
             revokeAllUserTokens(user);
+
             // Save access token to database
             saveUserToken(user, accessToken);
 
@@ -155,7 +157,6 @@ public class AuthService {
             CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration / 1000, true);
             CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration / 1000, true);
             CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration / 1000, false);
-
         } else {
             throw new IncorrectCredentialsException("The email address or password is incorrect");
         }
@@ -177,29 +178,43 @@ public class AuthService {
             }
         }
 
-        if (refreshToken == null) {
-            throw new NotFoundException("Token is not attached");
+        if (refreshToken == null || refreshToken.isEmpty()) {
+
+            // Remove all tokens from cookies
+            CookieUtils.addCookie(response, "accessToken", null, 0, true);
+            CookieUtils.addCookie(response, "refreshToken", null, 0, true);
+            CookieUtils.addCookie(response, "isUserLogged", null, 0, false);
+            throw new NotFoundException("Token is empty");
         }
 
-        // Obtain email from token
-        userEmail = jwtService.extractUsername(refreshToken);
+        try {
+            // Obtain email from token
+            userEmail = jwtService.extractUsername(refreshToken);
 
-        // If token contains username
-        if (userEmail != null) {
-            User user = userRepository.findByEmail(userEmail)
-                    .orElseThrow(() -> new TokenExpiredException("Invalid refresh token"));
+            // If token contains username
+            if (userEmail != null) {
+                User user = userRepository.findByEmail(userEmail)
+                        .orElseThrow(() -> new TokenExpiredException("Invalid refresh token"));
 
-            // Validate refresh token
-            if (jwtService.isTokenValid(refreshToken, user)) {
-                String accessToken = jwtService.generateToken(user);
-                revokeAllUserTokens(user);
-                saveUserToken(user, accessToken);
+                // Validate refresh token
+                if (jwtService.isTokenValid(refreshToken, user)) {
+                    String accessToken = jwtService.generateToken(user);
+                    revokeAllUserTokens(user);
+                    saveUserToken(user, accessToken);
 
-                // Create required cookies with appropriate settings
-                CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration / 1000, true);
-                return;
+                    // Create required cookies with appropriate settings
+                    CookieUtils.addCookie(response, "accessToken", accessToken, jwtExpiration / 1000, true);
+                    return;
+                }
             }
+
+        } catch (Exception e) {
+            // Just continue if an error occurs, do nothing here
         }
+        // Remove all tokens from cookies
+        CookieUtils.addCookie(response, "accessToken", null, 0, true);
+        CookieUtils.addCookie(response, "refreshToken", null, 0, true);
+        CookieUtils.addCookie(response, "isUserLogged", null, 0, false);
 
         throw new NotFoundException("Invalid refresh token");
     }

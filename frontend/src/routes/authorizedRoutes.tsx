@@ -13,43 +13,43 @@ export default function AuthorizedRoutes({ user, loading }: RouterProps) {
     children: [
       // Classrooms
       {
-        path: "/classroom",
+        path: "classroom",
         element: <lazyPages.ClassroomsPage />,
       },
 
       // Classroom
       {
-        path: "/classroom/:id",
+        path: "classroom/:id",
         element: <lazyPages.ClassroomPage />,
       },
 
       // Classroom students
       {
-        path: "/classroom/:id/students",
+        path: "classroom/:id/students",
         element: <lazyPages.StudentsPage />,
       },
 
       // Create homework
       {
-        path: "/classroom/:id/homeworks/create",
+        path: "classroom/:id/homeworks/create",
         element: <lazyPages.CreateHomeworkPage />,
       },
 
       // Update homework
       {
-        path: "/classroom/:id/homeworks/:homeworkId/update",
+        path: "classroom/:id/homeworks/:homeworkId/update",
         element: <lazyPages.UpdateHomeworkPage />,
       },
 
       // Students' homeworks
       {
-        path: "/classroom/:id/homeworks/:homeworkId",
+        path: "classroom/:id/homeworks/:homeworkId",
         element: <lazyPages.StudentHomeworksPage />,
       },
 
       // Homework
       {
-        path: "/classroom/:id/homework/:homeworkId",
+        path: "classroom/:id/homework/:homeworkId",
         element: <lazyPages.HomeworkPage />,
       },
 

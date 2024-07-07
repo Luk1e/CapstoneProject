@@ -37,10 +37,11 @@ interface NotificationProps {
 function Notification({ notification }: NotificationProps) {
   const { text, dateTime } = notification;
 
+  console.log(dateTime);
   return (
     <Container>
       <TextLeft>{parseBoldText(text)}</TextLeft>
-      <TextRight>{dateTime.slice(-8, -3)}</TextRight>
+      <TextRight>{dateTime.length > 24 ?dateTime.slice(-15, -10):  dateTime.slice(-8, -3)}</TextRight>
     </Container>
   );
 }

@@ -7,14 +7,23 @@ export const injectStore = (_store: any) => {
   store = _store;
 };
 
+// const BACKEND_URL = "https://api.bestproject.buzz";
+
 // Export axios without cookies for public pages
 export const useAxios = axios.create({
-  headers: { "Content-Type": "application/json" },
+  // baseURL: BACKEND_URL,
+  withCredentials: true,
+
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // Export authorized axios with cookies for auth pages
 export const useAuthAxios = axios.create({
+  // baseURL: BACKEND_URL,
   withCredentials: true,
+
   headers: {
     "Content-Type": "application/json",
   },
@@ -24,7 +33,10 @@ export const useAuthAxios = axios.create({
 useAuthAxios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 401) {
+    if (
+      error.response.status === 401 &&
+      document.cookie.includes("isUserLogged=")
+    ) {
       store.dispatch(refresh());
     } else {
       return Promise.reject(error);
@@ -35,7 +47,9 @@ useAuthAxios.interceptors.response.use(
 // Export custom axios for files
 // cookies included
 export const useAuthFileAxios = axios.create({
+  // baseURL: BACKEND_URL,
   withCredentials: true,
+
   headers: {
     "Content-Type": "multipart/form-data",
   },
@@ -45,7 +59,10 @@ export const useAuthFileAxios = axios.create({
 useAuthFileAxios.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 401) {
+    if (
+      error.response.status === 401 &&
+      document.cookie.includes("isUserLogged=")
+    ) {
       store.dispatch(refresh());
     } else {
       return Promise.reject(error);

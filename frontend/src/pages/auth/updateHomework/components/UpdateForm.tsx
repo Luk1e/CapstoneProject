@@ -95,7 +95,9 @@ function UpdateForm() {
   useEffect(() => {
     dispatch(getHomework({ classroomId: id, homeworkId }));
     if (success)
-      navigate(`/classroom/${id}/homeworks/${homeworkId}`, { replace: true });
+      navigate(`/classroom/${id}/homeworks/${homeworkId}`, {
+        replace: true,
+      });
     return () => {
       dispatch(reset());
     };

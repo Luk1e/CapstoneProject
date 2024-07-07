@@ -5,6 +5,7 @@ function parseBoldText(text: string): JSX.Element {
   let lastIndex = 0;
 
   text.replace(regex, (match, p1, offset) => {
+    p1;
     // Add text before the <b> tag
     if (offset > lastIndex) {
       parts.push(text.substring(lastIndex, offset));

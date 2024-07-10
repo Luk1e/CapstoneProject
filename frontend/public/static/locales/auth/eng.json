@@ -40,7 +40,8 @@
     "Title is required": "Title is required",
     "Instruction is required": "Instruction is required",
     "Points is required": "Points is required",
-    "File size must be less than 3MB": "File size must be less than 3MB"
+    "File size must be less than 3MB": "File size must be less than 3MB",
+    "Instruction must be at most 255 characters": "Instruction must be at most 255 characters"
   },
   "studentHomeworksPage": {
     "delete homework": "delete homework",
@@ -54,7 +55,7 @@
   },
   "notificationPage": {
     "There are no notifications": "There are no notifications",
-    "Notifications":"Notifications",
+    "Notifications": "Notifications",
     "Time": "Time"
   }
 }

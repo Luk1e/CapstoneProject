@@ -14,7 +14,10 @@ const MAX_UPLOAD_SIZE = 1024 * 1024 * 100; // 100MB
 export const validationSchema = (t: any) =>
   z.object({
     title: z.string().min(1, t("validation.Title is required")),
-    instruction: z.string().min(1, t("validation.Instruction is required")),
+    instruction: z
+      .string()
+      .min(1, t("validation.Instruction is required"))
+      .max(255, t("validation.Instruction must be at most 255 characters")),
     totalGrade: z.number().int(t("validation.Points is required")),
     file: z
       .instanceof(File)

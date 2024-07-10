@@ -6,6 +6,7 @@ import { authenticate } from "./authSlice";
 interface ValuesProps {
   email: string;
   password: string;
+  t?: any;
 }
 
 // Interface for returned data
@@ -27,7 +28,7 @@ export const login = createAsyncThunk<
     dispatch(authenticate());
   } catch (err: any) {
     if (err.response.status === 401) {
-      return rejectWithValue("Invalid credentials" as any);
+      return rejectWithValue(values.t("validation.invalid credentials") as any);
     }
     return rejectWithValue(err.response.data.errors[0]);
   }

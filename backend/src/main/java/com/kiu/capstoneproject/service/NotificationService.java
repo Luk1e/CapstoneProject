@@ -6,6 +6,8 @@ import com.kiu.capstoneproject.dto.notification.NotificationGroupedByDateDTO;
 import com.kiu.capstoneproject.dto.notification.ReadNotificationDTO;
 import com.kiu.capstoneproject.enums.NotificationStatus;
 import com.kiu.capstoneproject.exception.NotFoundException;
+import com.kiu.capstoneproject.i18n.I18nUtil;
+import com.kiu.capstoneproject.i18n.LocalHolder;
 import com.kiu.capstoneproject.model.entity.*;
 import com.kiu.capstoneproject.repository.NotificationRepository;
 import com.kiu.capstoneproject.repository.UserRepository;
@@ -15,11 +17,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,12 +28,14 @@ import java.util.stream.Collectors;
 public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
+    private final I18nUtil i18nUtil;
+    private final LocalHolder localHolder;
 
-    public List<NotificationGroupedByDateDTO>  getNotifications() {
-// get user from security context
+    public List<NotificationGroupedByDateDTO> getNotifications() {
+        // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         // get notifications and group by date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
@@ -40,7 +43,7 @@ public class NotificationService {
                 .stream()
                 .map(notification -> NotificationDTO.builder()
                         .notificationId(notification.getNotificationId())
-                        .text(notification.getText())
+                        .text(Objects.equals(localHolder.getCurrentLocale().getLanguage(), "geo") ? notification.getText_geo() : notification.getText())
                         .dateTime(notification.getDateTime())
                         .status(notification.getStatus())
                         .build())
@@ -51,13 +54,23 @@ public class NotificationService {
         Map<String, List<NotificationDTO>> groupedNotifications = notifications.stream()
                 .collect(Collectors.groupingBy(notificationDTO -> notificationDTO.getDateTime().format(formatter)));
 
-        // map to the new DTO
-        return groupedNotifications.entrySet().stream()
+        // Convert the map to a sorted list of entries
+        List<Map.Entry<String, List<NotificationDTO>>> sortedEntries = new ArrayList<>(groupedNotifications.entrySet());
+        sortedEntries.sort((e1, e2) -> {
+            LocalDate date1 = LocalDate.parse(e1.getKey(), formatter);
+            LocalDate date2 = LocalDate.parse(e2.getKey(), formatter);
+            return date2.compareTo(date1);
+        });
+
+        // Convert the sorted entries to the desired DTO format
+        List<NotificationGroupedByDateDTO> result = sortedEntries.stream()
                 .map(entry -> NotificationGroupedByDateDTO.builder()
                         .date(entry.getKey())
                         .notifications(entry.getValue())
                         .build())
                 .collect(Collectors.toList());
+
+        return result;
     }
 
 
@@ -65,7 +78,7 @@ public class NotificationService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         // get latest 10 notifications
         List<NotificationDTO> latestNotifications = notificationRepository.findFirst10ByUser(user)
@@ -93,20 +106,21 @@ public class NotificationService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
-        List<Notification> unreadNotifications  = notificationRepository.findUnreadNotificationsByUserIdBeforeDate(user.getUserId(),  LocalDateTime.now());
+        List<Notification> unreadNotifications = notificationRepository.findUnreadNotificationsByUserIdBeforeDate(user.getUserId(), LocalDateTime.now());
         System.out.println(unreadNotifications);
         unreadNotifications.forEach(notification -> notification.setStatus(NotificationStatus.READ));
 
         notificationRepository.saveAll(unreadNotifications);
     }
 
-    public void addNotifications(User user,String text, LocalDateTime dateTime) {
+    public void addNotifications(User user, String text, String text_geo, LocalDateTime dateTime) {
         notificationRepository.save(Notification
                 .builder()
                 .user(user)
                 .text(text)
+                .text_geo(text_geo)
                 .dateTime(dateTime)
                 .status(NotificationStatus.UNREAD)
                 .build());

@@ -62,7 +62,7 @@ const ErrorText = styled.div`
 `;
 
 function NotificationPage() {
-  const { t } = useTranslation(["auth"]);
+  const { t, i18n } = useTranslation(["auth"]);
   const dispatch: DispatchType = useDispatch();
   const { isLoading, notificationList, error } = useSelector(
     (state: StateType) => state.notifications
@@ -73,7 +73,7 @@ function NotificationPage() {
     return () => {
       dispatch(reset());
     };
-  }, []);
+  }, [i18n.language]);
 
   return (
     <Container>

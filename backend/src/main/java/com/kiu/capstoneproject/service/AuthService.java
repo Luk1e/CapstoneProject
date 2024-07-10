@@ -9,6 +9,7 @@ import com.kiu.capstoneproject.exception.AlreadyExistsException;
 import com.kiu.capstoneproject.exception.IncorrectCredentialsException;
 import com.kiu.capstoneproject.exception.NotFoundException;
 import com.kiu.capstoneproject.exception.TokenExpiredException;
+import com.kiu.capstoneproject.i18n.I18nUtil;
 import com.kiu.capstoneproject.model.entity.Student;
 import com.kiu.capstoneproject.model.entity.Teacher;
 import com.kiu.capstoneproject.model.entity.User;
@@ -41,7 +42,7 @@ public class AuthService {
     private final TokenService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final LogoutService logoutService;
+    private final I18nUtil i18nUtil;
 
     @Value("${jwt.expiration}")
     private Long jwtExpiration;
@@ -60,7 +61,7 @@ public class AuthService {
 
             if (userObject instanceof UserDetails) {
                 User user = userRepository.findByEmail(((UserDetails) userObject).getUsername())
-                        .orElseThrow(() -> new IncorrectCredentialsException("Token not valid"));
+                        .orElseThrow(() -> new IncorrectCredentialsException(i18nUtil.getMessage("error.tokenNotValid")));
 
 
                 return AuthUserDTO.builder()
@@ -72,7 +73,7 @@ public class AuthService {
             }
         }
         // throw error if token is not valid
-        throw new IncorrectCredentialsException("Token not valid");
+        throw new IncorrectCredentialsException(i18nUtil.getMessage("error.tokenNotValid"));
     }
 
 
@@ -86,7 +87,7 @@ public class AuthService {
 
         // throw error if the email is taken
         if (userOptional.isPresent()) {
-            throw new AlreadyExistsException("The email has already been taken");
+            throw new AlreadyExistsException(i18nUtil.getMessage("error.theEmailHasAlreadyBeenTaken"));
         }
 
         // Create common User base class for shared fields
@@ -101,7 +102,7 @@ public class AuthService {
                 ((Student) user).setRole(Role.STUDENT); // Set role for Student
                 break;
             default:
-                throw new IllegalStateException("Status code is incorrect");
+                throw new IllegalStateException(i18nUtil.getMessage("error.statusCodeIsIncorrect"));
         }
 
         // Populate common fields for all Users
@@ -140,7 +141,7 @@ public class AuthService {
 
         User user = userRepository.
                 findByEmail(loginUserDto.getEmail())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
 
         if (authentication.isAuthenticated()) {
@@ -158,7 +159,7 @@ public class AuthService {
             CookieUtils.addCookie(response, "refreshToken", refreshToken, refreshExpiration / 1000, true);
             CookieUtils.addCookie(response, "isUserLogged", "true", refreshExpiration / 1000, false);
         } else {
-            throw new IncorrectCredentialsException("The email address or password is incorrect");
+            throw new IncorrectCredentialsException(i18nUtil.getMessage("error.theEmailAddressOrPasswordIsIncorrect"));
         }
     }
 
@@ -184,7 +185,7 @@ public class AuthService {
             CookieUtils.addCookie(response, "accessToken", null, 0, true);
             CookieUtils.addCookie(response, "refreshToken", null, 0, true);
             CookieUtils.addCookie(response, "isUserLogged", null, 0, false);
-            throw new NotFoundException("Token is empty");
+            throw new NotFoundException(i18nUtil.getMessage("error.tokenIsEmpty"));
         }
 
         try {
@@ -194,7 +195,7 @@ public class AuthService {
             // If token contains username
             if (userEmail != null) {
                 User user = userRepository.findByEmail(userEmail)
-                        .orElseThrow(() -> new TokenExpiredException("Invalid refresh token"));
+                        .orElseThrow(() -> new TokenExpiredException(i18nUtil.getMessage("error.invalidRefreshToken")));
 
                 // Validate refresh token
                 if (jwtService.isTokenValid(refreshToken, user)) {
@@ -216,7 +217,7 @@ public class AuthService {
         CookieUtils.addCookie(response, "refreshToken", null, 0, true);
         CookieUtils.addCookie(response, "isUserLogged", null, 0, false);
 
-        throw new NotFoundException("Invalid refresh token");
+        throw new NotFoundException(i18nUtil.getMessage("error.invalidRefreshToken"));
     }
 
 

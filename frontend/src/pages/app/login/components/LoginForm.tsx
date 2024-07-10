@@ -108,7 +108,7 @@ function LoginForm() {
       <Formik
         initialValues={initialValues}
         validate={validateForm}
-        onSubmit={(values) => onSubmit({ values, dispatch })}
+        onSubmit={(values) => onSubmit({ values,t, dispatch })}
       >
         {() => {
           return (

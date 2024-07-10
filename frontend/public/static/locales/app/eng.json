@@ -27,6 +27,7 @@
     "Confirm Password": "Confirm Password",
     "password": "password",
     "email": "email",
+    "invalid credentials": "Invalid credentials",
     "First name must contain only letters and numbers": "First name must contain only letters and numbers",
     "Last name must contain only letters and numbers": "Last name must contain only letters and numbers",
     "First name is required": "First name is required",

@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { respondTo } from "../../../utils/helpers/_respondTo";
 import useWindowDimensions from "../../../utils/hooks/useWindowDimensions";
 import styled from "styled-components";
-import Book from "./components/Book";
 import Classroom from "./components/Classroom";
 
 const Container = styled.div`
@@ -51,7 +50,6 @@ function HomeScreen() {
   return (
     <Container>
       <InnerContainer className="w3-animate-left">
-        <Book width={width} navigate={navigate} />
         <Classroom width={width} navigate={navigate} />
       </InnerContainer>
     </Container>

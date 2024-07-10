@@ -92,6 +92,7 @@ public class HomeworkService {
                     notificationService.addNotifications(studentClassroom.getStudent(),
                             "<b>"
                                     + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                                    + " "
                                     + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
                                     + "</b> added an assignment in <b>"
                                     + classroom.getName()
@@ -99,7 +100,7 @@ public class HomeworkService {
                             "<b>"
                                     + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
                                     + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
-                                    + "</b> -მა დაამატა დავალება კლასში <b>"
+                                    + "</b> - მა დაამატა დავალება კლასში <b>"
                                     + classroom.getName()
                                     + "</b>",
                             LocalDateTime.now()
@@ -252,7 +253,7 @@ public class HomeworkService {
                                     + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
                                     + " "
                                     + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
-                                    + "</b> -მა შეასწორა დავალება <b>"
+                                    + "</b> - მა შეასწორა დავალება <b>"
                                     + homeworkRequestDTO.getTitle()
                                     + "</b> კლასში <b>"
                                     + classroom.getName()

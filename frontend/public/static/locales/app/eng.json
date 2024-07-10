@@ -1,11 +1,10 @@
 {
   "global": {
-    "log in": "log in",
-    "register": "register",
+    "log in": "sign in",
+    "register": "sign up",
     "next": "next"
   },
   "homePage": {
-    "book": "book",
     "classroom": "classroom"
   },
 

@@ -88,7 +88,6 @@ export const SideBar = ({ toggle, user, t, i18n }: SidebarProps) => {
 
         {user ? (
           <>
-            <Link onClick={() => changePage("/book")}>{t("global.book")}</Link>
             <Link onClick={() => changePage("/classroom")}>
               {t("global.classroom")}
             </Link>

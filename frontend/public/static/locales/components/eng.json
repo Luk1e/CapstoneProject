@@ -1,12 +1,11 @@
 {
   "global": {
-    "book": "book",
     "classroom": "classroom",
     "Notifications": "Notifications"
   },
   "header": {
-    "log in": "log in",
-    "register": "register",
+    "log in": "sign in",
+    "register": "sign up",
     "logout": "logout"
   }
 }

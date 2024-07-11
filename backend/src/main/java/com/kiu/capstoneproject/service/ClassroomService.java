@@ -6,6 +6,7 @@ import com.kiu.capstoneproject.enums.EnrollmentStatus;
 import com.kiu.capstoneproject.enums.Role;
 import com.kiu.capstoneproject.exception.AlreadyExistsException;
 import com.kiu.capstoneproject.exception.NotFoundException;
+import com.kiu.capstoneproject.i18n.I18nUtil;
 import com.kiu.capstoneproject.model.entity.*;
 import com.kiu.capstoneproject.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -31,28 +32,30 @@ public class ClassroomService {
     private final ClassroomRepository classroomRepository;
     private final StudentClassroomRepository studentClassroomRepository;
     private final NotificationService notificationService;
+    private final I18nUtil i18nUtil;
 
     public List<ClassroomDTO> getClassrooms() {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername()).orElseThrow(() -> new NotFoundException("User not found"));
+        User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername()).orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         List<Classroom> classrooms = null;
 
         if (user.getRole() == Role.TEACHER) {
             // validate teacher
             Teacher teacher = teacherRepository.findById(user.getUserId())
-                    .orElseThrow(() -> new NotFoundException("Teacher with ID '" + user.getUserId() + "' not found"));
+                    .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.teacherWithIdNotFound", user.getUserId().toString())));
 
             // find classrooms associated with this teacher
             classrooms = classroomRepository.findByTeacher(teacher);
 
             // throw error if there is no classroom associated with this teacher
-            if (classrooms.isEmpty()) throw new NotFoundException("You haven't created any classrooms yet");
+            if (classrooms.isEmpty())
+                throw new NotFoundException(i18nUtil.getMessage("error.youHavenTCreatedAnyClassroomsYet"));
         } else {
             // validate student
             Student student = studentRepository.findById(user.getUserId())
-                    .orElseThrow(() -> new NotFoundException("Student with ID '" + user.getUserId() + "' not found"));
+                    .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.studentWithIdNotFound", user.getUserId().toString())));
 
             // find classrooms in which this student is enrolled
             List<StudentClassroom> studentClassrooms = studentClassroomRepository.findByStudentId(student.getUserId());
@@ -63,8 +66,9 @@ public class ClassroomService {
                     .map(StudentClassroom::getClassroom)
                     .collect(Collectors.toList());
 
-            // throw error if there is no classroom associated with this teacher
-            if (classrooms.isEmpty()) throw new NotFoundException("The haven't joined any classroom yet");
+            // throw error student has not joined any classrooms yet
+            if (classrooms.isEmpty())
+                throw new NotFoundException(i18nUtil.getMessage("error.youHavenTJoinedAnyClassroomYet"));
         }
 
         // return list of classroomDTOs
@@ -79,11 +83,11 @@ public class ClassroomService {
     public Long createClassroom(ClassroomNameDTO classroomNameDTO) {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername()).orElseThrow(() -> new NotFoundException("User not found"));
+        User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername()).orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         // validate if user is teacher
         Teacher teacher = teacherRepository.findById(user.getUserId())
-                .orElseThrow(() -> new NotFoundException("Teacher with ID '" + user.getUserId() + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.teacherWithIdNotFound", user.getUserId().toString())));
 
         Optional<Classroom> classroomOptional = classroomRepository.
                 findClassroomByName(classroomNameDTO.getName());
@@ -98,7 +102,7 @@ public class ClassroomService {
             return classroom.getClassroomId();
         } else {
             // throw error if the classroom name has already been taken
-            throw new AlreadyExistsException("The name has already been taken.");
+            throw new AlreadyExistsException(i18nUtil.getMessage("error.theNameHasAlreadyBeenTaken"));
         }
     }
 
@@ -106,10 +110,10 @@ public class ClassroomService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername()).
-                orElseThrow(() -> new NotFoundException("User not found"));
+                orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         Classroom classroom = classroomRepository.findById(classroomId).
-                orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+                orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.classroomWithIdNotFound", classroomId.toString())));
 
         // if the classroom is associated with this teacher
         if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
@@ -118,7 +122,7 @@ public class ClassroomService {
             classroomRepository.deleteById(classroomId);
         } else {
             // throw error if the classroom is not associated with this teacher
-            throw new NotFoundException("You are not associated with this classroom");
+            throw new NotFoundException(i18nUtil.getMessage("error.youAreNotAssociatedWithThisClassroom"));
 
         }
     }

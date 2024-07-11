@@ -5,7 +5,6 @@
     "next": "შემდეგ"
   },
   "homePage": {
-    "book": "წიგნი",
     "classroom": "კლასი"
   },
 
@@ -27,6 +26,7 @@
     "password": "პაროლი",
     "Confirm Password": "დაადასტურეთ პაროლი",
     "email": "ელფოსტა",
+    "invalid credentials": "მეილი ან პაროლი არასწორია",
     "First name must contain only letters and numbers": "სახელი უნდა შეიცავდეს მხოლოდ ასოებს და ციფრებს",
     "Last name must contain only letters and numbers": "გვარი უნდა შეიცავდეს მხოლოდ ასოებს და ციფრებს",
     "First name is required": "სახელი სავალდებულოა",

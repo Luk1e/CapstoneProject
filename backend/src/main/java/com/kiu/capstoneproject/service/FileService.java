@@ -2,14 +2,13 @@ package com.kiu.capstoneproject.service;
 
 import com.kiu.capstoneproject.enums.FileType;
 import com.kiu.capstoneproject.exception.NotFoundException;
+import com.kiu.capstoneproject.i18n.I18nUtil;
 import com.kiu.capstoneproject.model.entity.File;
 import com.kiu.capstoneproject.property.FileStorageProperty;
 import com.kiu.capstoneproject.repository.FileRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,10 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,11 +31,13 @@ public class FileService {
     @Autowired
     private FileRepository fileRepository;
     private final Path docStorageLocation;
+    private final I18nUtil i18nUtil;
 
     @Autowired
-    public FileService(FileStorageProperty fileStorageProperty) throws IOException {
+    public FileService(FileStorageProperty fileStorageProperty, I18nUtil i18nUtil) throws IOException {
         this.docStorageLocation = Paths.get(fileStorageProperty.getUploadDirectory()).toAbsolutePath().normalize();
         Files.createDirectories(this.docStorageLocation);
+        this.i18nUtil = i18nUtil;
     }
 
 
@@ -88,7 +87,7 @@ public class FileService {
                     .body(resource);
 
         } catch (Exception e) {
-            throw new NotFoundException("File not found");
+            throw new NotFoundException(i18nUtil.getMessage("error.fileNotFound"));
         }
     }
 

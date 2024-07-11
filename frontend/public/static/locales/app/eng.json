@@ -1,11 +1,10 @@
 {
   "global": {
-    "log in": "log in",
-    "register": "register",
+    "log in": "sign in",
+    "register": "sign up",
     "next": "next"
   },
   "homePage": {
-    "book": "book",
     "classroom": "classroom"
   },
 
@@ -27,6 +26,7 @@
     "Confirm Password": "Confirm Password",
     "password": "password",
     "email": "email",
+    "invalid credentials": "Invalid credentials",
     "First name must contain only letters and numbers": "First name must contain only letters and numbers",
     "Last name must contain only letters and numbers": "Last name must contain only letters and numbers",
     "First name is required": "First name is required",

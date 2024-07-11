@@ -8,6 +8,7 @@ import com.kiu.capstoneproject.enums.FileType;
 import com.kiu.capstoneproject.enums.HomeworkStatus;
 import com.kiu.capstoneproject.enums.Role;
 import com.kiu.capstoneproject.exception.NotFoundException;
+import com.kiu.capstoneproject.i18n.I18nUtil;
 import com.kiu.capstoneproject.model.entity.*;
 import com.kiu.capstoneproject.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,21 +32,21 @@ public class HomeworkService {
     private final HomeworkRepository homeworkRepository;
     private final UserRepository userRepository;
     private final FileService fileService;
-    private final FileRepository fileRepository;
     private final ClassroomRepository classroomRepository;
     private final StudentClassroomRepository studentClassroomRepository;
     private final StudentHomeworkRepository studentHomeworkRepository;
     private final NotificationService notificationService;
+    private final I18nUtil i18nUtil;
 
     @Transactional
     public Long createHomework(Long classroomId, HomeworkRequestDTO homeworkRequestDTO) throws NoSuchAlgorithmException, IOException {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         Classroom classroom = classroomRepository.findById(classroomId)
-                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.classroomWithIdNotFound", classroomId.toString())));
 
         File file = null;
         if (homeworkRequestDTO.getFile() != null) {
@@ -92,11 +92,17 @@ public class HomeworkService {
                     notificationService.addNotifications(studentClassroom.getStudent(),
                             "<b>"
                                     + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                                    + " "
                                     + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
                                     + "</b> added an assignment in <b>"
                                     + classroom.getName()
-                                    + "</b>"
-                            ,
+                                    + "</b>",
+                            "<b>"
+                                    + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                                    + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
+                                    + "</b> - მა დაამატა დავალება კლასში <b>"
+                                    + classroom.getName()
+                                    + "</b>",
                             LocalDateTime.now()
                     );
 
@@ -106,7 +112,7 @@ public class HomeworkService {
             return homework.getHomeworkId();
         } else {
             // throw error if the classroom is not associated with this teacher
-            throw new NotFoundException("You are not associated with this classroom");
+            throw new NotFoundException(i18nUtil.getMessage("error.youAreNotAssociatedWithThisClassroom"));
         }
     }
 
@@ -114,10 +120,10 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         Classroom classroom = classroomRepository.findById(classroomId)
-                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.classroomWithIdNotFound", classroomId.toString())));
 
         // if the student is enrolled in this classroom
         if (studentClassroomRepository.findById(new StudentClassroomId(user.getUserId(), classroomId)).isPresent()) {
@@ -157,7 +163,7 @@ public class HomeworkService {
                     .collect(Collectors.toList());
         } else {
             // throw error if the user is not associated with this classroom
-            throw new NotFoundException("You are not associated with this classroom");
+            throw new NotFoundException(i18nUtil.getMessage("error.youAreNotAssociatedWithThisClassroom"));
         }
 
     }
@@ -166,10 +172,10 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         Classroom classroom = classroomRepository.findById(classroomId)
-                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.classroomWithIdNotFound", classroomId.toString())));
 
         // if the classroom is associated with this teacher
         if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
@@ -194,7 +200,7 @@ public class HomeworkService {
             return homeworkResponseDTO;
         } else {
             // throw error if the classroom is not associated with this teacher
-            throw new NotFoundException("You are not associated with this classroom");
+            throw new NotFoundException(i18nUtil.getMessage("error.youAreNotAssociatedWithThisClassroom"));
         }
     }
 
@@ -206,10 +212,10 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         Classroom classroom = classroomRepository.findById(classroomId)
-                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.classroomWithIdNotFound", classroomId.toString())));
 
         // if the classroom is associated with this teacher
         if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
@@ -243,12 +249,22 @@ public class HomeworkService {
                                     + classroom.getName()
                                     + "</b>"
                             ,
+                            "<b>"
+                                    + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                                    + " "
+                                    + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
+                                    + "</b> - მა შეასწორა დავალება <b>"
+                                    + homeworkRequestDTO.getTitle()
+                                    + "</b> კლასში <b>"
+                                    + classroom.getName()
+                                    + "</b>"
+                            ,
                             LocalDateTime.now()
                     ));
 
         } else {
             // throw error if the classroom is not associated with this teacher
-            throw new NotFoundException("You are not associated with this classroom");
+            throw new NotFoundException(i18nUtil.getMessage("error.youAreNotAssociatedWithThisClassroom"));
         }
     }
 
@@ -257,10 +273,10 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         Classroom classroom = classroomRepository.findById(classroomId)
-                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.classroomWithIdNotFound", classroomId.toString())));
 
         // if the classroom is associated with this teacher
         if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
@@ -288,7 +304,7 @@ public class HomeworkService {
                     .build();
         } else {
             // throw error if the classroom is not associated with this teacher
-            throw new NotFoundException("You are not associated with this classroom");
+            throw new NotFoundException(i18nUtil.getMessage("error.youAreNotAssociatedWithThisClassroom"));
         }
     }
 
@@ -297,10 +313,10 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         Classroom classroom = classroomRepository.findById(classroomId)
-                .orElseThrow(() -> new NotFoundException("Classroom with ID '" + classroomId + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.classroomWithIdNotFound", classroomId.toString())));
 
         // if the classroom is associated with this teacher
         if (Objects.equals(classroom.getTeacher().getUserId(), user.getUserId())) {
@@ -309,7 +325,7 @@ public class HomeworkService {
 
         } else {
             // throw error if the classroom is not associated with this teacher
-            throw new NotFoundException("You are not associated with this classroom");
+            throw new NotFoundException(i18nUtil.getMessage("error.youAreNotAssociatedWithThisClassroom"));
         }
     }
 
@@ -320,7 +336,8 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")
+                ));
 
         // if the user is student than frontend haven't sent and studentId
         if (user.getRole() == Role.STUDENT) {
@@ -328,10 +345,10 @@ public class HomeworkService {
         }
 
         Homework homework = homeworkRepository.findById(homeworkId)
-                .orElseThrow(() -> new NotFoundException("Homework with ID '" + homeworkId + "' not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.homeworkWithIdNotFound", homeworkId.toString())));
 
         StudentHomework studentHomework = studentHomeworkRepository.findById(new StudentHomeworkId(studentId, homeworkId))
-                .orElseThrow(() -> new NotFoundException("Student is not associated with this homework"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.studentIsNotAssociatedWithThisHomework")));
 
         // if the user is student associated with this homework or teacher of this classroom
         if (Objects.equals(user.getUserId(), studentId) || Objects.equals(studentHomework.getHomework().getClassroom().getTeacher().getUserId(), user.getUserId())) {
@@ -373,7 +390,7 @@ public class HomeworkService {
             return homeworkDTO;
         } else {
             // throw error if the user is not associated with this classroom
-            throw new NotFoundException("You do not have access to this homework");
+            throw new NotFoundException(i18nUtil.getMessage("error.youDoNotHaveAccessToThisHomework"));
         }
     }
 
@@ -385,11 +402,11 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
 
         StudentHomework studentHomework = studentHomeworkRepository.findById(new StudentHomeworkId(user.getUserId(), homeworkId))
-                .orElseThrow(() -> new NotFoundException("Student is not associated with this homework"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.studentIsNotAssociatedWithThisHomework")));
 
 
         File file = null;
@@ -415,17 +432,17 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
         if (user.getRole() == Role.STUDENT) {
             StudentHomework studentHomework = studentHomeworkRepository.findById(new StudentHomeworkId(user.getUserId(), homeworkId))
-                    .orElseThrow(() -> new NotFoundException("Student is not associated with this homework"));
+                    .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.studentIsNotAssociatedWithThisHomework")));
 
             studentHomework.setSolutionFile(null);
             studentHomeworkRepository.save(studentHomework);
         } else {
             Homework homework = homeworkRepository.findById(homeworkId)
-                    .orElseThrow(() -> new NotFoundException("Homework is not found"));
+                    .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.homeworkNotFound")));
 
             if (Objects.equals(homework.getClassroom().getTeacher().getUserId(), user.getUserId())) {
                 homework.setHomeworkFile(null);
@@ -444,11 +461,11 @@ public class HomeworkService {
         // get user from security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByEmail(((UserDetails) authentication.getPrincipal()).getUsername())
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
 
 
         StudentHomework studentHomework = studentHomeworkRepository.findById(new StudentHomeworkId(studentId, homeworkId))
-                .orElseThrow(() -> new NotFoundException("Student is not associated with this homework"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.studentIsNotAssociatedWithThisHomework")));
 
         // if the teacher is associated with this homework
         if (Objects.equals(studentHomework.getHomework().getClassroom().getTeacher().getUserId(), user.getUserId())) {
@@ -475,12 +492,22 @@ public class HomeworkService {
                             + studentHomework.getHomework().getClassroom().getName()
                             + "</b>"
                     ,
+                    "<b>"
+                            + user.getFirstName().substring(0, 1).toUpperCase() + user.getFirstName().substring(1).toLowerCase()
+                            + " "
+                            + user.getLastName().substring(0, 1).toUpperCase() + user.getLastName().substring(1).toLowerCase()
+                            + "</b> დაგიბრუნათ დავალება <b>"
+                            + studentHomework.getHomework().getTitle()
+                            + "</b> კლასში <b>"
+                            + studentHomework.getHomework().getClassroom().getName()
+                            + "</b>"
+                    ,
                     LocalDateTime.now()
             );
 
         } else {
             // throw error if the student is not associated with this classroom
-            throw new NotFoundException("You do not have access to this homework");
+            throw new NotFoundException(i18nUtil.getMessage("error.youDoNotHaveAccessToThisHomework"));
         }
     }
 

@@ -1,6 +1,7 @@
 package com.kiu.capstoneproject.configuration;
 
 import com.kiu.capstoneproject.exception.NotFoundException;
+import com.kiu.capstoneproject.i18n.I18nUtil;
 import com.kiu.capstoneproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,12 +18,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfiguration {
     private final UserRepository userRepository;
+    private final I18nUtil i18nUtil;
 
     @Bean
     public UserDetailsService userDetailsService() {
         // loadUserByUsername method
         return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+                .orElseThrow(() -> new NotFoundException(i18nUtil.getMessage("error.userNotFound")));
     }
 
     @Bean
@@ -30,6 +32,7 @@ public class ApplicationConfiguration {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
+
         return authProvider;
     }
 

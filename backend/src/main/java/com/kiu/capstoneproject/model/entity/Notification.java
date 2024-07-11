@@ -24,6 +24,7 @@ public class Notification {
     private Long notificationId;
 
     private String text;
+    private String text_geo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)

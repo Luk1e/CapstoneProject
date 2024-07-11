@@ -19,10 +19,12 @@ export const validationSchema = (t: any) =>
 export type FormValues = z.infer<ReturnType<typeof validationSchema>>;
 
 interface FormProps {
-  values: { email: string; password: string };
+  values: { email: string; password: string; t?: any };
   dispatch: DispatchType;
+  t: any;
 }
 
-export const onSubmit = ({ values, dispatch }: FormProps) => {
+export const onSubmit = ({ values, t, dispatch }: FormProps) => {
+  values.t = t;
   dispatch(login(values));
 };

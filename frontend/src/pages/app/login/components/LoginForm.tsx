@@ -108,12 +108,12 @@ function LoginForm() {
       <Formik
         initialValues={initialValues}
         validate={validateForm}
-        onSubmit={(values) => onSubmit({ values, dispatch })}
+        onSubmit={(values) => onSubmit({ values, t, dispatch })}
       >
         {() => {
           return (
             <Form className="w3-animate-left">
-              <HeaderText>capstone project</HeaderText>
+              <HeaderText>best project</HeaderText>
 
               {/* Display login error */}
               {error && !isLoading && (

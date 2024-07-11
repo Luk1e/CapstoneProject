@@ -14,13 +14,6 @@ export default function PublicRoutes() {
         index: true,
         element: <lazyPages.HomePage />,
       },
-
-      // Book
-      {
-        path: "book",
-        element: <lazyPages.BookPage />,
-      },
-
       // Login
       {
         path: "login",

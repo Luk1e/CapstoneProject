@@ -39,7 +39,8 @@
     "Instruction is required": "ინსტრუქცია სავალდებულოა",
     "Points is required": "ქულა სავალდებულოა",
     "remove": "წაშლა",
-    "File size must be less than 3MB": "ფაილის ზომა უნდა იყოს 3 მბ-ზე ნაკლები"
+    "File size must be less than 3MB": "ფაილის ზომა უნდა იყოს 3 მბ-ზე ნაკლები",
+    "Instruction must be at most 255 characters": "ინსტრუქცია უნდა შეიცავდეს მაქსიმუმ 255 სიმბოლოს"
   },
   "studentHomeworksPage": {
     "delete homework": "დავალების წაშლა",

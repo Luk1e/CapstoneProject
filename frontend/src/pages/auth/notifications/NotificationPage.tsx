@@ -14,12 +14,13 @@ import { useTranslation } from "react-i18next";
 const Container = styled.div`
   width: 90%;
   display: flex;
-  padding: 100px 0;
+  margin: 10vh 0;
+  flex-grow: 1;
   max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
-    padding: 50px 0;
+      margin: 5vh 0;
   `};
 
   ${respondTo.tablet`

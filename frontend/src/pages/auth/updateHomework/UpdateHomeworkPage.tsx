@@ -4,13 +4,14 @@ import { UpdateForm } from "./components";
 
 const Container = styled.div`
   display: flex;
-  margin-top: 20vh;
+  margin: 20vh;
+  flex-grow: 1;
   max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
-    margin-top:5vh;
+    margin:5vh;
   `}
 
   ${respondTo.tablet`
@@ -27,7 +28,7 @@ const Container = styled.div`
 
   ${respondTo.tv`
     width: 60%;
-    margin-top: 10vh;
+    margin: 10vh;
   `};
 `;
 

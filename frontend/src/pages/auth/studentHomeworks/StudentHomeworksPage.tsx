@@ -13,12 +13,13 @@ import { useTranslation } from "react-i18next";
 const Container = styled.div`
   width: 90%;
   display: flex;
-  padding: 100px 0;
+  margin: 10vh 0;
+  flex-grow: 1;
   max-width: 1400px;
   flex-direction: column;
 
   ${respondTo.mobile`
-    padding: 50px 0;
+      margin: 5vh 0;
   `};
 
   ${respondTo.tablet`
@@ -90,15 +91,16 @@ function StudentHomeworksPage() {
     <Container>
       {isLoading && <Loader color="darkmagenta" />}
 
-      <NavContainer className="w3-animate-left">
-        <NavBar classroomId={id} homeworkId={homeworkId} />
-      </NavContainer>
-
       {!isLoading && (
-        <Label className="w3-animate-left">
-          <Text>{studentHomeworkList?.title}</Text>
-          <Text>{t("global.Status")}</Text>
-        </Label>
+        <>
+          <NavContainer className="w3-animate-left">
+            <NavBar classroomId={id} homeworkId={homeworkId} />
+          </NavContainer>
+          <Label className="w3-animate-left">
+            <Text>{studentHomeworkList?.title}</Text>
+            <Text>{t("global.Status")}</Text>
+          </Label>
+        </>
       )}
 
       {!isLoading &&

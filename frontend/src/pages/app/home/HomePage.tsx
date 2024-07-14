@@ -6,7 +6,7 @@ import Classroom from "./components/Classroom";
 
 const Container = styled.div`
   width: 80%;
-  padding: 100px 0;
+  margin: 10vh 0 20vh 0;
   max-width: 1400px;
 
   ${respondTo.mobile`

@@ -114,42 +114,44 @@ function UpdateForm() {
   };
 
   return (
-    <Container className="w3-animate-left">
+    <>
       {!isLoading && homework ? (
-        <Formik
-          initialValues={initialValues({ homework })}
-          validate={validateForm}
-          onSubmit={(values) =>
-            onSubmit({ classroomId: id, ...values, homeworkId, dispatch })
-          }
-        >
-          {(formik) => {
-            return (
-              <Form className="w3-animate-left">
-                <HeaderText> {t("global.Homework")}</HeaderText>
-                {/* Display error message */}
-                {error && !isLoading && (
-                  <ErrorContainer>
-                    <IconContainer>
-                      <ErrorSVG />
-                    </IconContainer>
-                    {error}
-                  </ErrorContainer>
-                )}
-                <Inputs
-                  formik={formik}
-                  homework={homework}
-                  idObject={{ classroomId: id, homeworkId }}
-                />
-                <Button isLoading={isLoading} />
-              </Form>
-            );
-          }}
-        </Formik>
+        <Container className="w3-animate-left">
+          <Formik
+            initialValues={initialValues({ homework })}
+            validate={validateForm}
+            onSubmit={(values) =>
+              onSubmit({ classroomId: id, ...values, homeworkId, dispatch })
+            }
+          >
+            {(formik) => {
+              return (
+                <Form className="w3-animate-left">
+                  <HeaderText> {t("global.Homework")}</HeaderText>
+                  {/* Display error message */}
+                  {error && !isLoading && (
+                    <ErrorContainer>
+                      <IconContainer>
+                        <ErrorSVG />
+                      </IconContainer>
+                      {error}
+                    </ErrorContainer>
+                  )}
+                  <Inputs
+                    formik={formik}
+                    homework={homework}
+                    idObject={{ classroomId: id, homeworkId }}
+                  />
+                  <Button isLoading={isLoading} />
+                </Form>
+              );
+            }}
+          </Formik>
+        </Container>
       ) : (
         <Loader color="darkmagenta" />
       )}
-    </Container>
+    </>
   );
 }
 

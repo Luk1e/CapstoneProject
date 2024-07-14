@@ -4,13 +4,13 @@ import LoginPage from "../pages/app/login/LoginPage";
 
 interface AuthLayoutProps {
   user?: any;
-  isLoading?: boolean;
+  loading?: boolean;
 }
 
-function AuthorizedLayout({ user, isLoading }: AuthLayoutProps) {
+function AuthorizedLayout({ user, loading }: AuthLayoutProps) {
   return (
     <>
-      {isLoading ? (
+      {loading ? (
         <Loader color={"darkmagenta"} />
       ) : user ? (
         <>

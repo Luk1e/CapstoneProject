@@ -8,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  margin-top: 20vh;
+  margin: 20vh;
   flex-direction: column;
   max-width: 1400px;
 
   ${respondTo.mobile`
     padding: 50px 0;
-    margin-top:10vh;
+    margin:10vh;
   `}
   ${respondTo.desktop`
     width: 70%;
@@ -22,7 +22,7 @@ const Container = styled.div`
 
   ${respondTo.tv`
     width: 60%;
-    margin-top: 10vh;
+    margin: 10vh;
   `}
 `;
 

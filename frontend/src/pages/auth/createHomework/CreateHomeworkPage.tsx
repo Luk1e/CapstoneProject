@@ -5,13 +5,14 @@ import { CreateForm } from "./components";
 const Container = styled.div`
   display: flex;
   width: 90%;
-  margin-top: 20vh;
+  margin: 20vh;
   max-width: 1400px;
+  flex-grow: 1;
   flex-direction: column;
 
   ${respondTo.mobile`
     padding: 50px 0;
-    margin-top:5vh;
+    margin:5vh;
   `}
 
   ${respondTo.tablet`
@@ -28,7 +29,7 @@ const Container = styled.div`
 
   ${respondTo.tv`
     width: 60%;
-    margin-top:10vh;
+    margin:10vh;
   `};
 `;
 

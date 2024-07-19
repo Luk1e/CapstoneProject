@@ -30,7 +30,7 @@ function Footer() {
   return (
     <Container>
       <InnerContainer>
-        Copyright © 2024 Best Project. All rights reserved.
+        Copyright © 2024 FreeSchool. All rights reserved.
       </InnerContainer>
     </Container>
   );

@@ -113,7 +113,7 @@ function LoginForm() {
         {() => {
           return (
             <Form className="w3-animate-left">
-              <HeaderText>best project</HeaderText>
+              <HeaderText>FreeSchool</HeaderText>
 
               {/* Display login error */}
               {error && !isLoading && (

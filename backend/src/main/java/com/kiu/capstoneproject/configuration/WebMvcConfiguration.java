@@ -14,7 +14,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .allowedOrigins(["https://bestproject.buzz","https://cron-job.org"])
+                .allowedOrigins("https://bestproject.buzz","https://cron-job.org")
 //                .allowedOrigins("http://localhost:5173")
                 .allowCredentials(true)
                 .maxAge(-1);
